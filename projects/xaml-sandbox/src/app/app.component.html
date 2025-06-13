@@ -44,7 +44,7 @@
         PlaceholderText="55" />
       <RepeatButton (Click)="onClick()" Class="InlineButtonStyle">Click and hold</RepeatButton>
       <CommandBar VerticalAlignment="Top">
-        <AppBarButton Icon="&#xE704;" Text="Wi-Fi" />
+        <AppBarButton Icon="&#xE704;" Text="Wi-Fi" Foreground="blue"/>
         <AppBarButton Icon="&#xE708;" Text="Moon phase" />
         <AppBarButton Icon="&#xE719;" Text="Shop" [IsEnabled]="false" />
       </CommandBar>
@@ -59,7 +59,7 @@
                 <TextBlock [Text]="item" Class="DetailTextBlockStyle" FontStyle="Italic" />
               </Grid>
               <MenuFlyout ItemFlyout>
-                <MenuFlyoutItem Text="test {{item}}" Icon="&#xE713;" />
+                <MenuFlyoutItem Text="test {{item}}" Icon="&#xE713;" Foreground="red" />
                 <MenuFlyoutItem Text="test B" Icon="&#xE714;" />
               </MenuFlyout>
             </ng-template>

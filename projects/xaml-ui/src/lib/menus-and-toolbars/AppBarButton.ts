@@ -4,13 +4,14 @@ import { FlyoutBaseComponent } from "../primitives/FlyoutBase";
 
 @Component({
   selector: 'AppBarButton',
-  template: `<div class="icon">{{Icon}}</div><div class="text">{{Text}}</div><ng-content/>`,
+  template: `<div [style.color]="Foreground" class="icon">{{Icon}}</div><div class="text">{{Text}}</div><ng-content/>`,
   styleUrl: 'AppBarButton.scss'
 })
 export class AppBarButtonComponent extends FrameworkElementComponent {
   @Input() IsEnabled = true;
   @Input() Text?: string;
   @Input() Icon?: string;
+  @Input() Foreground?: string;
   @Output() Click = new EventEmitter();
 
   @HostBinding('class.disabled')
