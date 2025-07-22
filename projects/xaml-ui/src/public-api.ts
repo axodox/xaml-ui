@@ -19,6 +19,7 @@ export * from './lib/basic-input/ToggleSwitch';
 //Collections
 export * from './lib/collections/ListBox';
 export * from './lib/collections/ListView';
+export * from './lib/collections/GridView';
 
 //Dialogs and flyouts
 export * from './lib/dialogs-and-flyouts/ContentDialog';

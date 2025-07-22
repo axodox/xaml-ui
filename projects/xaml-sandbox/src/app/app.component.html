@@ -10,7 +10,8 @@
       <RadioButtonGroup (ValueChange)="onValueChange($event)">
         <RadioToggleButton>A</RadioToggleButton>
         <RadioToggleButton>B</RadioToggleButton>
-        <RadioToggleButton>C
+        <RadioToggleButton
+          >C
           <MenuFlyout ContextFlyout>
             <MenuFlyoutItem Text="test A">
               <FontIcon Icon Glyph="&#xE713;" Foreground="Red"/>
@@ -20,31 +21,41 @@
         </RadioToggleButton>
         <RadioToggleButton>D</RadioToggleButton>
       </RadioButtonGroup>
-      <ComboBox [ItemSource]="[1,2,3,4,5,6]" [SelectedValue]="1" Margin="12px" />
+      <ComboBox
+        [ItemSource]="[1, 2, 3, 4, 5, 6]"
+        [SelectedValue]="1"
+        Margin="12px"
+      />
       <TextBox PlaceholderText="test" Margin="6px" />
-      <Button Margin="6px 120px">Flyout
+      <Button Margin="6px 120px"
+        >Flyout
         <!-- <Flyout>
         test
       </Flyout> -->
-        <Flyout Placement="Left">
-          Test
-        </Flyout>
+        <Flyout Placement="Left"> Test </Flyout>
       </Button>
-      <Button Margin="6px 120px">Flyout2
+      <Button Margin="6px 120px"
+        >Flyout2
         <!-- <Flyout>
         test
       </Flyout> -->
-        <Flyout Placement="Left">
-          Test2
-        </Flyout>
+        <Flyout Placement="Left"> Test2 </Flyout>
       </Button>
       <!-- <Popup2>
       this is a {{title}} popup!
     </Popup2> -->
       <Button Class="InlineButtonStyle" Margin="3px">Click here</Button>
-      <NumberBox [Minimum]="-100" [Maximum]="100" Margin="48px" Unit="kg" [IsPlaceholderEditable]="true"
-        PlaceholderText="55" />
-      <RepeatButton (Click)="onClick()" Class="InlineButtonStyle">Click and hold</RepeatButton>
+      <NumberBox
+        [Minimum]="-100"
+        [Maximum]="100"
+        Margin="48px"
+        Unit="kg"
+        [IsPlaceholderEditable]="true"
+        PlaceholderText="55"
+      />
+      <RepeatButton (Click)="onClick()" Class="InlineButtonStyle"
+        >Click and hold</RepeatButton
+      >
       <CommandBar VerticalAlignment="Top">
         <AppBarButton Icon="&#xE704;" Text="Wi-Fi" />
         <AppBarButton Text="Moon phase">
@@ -52,24 +63,55 @@
         </AppBarButton>
         <AppBarButton Icon="&#xE719;" Text="Shop" [IsEnabled]="false" />
       </CommandBar>
-      <ColorPicker Width="200px" Height="200px" (ColorChange)="onColorSelected($event)" />
+      <ColorPicker
+        Width="200px"
+        Height="200px"
+        (ColorChange)="onColorSelected($event)"
+      />
 
-      <Button> MenuFlyout from Flyout
+      <Button>
+        MenuFlyout from Flyout
         <Flyout>
-          <ListView [ItemSource]="[1,2,3,4,5,6]" SelectedValuePath="1" MaxHeight="300px">
+          <ListView
+            [ItemSource]="[1, 2, 3, 4, 5, 6]"
+            SelectedValuePath="1"
+            MaxHeight="300px"
+          >
             <ng-template let-item>
-              <Grid RowDefinitions="auto" ColumnDefinitions="auto 1fr" RowSpacing="6px" ColumnSpacing="12px">
+              <Grid
+                RowDefinitions="auto"
+                ColumnDefinitions="auto 1fr"
+                RowSpacing="6px"
+                ColumnSpacing="12px"
+              >
                 <TextBlock [Text]="item" />
-                <TextBlock [Text]="item" Class="DetailTextBlockStyle" FontStyle="Italic" />
+                <TextBlock
+                  [Text]="item"
+                  Class="DetailTextBlockStyle"
+                  FontStyle="Italic"
+                />
               </Grid>
               <MenuFlyout ItemFlyout>
-                <MenuFlyoutItem Text="test {{item}}" Icon="&#xE713;" />
+                <MenuFlyoutItem Text="test {{ item }}" Icon="&#xE713;" />
                 <MenuFlyoutItem Text="test B" Icon="&#xE714;" />
               </MenuFlyout>
             </ng-template>
           </ListView>
         </Flyout>
       </Button>
+      <GridView
+        [ItemSource]="[
+          'https://www.pet4you.hu/img/big/1048.jpg',
+          'https://www.haziallat.hu/uploads/article/3502/1_original.jpg',
+          'https://image-api.hazipatika.com/hazipatika/images/articles/l3/is/VEiJAyIiQr47Zk0GgWQ8fRJJajANC1G8PVhCPeOq.jpg?w=1200&h=630&s=99529f4522b6b1fc9df3d0733f233ebe'
+        ]"
+        [ColumnCount]="3"
+        Margin="12px"
+      >
+        <ng-template let-item>
+          <img src="{{ item }}" />
+        </ng-template>
+      </GridView>
     </StackPanel>
   </ScrollViewer>
   <Button>ToggleMenuFlyout
