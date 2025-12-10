@@ -145,8 +145,4 @@
   display: grid !important;
 }
 
-body, button {
-  font-family: var(--SystemFontFamily);
-  font-size: var(--SystemFontSize);
-  color: var(--TextFillColorPrimary);
-}
+

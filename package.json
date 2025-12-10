@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:gravity": "ng serve gravity-sandbox",
     "build": "ng build",
+    "build:gravity": "ng build gravity-sandbox",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

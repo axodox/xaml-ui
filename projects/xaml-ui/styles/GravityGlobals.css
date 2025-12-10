@@ -1,0 +1,213 @@
+/*ODSE Color Scheme - Based on PrimeNG Aura Theme
+  Blue Primary Palette:
+  blue.300: #93c5fd (lighter)
+  blue.400: #60a5fa
+  blue.500: #3b82f6 (primary)
+  blue.600: #2563eb
+  blue.700: #1d4ed8 (darker)
+  
+  Neutral Surface Palette:
+  neutral.50: #fafafa, neutral.100: #f5f5f5
+  neutral.700: #404040, neutral.800: #262626, neutral.900: #171717
+  
+  Custom ODSE surfaces:
+  surface-a light: #ffffff, surface-a dark: #1e1e1e
+*/
+
+:root {
+  /*Invariant variables*/
+  --ControlBorderThickness: 1px;
+  --ControlCornerRadius: 4px; /* sm border radius */
+  --OverlayCornerRadius: 8px; /* lg border radius */
+  --AcrylicBlur: blur(12px);
+  --blur-amount: 12px;
+
+  --SystemFontSize: 10pt;
+  --SystemFontFamily: 'Red Hat Display Variable', Arial, Helvetica, sans-serif;
+  --font-family: 'Red Hat Display Variable', Arial, Helvetica, sans-serif;
+  --SymbolFontFamily: 'Segoe Fluent Icons', 'Segoe MDL2 Assets';
+
+  --SystemAccentColor: #3b82f6; /* blue.500 */     
+  --SmokeFillColorDefault: #0000004D;
+
+  --ControlNormalAnimationDuration: 0.25s;
+  --ControlFastAnimationDuration: 0.167s;
+  --ControlFasterAnimationDuration: 0.083s;
+
+  /*Dark mode - ODSE colors*/
+  --ControlFillColorDefault: #FFFFFF0F; /* subtle transparent white */
+  --ControlFillColorSecondary: #1e1e1ecc; /* surface-a-50 dark (80% opacity) */
+  --ControlFillColorTertiary: #FFFFFF08; /* very subtle white */
+  --ControlFillColorDisabled: #FFFFFF0B;
+  --ControlFillColorInputActive: #1e1e1ecc; /* surface-a-50 dark */
+
+  --ControlSolidFillColorDefault: #1e1e1e; /* surface-a dark */
+
+  --ControlAltFillColorSecondary: #ffffff08; /* surface-c dark */
+  --ControlAltFillColorTertiary: #FFFFFF0B;
+  --ControlAltFillColorQuarternary: #FFFFFF12;
+  --ControlAltFillColorDisabled: #FFFFFF00;
+
+  --ControlStrongFillColorDefault: #a3a3a3; /* neutral.400 */
+  --ControlStrongFillColorDisabled: #525252; /* neutral.600 */
+
+  --ControlFillColorTransparent: #FFFFFF00;
+  --SubtleFillColorTransparent: #FFFFFF00;
+  --SubtleFillColorSecondary: #FFFFFF0F;
+  --SubtleFillColorTertiary: #FFFFFF0A;
+
+  --AccentFillColorDefault: #60a5fa; /* blue.400 */
+  --AccentFillColorSecondary: #60a5faE6; /* blue.400 90% */
+  --AccentFillColorTertiary: #60a5faCC; /* blue.400 80% */
+  --AccentFillColorDisabled: #FFFFFF28;
+
+  --SystemControlHighlightListAccentLow: #3b82f699; /* blue.500 60% */
+  --SystemControlHighlightListAccentMedium: #3b82f6CC; /* blue.500 80% */
+  --SystemControlHighlightListAccentHigh: #3b82f6E6; /* blue.500 90% */
+  --highlight-bg: rgba(100, 181, 246, 0.16); /* light blue highlight */
+
+  --ControlStrokeColorDefault: #404040; /* neutral.700 */
+  --ControlStrongStrokeColorDefault: #a3a3a3; /* neutral.400 */
+  --ControlStrongStrokeColorDisabled: #525252; /* neutral.600 */
+  --ControlStrokeColorOnAccentDefault: #FFFFFF14;
+
+  --TextFillColorPrimary: #fafafa; /* neutral.50 */
+  --TextFillColorSecondary: #d4d4d4; /* neutral.300 */
+  --TextFillColorDisabled: #737373; /* neutral.500 */
+
+  --TextOnAccentFillColorSelected: #FFFFFFFF;
+  --TextOnAccentFillColorPrimary: #FFFFFF;
+  --TextOnAccentFillColorSecondary: #FFFFFFB3;
+  --TextOnAccentFillColorDisabled: #FFFFFF87;
+
+  --SurfaceStrokeColorFlyout: #404040; /* neutral.700 */
+  --AcrylicInAppFillColorDefault: #1e1e1e99; /* surface-a dark 60% opacity */
+  --SystemChromeMediumLowColor: #262626; /* neutral.800 */
+
+  --DividerStrokeColorDefault: #404040; /* neutral.700 */
+  --LayerFillColorAlt: #121212; /* surface-b dark */
+  --SurfaceStrokeColorDefault: #404040; /* neutral.700 */
+
+  /* ODSE Surface colors - Dark mode */
+  --surface-a: #1e1e1e;
+  --surface-a-50: #1e1e1ecc;
+  --surface-b: #121212;
+  --surface-c: #ffffff08;
+  --surface-d: #383838;
+  --surface-e: #1e1e1e;
+  --surface-card: #1e1e1e;
+  --surface-hover: rgba(255, 255, 255, 0.03);
+  
+  /* Scrollbar - Dark */
+  --transparent-stripe: #50505050;
+
+  @media (prefers-color-scheme: light) {
+
+    --ControlFillColorDefault: #ffffffcc; /* surface-a-50 light (80% opacity) */
+    --ControlFillColorSecondary: #fafafa; /* neutral.50 */
+    --ControlFillColorTertiary: #f5f5f5; /* neutral.100 */
+    --ControlFillColorDisabled: #e5e5e5; /* neutral.200 */
+    --ControlFillColorInputActive: #ffffff; /* surface-a light */
+
+    --ControlSolidFillColorDefault: #ffffff; /* surface-a light */
+
+    --ControlAltFillColorSecondary: #e9ecef; /* surface-c light */
+    --ControlAltFillColorTertiary: #f5f5f5; /* neutral.100 */
+    --ControlAltFillColorQuarternary: #e5e5e5; /* neutral.200 */
+    --ControlAltFillColorDisabled: #FFFFFF00;
+
+    --ControlStrongFillColorDefault: #525252; /* neutral.600 */
+    --ControlStrongFillColorDisabled: #a3a3a3; /* neutral.400 */
+
+    --ControlFillColorTransparent: #FFFFFF00;
+    --SubtleFillColorTransparent: #FFFFFF00;
+    --SubtleFillColorSecondary: #f5f5f5; /* neutral.100 */
+    --SubtleFillColorTertiary: #fafafa; /* neutral.50 */
+
+    --AccentFillColorDefault: #2563eb; /* blue.600 */
+    --AccentFillColorSecondary: #2563ebE6; /* blue.600 90% */
+    --AccentFillColorTertiary: #2563ebCC; /* blue.600 80% */
+    --AccentFillColorDisabled: #d4d4d4; /* neutral.300 */
+
+    --SystemControlHighlightListAccentLow: #3b82f666; /* blue.500 40% */
+    --SystemControlHighlightListAccentMedium: #3b82f699; /* blue.500 60% */
+    --SystemControlHighlightListAccentHigh: #3b82f6B3; /* blue.500 70% */
+
+    --ControlStrokeColorDefault: #e5e5e5; /* neutral.200 */
+    --ControlStrongStrokeColorDefault: #525252; /* neutral.600 */
+    --ControlStrongStrokeColorDisabled: #a3a3a3; /* neutral.400 */
+    --ControlStrokeColorOnAccentDefault: #FFFFFF14;
+
+    --TextFillColorPrimary: #0a0a0a; /* neutral.950 */
+    --TextFillColorSecondary: #525252; /* neutral.600 */
+    --TextFillColorDisabled: #a3a3a3; /* neutral.400 */
+
+    --TextOnAccentFillColorSelected: #FFFFFFFF;
+    --TextOnAccentFillColorPrimary: #FFFFFF;
+    --TextOnAccentFillColorSecondary: #FFFFFFB3;
+    --TextOnAccentFillColorDisabled: #FFFFFF;
+
+    --SurfaceStrokeColorFlyout: #e5e5e5; /* neutral.200 */
+    --AcrylicInAppFillColorDefault: #ffffff99; /* surface-a light 60% opacity */
+    --SystemChromeMediumLowColor: #f5f5f5; /* neutral.100 */
+
+    --DividerStrokeColorDefault: #e5e5e5; /* neutral.200 */
+    --LayerFillColorAlt: #f8f9fa; /* surface-b light */
+    --SurfaceStrokeColorDefault: #e5e5e5; /* neutral.200 */
+
+    /* ODSE Surface colors - Light mode */
+    --surface-a: #ffffff;
+    --surface-a-50: #ffffffcc;
+    --surface-b: #f8f9fa;
+    --surface-c: #e9ecef;
+    --surface-d: #dee2e6;
+    --surface-e: #ffffff;
+    --surface-card: #ffffff;
+    --surface-hover: #e9ecef;
+    
+    /* Scrollbar - Light */
+    --transparent-stripe: #5050502a;
+  }
+}
+
+.xaml-flyout-overlay-backdrop {
+  background: transparent;
+}
+
+.xaml-dialog-overlay-backdrop {
+  background: var(--SmokeFillColorDefault);
+}
+
+.cdk-overlay-pane {
+  display: grid !important;
+}
+
+/* ODSE Scrollbar Styles */
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #a3a3a3; /* neutral.400 */
+}
+
+::-webkit-scrollbar-corner {
+  background: #00000000;
+}
+
+@media (prefers-color-scheme: light) {
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #f5f5f5; /* neutral.100 */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #d4d4d4; /* neutral.300 */
+  }
+}

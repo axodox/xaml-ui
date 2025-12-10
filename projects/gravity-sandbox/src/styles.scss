@@ -1,0 +1,20 @@
+@use '../../xaml-ui/styles/GravityGlobals.css';
+
+/* You can add global styles to this file, and also import other style files */
+body {
+  padding: 0;
+  margin: 0;
+  background-color: black;
+}
+
+body, button {
+  font-family: var(--SystemFontFamily);
+  font-size: var(--SystemFontSize);
+  color: var(--TextFillColorPrimary);
+}
+
+.root {
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+}

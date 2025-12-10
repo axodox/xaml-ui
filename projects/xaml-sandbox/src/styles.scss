@@ -7,6 +7,12 @@ body {
   background-color: black;
 }
 
+body, button {
+  font-family: var(--SystemFontFamily);
+  font-size: var(--SystemFontSize);
+  color: var(--TextFillColorPrimary);
+}
+
 .root {
   display: grid;
   height: 100vh;

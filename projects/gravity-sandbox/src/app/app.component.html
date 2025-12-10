@@ -1,0 +1,122 @@
+<XamlRoot>
+  <ScrollViewer>
+    <StackPanel>
+      <Grid>
+        <Button (Click)="onDialogClick()">Open dialog</Button>
+        <Button (Click)="onCustomDialogClick()">Open custom dialog</Button>
+      </Grid>
+      <ToggleButton>test A</ToggleButton>
+      <Slider [Value]="0.0" />
+      <Slider [Value]="0.1" />
+      <Slider [StepFrequency]="0.01" [Value]="0.5" [IsEnabled]="false" />
+      <Slider [StepFrequency]="0.01" [Value]="1.0" />
+      <StackPanel Orientation="Horizontal">
+        <Slider Height="200px" Orientation="Vertical" [Value]="0.0" />
+        <Slider Height="200px" Orientation="Vertical" [Value]="0.1" />
+        <Slider Height="200px" Orientation="Vertical" [Value]="0.5" [IsEnabled]="false" />
+        <Slider Height="200px" Orientation="Vertical" [Value]="1.0" />
+      </StackPanel>
+
+      <ComboBox [ItemSource]="TestCollection" DisplayMemberPath="Value" SelectedValuePath="Key"/>
+
+      <ProgressBar />
+      <ProgressBar [Value]="0.3" />
+      <ProgressBar [Value]="0.7" />
+      <ProgressBar [IsIndeterminate]="true" />
+      <ProgressBar [Minimum]="50" [Maximum]="150" [Value]="100" />
+      <ProgressRing />
+      <ProgressRing [Value]="0.3" />
+      <ProgressRing [Value]="0.7" />
+      <ProgressRing [Value]="1" />
+      <ProgressRing [IsIndeterminate]="true" />
+      <ProgressRing [Minimum]="50" [Maximum]="150" [Value]="100" />
+      <RadioButtonGroup (ValueChange)="onValueChange($event)">
+        <RadioToggleButton>A</RadioToggleButton>
+        <RadioToggleButton>B</RadioToggleButton>
+        <RadioToggleButton>C
+          <MenuFlyout ContextFlyout>
+            <MenuFlyoutItem Text="test A">
+              <FontIcon Icon Glyph="&#xE713;" Foreground="Red"/>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Text="test B" Icon="&#xE714;" />
+          </MenuFlyout>
+        </RadioToggleButton>
+        <RadioToggleButton>D</RadioToggleButton>
+      </RadioButtonGroup>
+      <ComboBox [ItemSource]="[1, 2, 3, 4, 5, 6]" [SelectedValue]="1" Margin="12px" />
+      <TextBox PlaceholderText="test" Margin="6px" />
+      <TextBox PlaceholderText="property change" Margin="6px" UpdateTrigger="PropertyChanged" (TextChange)="onValueChange($event)" />
+      <TextBox PlaceholderText="lost focus" Margin="6px" UpdateTrigger="LostFocus" (TextChange)="onValueChange($event)"/>
+      <TextBox PlaceholderText="property change" Margin="6px" UpdateTrigger="PropertyChanged" (TextChange)="onValueChange($event)" TextWrapping="Wrap" />
+      <TextBox PlaceholderText="lost focus" Margin="6px" UpdateTrigger="LostFocus" (TextChange)="onValueChange($event)" TextWrapping="Wrap"/>
+      <TextBox PlaceholderText="patterned" Margin="6px" UpdateTrigger="LostFocus" (TextChange)="onValueChange($event)" Pattern="^((\d{0,2}|[1-9])|(\d{1,2}|[1-9])[c-hj-np-xC-HJ-NP-X]|0{0,1}1[abyzABYX]|[a-hj-np-zA-HJ-NP-Z])$" />
+      <TextBox PlaceholderText="editable placeholder" Margin="6px" (TextChange)="onValueChange($event)" [IsPlaceholderEditable]="true" />
+      <Button Margin="6px 120px">Flyout
+        <Flyout Placement="Left">Test</Flyout>
+      </Button>
+      <Button Margin="6px 120px">Flyout2
+        <Flyout Placement="Left">Test2</Flyout>
+      </Button>
+      <Button Class="InlineButtonStyle" Margin="3px">Click here</Button>
+      <NumberBox [Minimum]="-100" [Maximum]="100" Margin="48px" Unit="kg" [IsPlaceholderEditable]="true" PlaceholderText="55" />
+      <NumberBox VerticalAlignment="Center" TextAlignment="Right" [Minimum]="-100" [Maximum]="100" Margin="48px" Unit="kg" [IsPlaceholderEditable]="true" PlaceholderText="66" />
+      <RepeatButton (Click)="onClick()" Class="InlineButtonStyle">Click and hold</RepeatButton>
+      <CommandBar VerticalAlignment="Top">
+        <AppBarButton Icon="&#xE704;" Text="Wi-Fi" />
+        <AppBarButton Text="Moon phase">
+          <FontIcon Icon Glyph="&#xE708;" Foreground="Cyan"/>
+        </AppBarButton>
+        <AppBarButton Icon="&#xE719;" Text="Shop" [IsEnabled]="false" />
+      </CommandBar>
+      <ColorPicker Width="200px" Height="200px" (ColorChange)="onColorSelected($event)" />
+      <Button> MenuFlyout from Flyout
+        <Flyout>
+          <ListView [ItemSource]="[1,2,3,4,5,6]" SelectedValuePath="1" MaxHeight="300px">
+            <ng-template let-item>
+              <Grid RowDefinitions="auto" ColumnDefinitions="auto 1fr" RowSpacing="6px" ColumnSpacing="12px">
+                <TextBlock [Text]="item" />
+                <TextBlock [Text]="item" Class="DetailTextBlockStyle" FontStyle="Italic" />
+              </Grid>
+              <MenuFlyout ItemFlyout>
+                <MenuFlyoutItem Text="test {{item}}" Icon="&#xE713;" />
+                <MenuFlyoutItem Text="test B" Icon="&#xE714;" />
+              </MenuFlyout>
+            </ng-template>
+          </ListView>
+        </Flyout>
+      </Button>
+      <GridView  Margin="3px"
+        [ItemSource]="['A','B','C','D','E','F']"
+        [MaximumRowsOrColumns]="2"
+        Orientation="Horizontal">
+        <ng-template let-item>
+          <TextBlock [Text]="item" />
+        </ng-template>
+      </GridView>
+      <CheckBox>Hello World!</CheckBox>
+      <RadioButtonGroup>
+        <RadioButton [Opacity]="0.5">A</RadioButton>
+        <RadioButton Opacity="0.5">B</RadioButton>
+        <RadioButton>C<NumberBox [IsEnabled]="false"/></RadioButton>
+      </RadioButtonGroup>
+      <PersonPicture Initials="XU"/>
+      <PersonPicture Initials="XU" Width="64px" Height="64px" Foreground="Red" Background='var(--AccentFillColorDefault)' BadgeText="2" />
+      <PersonPicture DisplayName="Peter Major" Width="64px" Height="64px" Foreground="Red" Background='var(--AccentFillColorDefault)' BadgeGlyph="&#xE704;" />
+      <PersonPicture Initials="XU" Width="48px" Height="48px" Foreground="Red" Background='var(--AccentFillColorDefault)' BadgeImageSource="https://cdn.pixabay.com/photo/2024/09/28/08/22/ai-generated-9080579_640.jpg" />
+      <PersonPicture ProfilePicture='https://cdn.pixabay.com/photo/2024/09/28/08/22/ai-generated-9080579_640.jpg' />
+      <Ellipse Width="50px" Height="50px" Fill="Red" Stroke="Blue" StrokeThickness="3px" />
+    </StackPanel>
+  </ScrollViewer>
+  <Button>ToggleMenuFlyout
+    <MenuFlyout ContextFlyout>
+      <ToggleMenuFlyoutItem Text="test A" />
+      <ToggleMenuFlyoutItem Text="test B" [IsChecked]="true" />
+    </MenuFlyout>
+  </Button>
+  <Grid Orientation="Vertical">
+    <Button>A</Button>
+    <Button>B</Button>
+    <Button>C</Button>
+    <Button>D</Button>
+  </Grid>
+</XamlRoot>
