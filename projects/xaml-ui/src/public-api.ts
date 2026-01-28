@@ -1,9 +1,10 @@
-/*
+﻿/*
  * Public API Surface of xaml-ui
  */
 
 //Basic input
 export * from './lib/basic-input/Button';
+export * from './lib/basic-input/HyperlinkButton';
 export * from './lib/basic-input/CheckBox';
 export * from './lib/basic-input/ColorPicker';
 export * from './lib/basic-input/ComboBox';

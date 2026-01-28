@@ -1,0 +1,47 @@
+﻿@use '../Common.scss' as *;
+
+:host {
+  display: inline;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  
+  color: var(--AccentFillColorDefault);
+  cursor: pointer;
+  transition: color var(--ControlFastAnimationDuration);
+
+  &::ng-deep * {
+    color: var(--AccentFillColorDefault);
+  }
+
+  &:hover:not(.disabled) {
+    text-decoration: underline;
+    color: var(--AccentFillColorSecondary);
+    background: transparent;
+
+    &::ng-deep * {
+      color: var(--AccentFillColorSecondary);
+    }
+  }
+
+  &:active:not(.disabled) {
+    color: var(--AccentFillColorTertiary);
+    background: transparent;
+
+    &::ng-deep * {
+      color: var(--AccentFillColorTertiary);
+    }
+  }
+
+  &.disabled {
+    color: var(--TextFillColorDisabled);
+    cursor: default;
+    pointer-events: none;
+    background: transparent;
+
+    &::ng-deep * {
+      color: var(--TextFillColorDisabled);
+    }
+  }
+}
