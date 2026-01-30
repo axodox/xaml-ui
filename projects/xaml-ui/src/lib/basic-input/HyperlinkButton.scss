@@ -2,43 +2,44 @@
 
 :host {
   display: inline;
-  padding: 0;
-  border: none;
-  border-radius: 0;
+  padding: 5px 11px;
   background: transparent;
+  border-color: transparent;
+  border-width: var(--ControlBorderThickness);
+  border-style: solid;
+  border-radius: var(--ControlCornerRadius);
+  position: relative;
   
   color: var(--AccentFillColorDefault);
   cursor: pointer;
-  transition: color var(--ControlFastAnimationDuration);
 
   &::ng-deep * {
     color: var(--AccentFillColorDefault);
   }
 
   &:hover:not(.disabled) {
-    text-decoration: underline;
-    color: var(--AccentFillColorSecondary);
-    background: transparent;
+    color: var(--AccentFillColorDefault);
+    background: var(--SubtleFillColorSecondary);
 
     &::ng-deep * {
-      color: var(--AccentFillColorSecondary);
+      color: var(--AccentFillColorDefault);
     }
   }
 
   &:active:not(.disabled) {
-    color: var(--AccentFillColorTertiary);
+    color: var(--AccentFillColorDefault);
     background: transparent;
 
     &::ng-deep * {
-      color: var(--AccentFillColorTertiary);
+      color: var(--AccentFillColorDefault);
     }
   }
 
   &.disabled {
-    color: var(--TextFillColorDisabled);
     cursor: default;
     pointer-events: none;
-    background: transparent;
+    background: var(--SubtleFillColorDisabled);
+    color: var(--TextFillColorDisabled);
 
     &::ng-deep * {
       color: var(--TextFillColorDisabled);

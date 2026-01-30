@@ -119,5 +119,11 @@
     <Button>C</Button>
     <Button>D</Button>
   </Grid>
-  <HyperlinkButton Content="Microsoft home page" NavigateUri="http://www.microsoft.com" />
+  <Border Width="500px" Height="500">
+  <Grid ColumnDefinitions="1fr auto">
+    <TextBlock>Visit the </TextBlock>
+    <HyperlinkButton Content="Microsoft home page" NavigateUri="http://www.microsoft.com" />
+  </Grid>
+  </Border>
+
 </XamlRoot>
