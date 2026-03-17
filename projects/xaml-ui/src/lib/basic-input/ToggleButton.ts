@@ -1,8 +1,11 @@
 import { Component, EventEmitter, HostBinding, Input, Output } from "@angular/core";
 import { ButtonComponent, ButtonTemplate } from "./Button";
+import { CommonModule } from "@angular/common";
+import { TextBlockComponent } from "../text/TextBlock";
 
 @Component({
   selector: 'ToggleButton',
+  imports: [CommonModule, TextBlockComponent],
   template: ButtonTemplate,
   styleUrl: 'Button.scss'
 })
