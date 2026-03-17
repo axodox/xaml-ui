@@ -2,14 +2,21 @@ import { Component, ContentChild, Directive, ElementRef, EventEmitter, HostBindi
 import { BorderComponent } from "../layout/Border";
 import { HorizontalAlignment, toAlignment, toJustification, VerticalAlignment } from "../Common";
 import { FlyoutBaseComponent } from "../primitives/FlyoutBase";
+import { CommonModule } from "@angular/common";
+import { TextBlockComponent } from "../text/TextBlock";
+
+export const ButtonTemplate = `<ng-content *ngIf="Content === undefined"/>
+  <TextBlock *ngIf="Content !== undefined">{{Content}}</TextBlock>`;
 
 @Component({
   selector: 'Button',
-  template: `<ng-content/>`,
+  imports: [CommonModule, TextBlockComponent],
+  template: ButtonTemplate,
   styleUrl: 'Button.scss'
 })
 export class ButtonComponent extends BorderComponent {
   @Input() IsEnabled: boolean = true;
+  @Input() Content?: string;
 
   @Output() Click = new EventEmitter();
 
@@ -44,7 +51,7 @@ export class ButtonComponent extends BorderComponent {
   private _flyout?: FlyoutBaseComponent;
 
   @HostListener('click', ['$event'])
-  protected onHostPointerEvent(event: Event) {
+  protected onClick(event: Event) {
     if (!this.IsEnabled) return;
 
     this.Click.emit(event);

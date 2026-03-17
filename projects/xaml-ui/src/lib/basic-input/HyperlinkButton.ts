@@ -1,42 +1,26 @@
 ﻿import { Component, HostBinding, HostListener, Input } from "@angular/core";
-import { FrameworkElementComponent } from "../FrameworkElement";
 import { CommonModule } from "@angular/common";
+import { TextBlockComponent } from "../text/TextBlock";
+import { ButtonComponent, ButtonTemplate } from "./Button";
 
 @Component({
   selector: 'HyperlinkButton',
   standalone: true,
-  imports: [CommonModule],
-  template: `<ng-container>
-    <ng-content *ngIf="Content === undefined"/>
-    <ng-container *ngIf="Content !== undefined">{{Content}}</ng-container>
-  </ng-container>`,
-  styleUrl: 'HyperlinkButton.scss'
+  imports: [CommonModule, TextBlockComponent],
+  template: ButtonTemplate,
+  styleUrl: 'Button.scss',
+  host: {
+    'class': 'HyperlinkButtonStyle'
+  }
 })
-export class HyperlinkButtonComponent extends FrameworkElementComponent {
+export class HyperlinkButtonComponent extends ButtonComponent {
 
   @Input() NavigateUri?: string;
-  @Input() Content?: string;
-  @Input() IsEnabled: boolean = true;
 
-  @HostBinding('style.cursor')
-  protected get cursor() {
-    return this.IsEnabled ? 'pointer' : 'default';
-  }
+  protected override onClick(event: Event): void {
+    super.onClick(event);
 
-  @HostBinding('class.disabled')
-  @HostBinding('attr.disabled')
-  protected get disabled() {
-    return !this.IsEnabled ? true : undefined;
-  }
-
-  @HostBinding('style.pointer-events')
-  protected get pointerEvents() {
-    return this.IsEnabled ? 'auto' : 'none';
-  }
-
-  @HostListener('click')
-  protected onClick() {
-    if (this.IsEnabled && this.NavigateUri) {
+    if (this.IsEnabled &&this.NavigateUri) {
       window.open(this.NavigateUri, '_blank', 'noopener,noreferrer');
     }
   }

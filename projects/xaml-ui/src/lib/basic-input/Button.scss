@@ -42,6 +42,34 @@
   }
 }
 
+@mixin inline-button {
+  border-style: none;
+  border-width: 0;
+  background-color: transparent;
+
+  &:hover:not(.checked):not(.flyout-open):not(.disabled) {
+    background: var(--SubtleFillColorSecondary);
+  }
+
+  &:active:not(.checked):not(.flyout-open):not(.disabled) {
+    background: var(--SubtleFillColorTertiary);
+    color: var(--TextFillColorSecondary);
+
+    &::ng-deep * {
+      color: var(--TextFillColorSecondary);
+    }
+  }
+
+  &.disabled:not(.checked) {
+    background: var(--SubtleFillColorDisabled);
+    color: var(--TextFillColorDisabled);
+
+    &::ng-deep * {
+      color: var(--TextFillColorDisabled);
+    }
+  }
+}
+
 :host {
   display: grid;
   padding: 5px 11px;
@@ -89,29 +117,27 @@
   }
 
   &.InlineButtonStyle {
-    border-style: none;
-    border-width: 0;
-    background-color: transparent;
+    @include inline-button();
+  }
 
-    &:hover:not(.checked):not(.flyout-open):not(.disabled) {
-      background: var(--SubtleFillColorSecondary);
+  &.HyperlinkButtonStyle {
+    @include inline-button();
+
+    color: var(--AccentFillColorDefault);
+
+    &:not(.disabled) {
+      cursor: pointer;
     }
 
-    &:active:not(.checked):not(.flyout-open):not(.disabled) {
-      background: var(--SubtleFillColorTertiary);
-      color: var(--TextFillColorSecondary);
-
-      &::ng-deep * {
-        color: var(--TextFillColorSecondary);
-      }
+    &::ng-deep * {
+      color: var(--AccentFillColorDefault);
     }
 
-    &.disabled:not(.checked) {
-      background: var(--SubtleFillColorDisabled);
-      color: var(--TextFillColorDisabled);
+    &:not(.checked):active:not(.flyout-open):not(.disabled) {
+      color: var(--AccentFillColorSecondary);
 
       &::ng-deep * {
-        color: var(--TextFillColorDisabled);
+        color: var(--AccentFillColorSecondary);
       }
     }
   }

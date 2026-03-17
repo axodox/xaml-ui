@@ -1,7 +1,13 @@
 <XamlRoot>
   <ScrollViewer>
     <StackPanel>
-      <Grid>
+      <StackPanel Orientation="Horizontal" Spacing="6px" Padding="6px">
+        <TextBlock VerticalAlignment="Center">Visit the </TextBlock>
+        <HyperlinkButton Content="Microsoft home page" NavigateUri="http://www.microsoft.com" />
+        <HyperlinkButton Content="Microsoft home page" NavigateUri="http://www.microsoft.com" [IsEnabled]="false" />
+      </StackPanel>
+
+      <Grid ColumnSpacing="6px" Padding="6px">
         <Button (Click)="onDialogClick()">Open dialog</Button>
         <Button (Click)="onCustomDialogClick()">Open custom dialog</Button>
       </Grid>
@@ -119,11 +125,4 @@
     <Button>C</Button>
     <Button>D</Button>
   </Grid>
-  <Border Width="500px" Height="500">
-  <Grid ColumnDefinitions="1fr auto">
-    <TextBlock>Visit the </TextBlock>
-    <HyperlinkButton Content="Microsoft home page" NavigateUri="http://www.microsoft.com" />
-  </Grid>
-  </Border>
-
 </XamlRoot>

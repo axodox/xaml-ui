@@ -1,9 +1,12 @@
 import { Component, HostListener, Input, OnDestroy } from "@angular/core";
-import { ButtonComponent } from "./Button";
+import { ButtonComponent, ButtonTemplate } from "./Button";
+import { CommonModule } from "@angular/common";
+import { TextBlockComponent } from "../text/TextBlock";
 
 @Component({
   selector: 'RepeatButton',
-  template: `<ng-content/>`,
+  imports: [CommonModule, TextBlockComponent],
+  template: ButtonTemplate,
   styleUrl: 'Button.scss'
 })
 export class RepeatButtonComponent extends ButtonComponent implements OnDestroy {
@@ -30,7 +33,7 @@ export class RepeatButtonComponent extends ButtonComponent implements OnDestroy 
   }
 
   @HostListener('pointerup', ['$event'])
-  private onPointerUp() {
+  private onPointerUp(event: PointerEvent) {
     this.clearTimers();
   }
 
@@ -39,7 +42,7 @@ export class RepeatButtonComponent extends ButtonComponent implements OnDestroy 
     if (this._intervalTimer !== undefined) clearInterval(this._intervalTimer);
   }
 
-  protected override onHostPointerEvent(event: Event) {
+  protected override onClick(event: Event) {
     //Disable pointer event handling on the base button
   }
   
