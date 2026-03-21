@@ -27,6 +27,7 @@ export * from './lib/dialogs-and-flyouts/ContentDialog';
 export * from './lib/dialogs-and-flyouts/ContextFlyout';
 export * from './lib/dialogs-and-flyouts/Dialog';
 export * from './lib/dialogs-and-flyouts/Flyout';
+export * from './lib/dialogs-and-flyouts/OpenFilePicker'
 
 //Icons
 export * from './lib/icons/FontIcon';

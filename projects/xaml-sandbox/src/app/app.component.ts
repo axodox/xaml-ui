@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef } from '@angular/core';
-import { RadioToggleButtonComponent, XamlRootComponent, CheckBoxComponent, RadioButtonComponent } from '../../../xaml-ui/src/public-api';
+import { RadioToggleButtonComponent, XamlRootComponent, CheckBoxComponent, RadioButtonComponent, ImageComponent, BorderComponent } from '../../../xaml-ui/src/public-api';
 import { StackPanelComponent } from "../../../xaml-ui/src/lib/layout/StackPanel";
 import { ButtonComponent } from "../../../xaml-ui/src/lib/basic-input/Button";
 import { FlyoutComponent } from "../../../xaml-ui/src/lib/dialogs-and-flyouts/Flyout";
@@ -32,6 +32,7 @@ import { ProgressRingComponent } from '../../../xaml-ui/src/public-api';
 import { PersonPictureComponent } from '../../../xaml-ui/src/lib/media/PersonPicture';
 import { EllipseComponent } from '../../../xaml-ui/src/lib/shapes/Ellipse';
 import { HyperlinkButtonComponent } from '../../../xaml-ui/src/lib/basic-input/HyperlinkButton';
+import { OpenFilePicker } from '../../../xaml-ui/src/lib/dialogs-and-flyouts/OpenFilePicker';
 
 @Component({
   template: `<ng-template #template>
@@ -58,11 +59,12 @@ export class KeyValuePair {
 
 @Component({
   selector: 'app-root',
-  imports: [XamlRootComponent, StackPanelComponent, ButtonComponent, FlyoutComponent, ScrollViewerComponent, SliderComponent, TextBoxComponent, TextBlockComponent, ListViewComponent, ComboBoxComponent, MenuFlyoutComponent, MenuFlyoutItemComponent, ContextFlyoutDirective, AppBarButtonComponent, CommandBarComponent, NumberBoxComponent, GridModule, RepeatButtonComponent, ColorPickerComponent, RadioButtonGroupComponent, FlyoutComponent, ContextFlyoutDirective, RadioToggleButtonComponent, ToggleButtonComponent, ToggleMenuFlyoutItemComponent, ItemFlyoutDirective, FontIconComponent, ProgressBarComponent, ProgressRingComponent, GridViewComponent, PersonPictureComponent, EllipseComponent, CheckBoxComponent, RadioButtonComponent, HyperlinkButtonComponent],
+  imports: [XamlRootComponent, StackPanelComponent, ButtonComponent, FlyoutComponent, ScrollViewerComponent, SliderComponent, TextBoxComponent, TextBlockComponent, ListViewComponent, ComboBoxComponent, MenuFlyoutComponent, MenuFlyoutItemComponent, ContextFlyoutDirective, AppBarButtonComponent, CommandBarComponent, NumberBoxComponent, GridModule, RepeatButtonComponent, ColorPickerComponent, RadioButtonGroupComponent, FlyoutComponent, ContextFlyoutDirective, RadioToggleButtonComponent, ToggleButtonComponent, ToggleMenuFlyoutItemComponent, ItemFlyoutDirective, FontIconComponent, ProgressBarComponent, ProgressRingComponent, GridViewComponent, PersonPictureComponent, EllipseComponent, CheckBoxComponent, RadioButtonComponent, HyperlinkButtonComponent, ImageComponent, BorderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+
   title = 'xaml-sandbox';
 
   protected TestCollection = [
@@ -103,5 +105,25 @@ export class AppComponent {
     let dialog = Dialog.Create(CustomDialog, this._viewContainerRef);
 
     await dialog.ShowAsync();
+  }
+
+  async OnOpenJsonClick() {
+    let openFilePicker = new OpenFilePicker();
+    openFilePicker.SettingsIdentifier = "xaml-sandbox-json";
+    openFilePicker.SuggestedStartLocation = "documents";
+    openFilePicker.AllowMultiple = false;
+    openFilePicker.FileTypeFilter = [
+      {
+        "description": "JSON files",
+        "accept": { "application/json": ".json" }
+      }
+    ];
+    const results = await openFilePicker.ShowAsync();
+    if (results) {
+      console.log(`File read: ${await results[0].text()}.`);
+    }
+    else {
+      console.log('No file selected.');
+    }
   }
 }

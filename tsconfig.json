@@ -27,7 +27,8 @@
       "xaml-ui": [
         "./dist/xaml-ui"
       ]
-    }
+    },
+    "types": ["wicg-file-system-access"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

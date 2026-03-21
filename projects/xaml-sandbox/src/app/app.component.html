@@ -1,12 +1,22 @@
 <XamlRoot>
   <ScrollViewer>
     <StackPanel>
+
       <StackPanel Orientation="Horizontal" Spacing="6px" Padding="6px">
         <TextBlock VerticalAlignment="Center">Visit the </TextBlock>
         <HyperlinkButton Content="Microsoft home page" NavigateUri="http://www.microsoft.com" />
         <HyperlinkButton Content="Microsoft home page" NavigateUri="http://www.microsoft.com" [IsEnabled]="false" />
+        <Button (Click)="OnOpenJsonClick()">
+          <TextBlock>Open JSON</TextBlock>
+        </Button>
       </StackPanel>
 
+      <Border>
+        <Border BorderBrush="Blue" BorderThickness="2px" VerticalAlignment="Center" HorizontalAlignment="Center">
+          <Image Source="https://cdn.pixabay.com/photo/2024/09/28/08/22/ai-generated-9080579_640.jpg" MaxWidth="300px"
+            MaxHeight="200px" Stretch="Uniform" />
+        </Border>
+      </Border>
       <Grid ColumnSpacing="6px" Padding="6px">
         <Button (Click)="onDialogClick()">Open dialog</Button>
         <Button (Click)="onCustomDialogClick()">Open custom dialog</Button>
@@ -23,7 +33,7 @@
         <Slider Height="200px" Orientation="Vertical" [Value]="1.0" />
       </StackPanel>
 
-      <ComboBox [ItemSource]="TestCollection" DisplayMemberPath="Value" SelectedValuePath="Key"/>
+      <ComboBox [ItemSource]="TestCollection" DisplayMemberPath="Value" SelectedValuePath="Key" />
 
       <ProgressBar />
       <ProgressBar [Value]="0.3" />
@@ -42,7 +52,7 @@
         <RadioToggleButton>C
           <MenuFlyout ContextFlyout>
             <MenuFlyoutItem Text="test A">
-              <FontIcon Icon Glyph="&#xE713;" Foreground="Red"/>
+              <FontIcon Icon Glyph="&#xE713;" Foreground="Red" />
             </MenuFlyoutItem>
             <MenuFlyoutItem Text="test B" Icon="&#xE714;" />
           </MenuFlyout>
@@ -51,12 +61,18 @@
       </RadioButtonGroup>
       <ComboBox [ItemSource]="[1, 2, 3, 4, 5, 6]" [SelectedValue]="1" Margin="12px" />
       <TextBox PlaceholderText="test" Margin="6px" />
-      <TextBox PlaceholderText="property change" Margin="6px" UpdateTrigger="PropertyChanged" (TextChange)="onValueChange($event)" />
-      <TextBox PlaceholderText="lost focus" Margin="6px" UpdateTrigger="LostFocus" (TextChange)="onValueChange($event)"/>
-      <TextBox PlaceholderText="property change" Margin="6px" UpdateTrigger="PropertyChanged" (TextChange)="onValueChange($event)" TextWrapping="Wrap" />
-      <TextBox PlaceholderText="lost focus" Margin="6px" UpdateTrigger="LostFocus" (TextChange)="onValueChange($event)" TextWrapping="Wrap"/>
-      <TextBox PlaceholderText="patterned" Margin="6px" UpdateTrigger="LostFocus" (TextChange)="onValueChange($event)" Pattern="^((\d{0,2}|[1-9])|(\d{1,2}|[1-9])[c-hj-np-xC-HJ-NP-X]|0{0,1}1[abyzABYX]|[a-hj-np-zA-HJ-NP-Z])$" />
-      <TextBox PlaceholderText="editable placeholder" Margin="6px" (TextChange)="onValueChange($event)" [IsPlaceholderEditable]="true" />
+      <TextBox PlaceholderText="property change" Margin="6px" UpdateTrigger="PropertyChanged"
+        (TextChange)="onValueChange($event)" />
+      <TextBox PlaceholderText="lost focus" Margin="6px" UpdateTrigger="LostFocus"
+        (TextChange)="onValueChange($event)" />
+      <TextBox PlaceholderText="property change" Margin="6px" UpdateTrigger="PropertyChanged"
+        (TextChange)="onValueChange($event)" TextWrapping="Wrap" />
+      <TextBox PlaceholderText="lost focus" Margin="6px" UpdateTrigger="LostFocus" (TextChange)="onValueChange($event)"
+        TextWrapping="Wrap" />
+      <TextBox PlaceholderText="patterned" Margin="6px" UpdateTrigger="LostFocus" (TextChange)="onValueChange($event)"
+        Pattern="^((\d{0,2}|[1-9])|(\d{1,2}|[1-9])[c-hj-np-xC-HJ-NP-X]|0{0,1}1[abyzABYX]|[a-hj-np-zA-HJ-NP-Z])$" />
+      <TextBox PlaceholderText="editable placeholder" Margin="6px" (TextChange)="onValueChange($event)"
+        [IsPlaceholderEditable]="true" />
       <Button Margin="6px 120px">Flyout
         <Flyout Placement="Left">Test</Flyout>
       </Button>
@@ -64,13 +80,15 @@
         <Flyout Placement="Left">Test2</Flyout>
       </Button>
       <Button Class="InlineButtonStyle" Margin="3px">Click here</Button>
-      <NumberBox [Minimum]="-100" [Maximum]="100" Margin="48px" Unit="kg" [IsPlaceholderEditable]="true" PlaceholderText="55" />
-      <NumberBox VerticalAlignment="Center" TextAlignment="Right" [Minimum]="-100" [Maximum]="100" Margin="48px" Unit="kg" [IsPlaceholderEditable]="true" PlaceholderText="66" />
+      <NumberBox [Minimum]="-100" [Maximum]="100" Margin="48px" Unit="kg" [IsPlaceholderEditable]="true"
+        PlaceholderText="55" />
+      <NumberBox VerticalAlignment="Center" TextAlignment="Right" [Minimum]="-100" [Maximum]="100" Margin="48px"
+        Unit="kg" [IsPlaceholderEditable]="true" PlaceholderText="66" />
       <RepeatButton (Click)="onClick()" Class="InlineButtonStyle">Click and hold</RepeatButton>
       <CommandBar VerticalAlignment="Top">
         <AppBarButton Icon="&#xE704;" Text="Wi-Fi" />
         <AppBarButton Text="Moon phase">
-          <FontIcon Icon Glyph="&#xE708;" Foreground="Cyan"/>
+          <FontIcon Icon Glyph="&#xE708;" Foreground="Cyan" />
         </AppBarButton>
         <AppBarButton Icon="&#xE719;" Text="Shop" [IsEnabled]="false" />
       </CommandBar>
@@ -91,9 +109,7 @@
           </ListView>
         </Flyout>
       </Button>
-      <GridView  Margin="3px"
-        [ItemSource]="['A','B','C','D','E','F']"
-        [MaximumRowsOrColumns]="2"
+      <GridView Margin="3px" [ItemSource]="['A','B','C','D','E','F']" [MaximumRowsOrColumns]="2"
         Orientation="Horizontal">
         <ng-template let-item>
           <TextBlock [Text]="item" />
@@ -103,12 +119,18 @@
       <RadioButtonGroup>
         <RadioButton [Opacity]="0.5">A</RadioButton>
         <RadioButton Opacity="0.5">B</RadioButton>
-        <RadioButton>C<NumberBox [IsEnabled]="false"/></RadioButton>
+        <RadioButton>C
+          <NumberBox [IsEnabled]="false" />
+        </RadioButton>
       </RadioButtonGroup>
-      <PersonPicture Initials="XU"/>
-      <PersonPicture Initials="XU" Width="64px" Height="64px" Foreground="Red" Background='var(--AccentFillColorDefault)' BadgeText="2" />
-      <PersonPicture DisplayName="Peter Major" Width="64px" Height="64px" Foreground="Red" Background='var(--AccentFillColorDefault)' BadgeGlyph="&#xE704;" />
-      <PersonPicture Initials="XU" Width="48px" Height="48px" Foreground="Red" Background='var(--AccentFillColorDefault)' BadgeImageSource="https://cdn.pixabay.com/photo/2024/09/28/08/22/ai-generated-9080579_640.jpg" />
+      <PersonPicture Initials="XU" />
+      <PersonPicture Initials="XU" Width="64px" Height="64px" Foreground="Red"
+        Background='var(--AccentFillColorDefault)' BadgeText="2" />
+      <PersonPicture DisplayName="Peter Major" Width="64px" Height="64px" Foreground="Red"
+        Background='var(--AccentFillColorDefault)' BadgeGlyph="&#xE704;" />
+      <PersonPicture Initials="XU" Width="48px" Height="48px" Foreground="Red"
+        Background='var(--AccentFillColorDefault)'
+        BadgeImageSource="https://cdn.pixabay.com/photo/2024/09/28/08/22/ai-generated-9080579_640.jpg" />
       <PersonPicture ProfilePicture='https://cdn.pixabay.com/photo/2024/09/28/08/22/ai-generated-9080579_640.jpg' />
       <Ellipse Width="50px" Height="50px" Fill="Red" Stroke="Blue" StrokeThickness="3px" />
     </StackPanel>
