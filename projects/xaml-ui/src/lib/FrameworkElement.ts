@@ -28,25 +28,25 @@ export abstract class FrameworkElementComponent {
   @HostBinding('style.min-width')
   protected get minWidth() {
     if (this.MinWidth !== undefined) return this.MinWidth;
-    return this.MaxWidth === undefined && this.HorizontalAlignment === 'Stretch' ? 'min-content' : undefined;
+    return this.MaxWidth === undefined && this.HorizontalAlignment === 'Stretch' ? 'fit-content' : undefined;
   }
 
   @HostBinding('style.min-height')
   protected get minHeight() {
     if (this.MinHeight !== undefined) return this.MinHeight;
-    return this.MaxHeight === undefined && this.VerticalAlignment === 'Stretch' ? 'min-content' : undefined;
+    return this.MaxHeight === undefined && this.VerticalAlignment === 'Stretch' ? 'fit-content' : undefined;
   }
 
   @HostBinding('style.width')
   protected get width() {
     if (this.Width !== undefined) return this.Width;
-    return this.HorizontalAlignment === 'Stretch' ? undefined : 'min-content';
+    return this.HorizontalAlignment === 'Stretch' ? undefined : 'fit-content';
   }
 
   @HostBinding('style.height')
   protected get height() {
     if (this.Height !== undefined) return this.Height;
-    return this.VerticalAlignment === 'Stretch' ? undefined : 'min-content';
+    return this.VerticalAlignment === 'Stretch' ? undefined : 'fit-content';
   }
 
   @HostBinding('style.justify-self')

@@ -16,7 +16,9 @@ export class ImageComponent extends FrameworkElementComponent {
   protected get imageStyle() {
     return {
       width: this.Width,
-      height: this.Height
+      height: this.Height,
+      maxWidth: this.MaxWidth,
+      maxHeight: this.MaxHeight
     }
   }
 }
