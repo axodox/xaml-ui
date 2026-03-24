@@ -16,6 +16,8 @@ Import global styles in your root `styles.scss`:
 
 ## Quick Example
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/axodox/xaml-ui/tree/master/examples/hello-world)
+
 ```typescript
 import { Component, ViewContainerRef } from '@angular/core';
 import { XamlRootComponent, GridModule, StackPanelComponent, TextBlockComponent,
