@@ -1,59 +1,72 @@
-# XamlUi
+# xaml-ui
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.7.
+An Angular component library that brings WinUI / XAML-style controls to the web. Implements Fluent Design with automatic light/dark theming, CSS Grid layout, and PascalCase naming conventions inspired by XAML/WinUI.
 
-## Development server
-
-To start a local development server, run:
+## Installation
 
 ```bash
-ng serve
+npm install xaml-ui
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Import global styles in your root `styles.scss`:
 
-## Code scaffolding
+```scss
+@use 'xaml-ui/styles/XamlGlobals.css';
+```
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Quick Example
+
+```typescript
+import { Component, ViewContainerRef } from '@angular/core';
+import { XamlRootComponent, GridModule, StackPanelComponent, TextBlockComponent,
+         TextBoxComponent, ButtonComponent, FontIconComponent,
+         ContentDialog, ContentDialogButton, Dialog } from 'xaml-ui';
+
+@Component({
+  selector: 'app-root',
+  imports: [XamlRootComponent, GridModule, StackPanelComponent,
+            TextBlockComponent, TextBoxComponent, ButtonComponent, FontIconComponent],
+  template: `
+    <XamlRoot>
+      <StackPanel Spacing="12px" Padding="24px" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Text="Welcome" FontSize="24pt" FontWeight="Bold" HorizontalAlignment="Center" />
+        <Grid ColumnDefinitions="auto 1fr" ColumnSpacing="6px" RowSpacing="6px">
+          <TextBlock VerticalAlignment="Center">Name</TextBlock>
+          <TextBox [(Text)]="name" PlaceholderText="Enter your name" Width="250px" />
+        </Grid>
+        <Button Class="AccentButtonStyle" (Click)="OnGreet()" HorizontalAlignment="Center">
+          <FontIcon Glyph="&#xE76E;" /> Greet
+        </Button>
+      </StackPanel>
+    </XamlRoot>`
+})
+export class AppComponent {
+  protected name = '';
+
+  constructor(private _viewContainerRef: ViewContainerRef) { }
+
+  protected async OnGreet() {
+    let dialog = Dialog.Create(ContentDialog, this._viewContainerRef);
+    dialog.Title = 'Hello!';
+    dialog.Content = `Welcome, ${this.name}!`;
+    dialog.CloseButtonText = 'OK';
+    dialog.DefaultButton = ContentDialogButton.Close;
+    await dialog.ShowAsync();
+  }
+}
+```
+
+## Documentation
+
+- [Getting Started](docs/getting-started.md) — setup, key concepts, component overview
+- [Controls Reference](docs/controls/index.md) — index of all controls
+- [Coding Conventions](docs/conventions.md) — naming, file structure, template and styling patterns
+- [Theming](docs/theming.md) — CSS custom properties reference for dark/light modes
+
+## Development
 
 ```bash
-ng generate component component-name
+ng serve     # Development server at http://localhost:4200/
+ng build     # Production build to dist/
+ng test      # Unit tests with Karma
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
