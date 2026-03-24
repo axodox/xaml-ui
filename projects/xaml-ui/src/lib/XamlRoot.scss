@@ -3,11 +3,14 @@
   overflow: hidden;
   user-select: none; 
   background-color: #f3f3f3;
-  touch-action: none;
+  touch-action: none;  
 
   &::ng-deep * {
     user-select: none;
-    touch-action: none;      
+    touch-action: none;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 10pt;
+    color:  #FFFFFFFF;  
   }
 
   @media (prefers-color-scheme: dark) {
