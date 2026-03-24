@@ -1,6 +1,6 @@
-> Source: [ComboBox.ts](../../../projects/xaml-ui/src/lib/basic-input/ComboBox.ts)
-
 # ComboBox
+
+> Source: [ComboBox.ts](../../../projects/xaml-ui/src/lib/basic-input/ComboBox.ts)
 
 Dropdown selection control. Extends [Selector](../primitives/Selector.md) → [FrameworkElement](../FrameworkElement.md).
 

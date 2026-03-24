@@ -1,6 +1,6 @@
-> Source: [Grid.ts](../../../projects/xaml-ui/src/lib/layout/Grid.ts)
-
 # Grid
+
+> Source: [Grid.ts](../../../projects/xaml-ui/src/lib/layout/Grid.ts)
 
 CSS Grid layout container with XAML-style row and column definitions. Extends [Panel](Panel.md).
 

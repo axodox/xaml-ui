@@ -1,6 +1,6 @@
-> Source: [ToggleButton.ts](../../../projects/xaml-ui/src/lib/basic-input/ToggleButton.ts)
-
 # ToggleButton
+
+> Source: [ToggleButton.ts](../../../projects/xaml-ui/src/lib/basic-input/ToggleButton.ts)
 
 Button with a checked/unchecked toggle state. Extends [Button](Button.md).
 

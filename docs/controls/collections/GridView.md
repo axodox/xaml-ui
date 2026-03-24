@@ -1,6 +1,6 @@
-> Source: [GridView.ts](../../../projects/xaml-ui/src/lib/collections/GridView.ts)
-
 # GridView
+
+> Source: [GridView.ts](../../../projects/xaml-ui/src/lib/collections/GridView.ts)
 
 Grid-based collection display with single selection and animations. Extends [Selector](../primitives/Selector.md) → [FrameworkElement](../FrameworkElement.md).
 

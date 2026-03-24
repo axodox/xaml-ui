@@ -1,6 +1,6 @@
-> Source: [SplitButton.ts](../../../projects/xaml-ui/src/lib/basic-input/SplitButton.ts)
-
 # SplitButton
+
+> Source: [SplitButton.ts](../../../projects/xaml-ui/src/lib/basic-input/SplitButton.ts)
 
 Button split into a main clickable area and a dropdown section. Extends [FrameworkElement](../FrameworkElement.md).
 

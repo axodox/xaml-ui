@@ -1,6 +1,6 @@
-> Source: [StackPanel.ts](../../../projects/xaml-ui/src/lib/layout/StackPanel.ts)
-
 # StackPanel
+
+> Source: [StackPanel.ts](../../../projects/xaml-ui/src/lib/layout/StackPanel.ts)
 
 Arranges children sequentially in a row or column. Uses CSS Grid with auto-flow. Extends [Panel](Panel.md).
 

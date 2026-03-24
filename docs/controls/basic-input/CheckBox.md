@@ -1,6 +1,6 @@
-> Source: [CheckBox.ts](../../../projects/xaml-ui/src/lib/basic-input/CheckBox.ts)
-
 # CheckBox
+
+> Source: [CheckBox.ts](../../../projects/xaml-ui/src/lib/basic-input/CheckBox.ts)
 
 Boolean toggle with a checkbox indicator. Extends [Border](../layout/Border.md) → [Panel](../layout/Panel.md) → [FrameworkElement](../FrameworkElement.md).
 

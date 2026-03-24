@@ -1,6 +1,6 @@
-> Source: [DropDownButton.ts](../../../projects/xaml-ui/src/lib/basic-input/DropDownButton.ts)
-
 # DropDownButton
+
+> Source: [DropDownButton.ts](../../../projects/xaml-ui/src/lib/basic-input/DropDownButton.ts)
 
 Button with a dropdown chevron indicator. Place a `Flyout` or `MenuFlyout` as child. Extends [Button](Button.md).
 

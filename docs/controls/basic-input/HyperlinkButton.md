@@ -1,6 +1,6 @@
-> Source: [HyperlinkButton.ts](../../../projects/xaml-ui/src/lib/basic-input/HyperlinkButton.ts)
-
 # HyperlinkButton
+
+> Source: [HyperlinkButton.ts](../../../projects/xaml-ui/src/lib/basic-input/HyperlinkButton.ts)
 
 Button that opens a URL in a new window/tab. Extends [Button](Button.md).
 

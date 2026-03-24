@@ -1,6 +1,6 @@
-> Source: [NumberBox.ts](../../../projects/xaml-ui/src/lib/text/NumberBox.ts)
-
 # NumberBox
+
+> Source: [NumberBox.ts](../../../projects/xaml-ui/src/lib/text/NumberBox.ts)
 
 Numeric input control with increment/decrement spin buttons, keyboard support, and value clamping. Extends [FrameworkElement](../FrameworkElement.md).
 

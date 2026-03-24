@@ -1,6 +1,6 @@
-> Source: [MenuFlyoutItem.ts](../../../projects/xaml-ui/src/lib/menus-and-toolbars/MenuFlyoutItem.ts)
-
 # MenuFlyoutItem
+
+> Source: [MenuFlyoutItem.ts](../../../projects/xaml-ui/src/lib/menus-and-toolbars/MenuFlyoutItem.ts)
 
 Clickable item inside a MenuFlyout. Extends MenuFlyoutItemBase → [FrameworkElement](../FrameworkElement.md).
 

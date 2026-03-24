@@ -1,6 +1,6 @@
-> Source: [Flyout.ts](../../../projects/xaml-ui/src/lib/dialogs-and-flyouts/Flyout.ts)
-
 # Flyout
+
+> Source: [Flyout.ts](../../../projects/xaml-ui/src/lib/dialogs-and-flyouts/Flyout.ts)
 
 Lightweight popup anchored to its parent element. Uses Angular CDK Overlay for positioning. Extends FlyoutBase → [FrameworkElement](../FrameworkElement.md).
 

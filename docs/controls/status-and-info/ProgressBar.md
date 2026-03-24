@@ -1,6 +1,6 @@
-> Source: [ProgressBar.ts](../../../projects/xaml-ui/src/lib/status-and-info/ProgressBar.ts)
-
 # ProgressBar
+
+> Source: [ProgressBar.ts](../../../projects/xaml-ui/src/lib/status-and-info/ProgressBar.ts)
 
 Horizontal progress indicator. Extends [FrameworkElement](../FrameworkElement.md).
 

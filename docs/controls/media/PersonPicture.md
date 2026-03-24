@@ -1,6 +1,6 @@
-> Source: [PersonPicture.ts](../../../projects/xaml-ui/src/lib/media/PersonPicture.ts)
-
 # PersonPicture
+
+> Source: [PersonPicture.ts](../../../projects/xaml-ui/src/lib/media/PersonPicture.ts)
 
 Avatar display with initials fallback and optional badge. Extends [FrameworkElement](../FrameworkElement.md).
 

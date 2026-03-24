@@ -1,6 +1,6 @@
-> Source: [MenuFlyout.ts](../../../projects/xaml-ui/src/lib/menus-and-toolbars/MenuFlyout.ts)
-
 # MenuFlyout
+
+> Source: [MenuFlyout.ts](../../../projects/xaml-ui/src/lib/menus-and-toolbars/MenuFlyout.ts)
 
 Context menu flyout. Auto-closes when a menu item is clicked. Extends [Flyout](../dialogs-and-flyouts/Flyout.md).
 

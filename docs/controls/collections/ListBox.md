@@ -1,6 +1,6 @@
-> Source: [ListBox.ts](../../../projects/xaml-ui/src/lib/collections/ListBox.ts)
-
 # ListBox
+
+> Source: [ListBox.ts](../../../projects/xaml-ui/src/lib/collections/ListBox.ts)
 
 List with single selection but no built-in ScrollViewer (unlike ListView). Extends [Selector](../primitives/Selector.md) → [FrameworkElement](../FrameworkElement.md).
 

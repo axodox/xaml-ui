@@ -1,6 +1,6 @@
-> Source: [TextBlock.ts](../../../projects/xaml-ui/src/lib/text/TextBlock.ts)
-
 # TextBlock
+
+> Source: [TextBlock.ts](../../../projects/xaml-ui/src/lib/text/TextBlock.ts)
 
 Read-only text display control. Extends [FrameworkElement](../FrameworkElement.md).
 

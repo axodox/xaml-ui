@@ -1,6 +1,6 @@
-> Source: [Button.ts](../../../projects/xaml-ui/src/lib/basic-input/Button.ts)
-
 # Button
+
+> Source: [Button.ts](../../../projects/xaml-ui/src/lib/basic-input/Button.ts)
 
 Clickable button control. Supports text content, child content (icons, etc.), and embedded flyouts. Extends [Border](../layout/Border.md) → [Panel](../layout/Panel.md) → [FrameworkElement](../FrameworkElement.md).
 

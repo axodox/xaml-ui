@@ -1,6 +1,6 @@
-> Source: [RepeatButton.ts](../../../projects/xaml-ui/src/lib/basic-input/RepeatButton.ts)
-
 # RepeatButton
+
+> Source: [RepeatButton.ts](../../../projects/xaml-ui/src/lib/basic-input/RepeatButton.ts)
 
 Button that emits Click events repeatedly while held down. Extends [Button](Button.md).
 

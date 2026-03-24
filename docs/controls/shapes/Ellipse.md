@@ -1,6 +1,6 @@
-> Source: [Ellipse.ts](../../../projects/xaml-ui/src/lib/shapes/Ellipse.ts)
-
 # Ellipse
+
+> Source: [Ellipse.ts](../../../projects/xaml-ui/src/lib/shapes/Ellipse.ts)
 
 Circular/elliptical shape. Extends [FrameworkElement](../FrameworkElement.md).
 

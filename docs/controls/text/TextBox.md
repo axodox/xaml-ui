@@ -1,6 +1,6 @@
-> Source: [TextBox.ts](../../../projects/xaml-ui/src/lib/text/TextBox.ts)
-
 # TextBox
+
+> Source: [TextBox.ts](../../../projects/xaml-ui/src/lib/text/TextBox.ts)
 
 Text input control. Renders as `<input>` when `TextWrapping="NoWrap"` (default) or `<textarea>` when `TextWrapping="Wrap"`. Extends [FrameworkElement](../FrameworkElement.md).
 

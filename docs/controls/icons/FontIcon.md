@@ -1,6 +1,6 @@
-> Source: [FontIcon.ts](../../../projects/xaml-ui/src/lib/icons/FontIcon.ts)
-
 # FontIcon
+
+> Source: [FontIcon.ts](../../../projects/xaml-ui/src/lib/icons/FontIcon.ts)
 
 Displays a glyph from the Segoe Fluent Icons / Segoe MDL2 Assets icon font. Extends [FrameworkElement](../FrameworkElement.md).
 

@@ -1,6 +1,6 @@
-> Source: [ListView.ts](../../../projects/xaml-ui/src/lib/collections/ListView.ts)
-
 # ListView
+
+> Source: [ListView.ts](../../../projects/xaml-ui/src/lib/collections/ListView.ts)
 
 Scrollable list with single selection, item templates, and enter/leave animations. Extends [Selector](../primitives/Selector.md) → [FrameworkElement](../FrameworkElement.md).
 

@@ -1,6 +1,6 @@
-> Source: [Slider.ts](../../../projects/xaml-ui/src/lib/basic-input/Slider.ts)
-
 # Slider
+
+> Source: [Slider.ts](../../../projects/xaml-ui/src/lib/basic-input/Slider.ts)
 
 Range input control for selecting a numeric value. Extends [FrameworkElement](../FrameworkElement.md).
 

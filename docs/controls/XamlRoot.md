@@ -1,6 +1,6 @@
-> Source: [XamlRoot.ts](../../projects/xaml-ui/src/lib/XamlRoot.ts)
-
 # XamlRoot
+
+> Source: [XamlRoot.ts](../../projects/xaml-ui/src/lib/XamlRoot.ts)
 
 Root container component. Must wrap the entire application template. Provides base styling and blocks the browser context menu.
 

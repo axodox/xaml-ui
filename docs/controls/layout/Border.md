@@ -1,6 +1,6 @@
-> Source: [Border.ts](../../../projects/xaml-ui/src/lib/layout/Border.ts)
-
 # Border
+
+> Source: [Border.ts](../../../projects/xaml-ui/src/lib/layout/Border.ts)
 
 Single-child container with panel styling. All children overlay in the same grid cell (via `grid-template-areas: "children"`). Extends [Panel](Panel.md).
 

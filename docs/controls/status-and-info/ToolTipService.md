@@ -1,6 +1,6 @@
-> Source: [ToolTipService.ts](../../../projects/xaml-ui/src/lib/status-and-info/ToolTipService.ts)
-
 # ToolTipService
+
+> Source: [ToolTipService.ts](../../../projects/xaml-ui/src/lib/status-and-info/ToolTipService.ts)
 
 Directive for adding native tooltips to any element. Uses HTML `title` attribute.
 

@@ -1,6 +1,6 @@
-> Source: [ColorPicker.ts](../../../projects/xaml-ui/src/lib/basic-input/ColorPicker.ts)
-
 # ColorPicker
+
+> Source: [ColorPicker.ts](../../../projects/xaml-ui/src/lib/basic-input/ColorPicker.ts)
 
 Canvas-based color wheel for selecting colors. Uses HSL color space internally. Extends [FrameworkElement](../FrameworkElement.md).
 

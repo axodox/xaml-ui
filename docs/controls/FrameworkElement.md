@@ -1,6 +1,6 @@
-> Source: [FrameworkElement.ts](../../projects/xaml-ui/src/lib/FrameworkElement.ts)
-
 # FrameworkElement
+
+> Source: [FrameworkElement.ts](../../projects/xaml-ui/src/lib/FrameworkElement.ts)
 
 Abstract base class for all xaml-ui visual components. You do not use this directly — every component inherits from it.
 

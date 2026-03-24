@@ -1,6 +1,6 @@
-> Source: [OpenFilePicker.ts](../../../projects/xaml-ui/src/lib/dialogs-and-flyouts/OpenFilePicker.ts)
-
 # OpenFilePicker
+
+> Source: [OpenFilePicker.ts](../../../projects/xaml-ui/src/lib/dialogs-and-flyouts/OpenFilePicker.ts)
 
 Utility class (not a component) for picking files. Uses the File System Access API if available, falls back to a hidden `<input type="file">`.
 

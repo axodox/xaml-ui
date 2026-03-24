@@ -1,6 +1,6 @@
-> Source: [Selector.ts](../../../projects/xaml-ui/src/lib/primitives/Selector.ts)
-
 # Selector
+
+> Source: [Selector.ts](../../../projects/xaml-ui/src/lib/primitives/Selector.ts)
 
 Abstract base class for collection controls (ListView, ListBox, GridView, ComboBox). Extends [FrameworkElement](../FrameworkElement.md).
 

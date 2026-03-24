@@ -1,6 +1,6 @@
-> Source: [Image.ts](../../../projects/xaml-ui/src/lib/media/Image.ts)
-
 # Image
+
+> Source: [Image.ts](../../../projects/xaml-ui/src/lib/media/Image.ts)
 
 Image display control with stretch modes. Extends [FrameworkElement](../FrameworkElement.md).
 

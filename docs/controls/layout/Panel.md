@@ -1,6 +1,6 @@
-> Source: [Panel.ts](../../../projects/xaml-ui/src/lib/layout/Panel.ts)
-
 # Panel
+
+> Source: [Panel.ts](../../../projects/xaml-ui/src/lib/layout/Panel.ts)
 
 Abstract base class for container components (Grid, StackPanel, Border). Extends [FrameworkElement](../FrameworkElement.md).
 

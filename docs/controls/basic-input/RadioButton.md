@@ -1,6 +1,6 @@
-> Source: [RadioButton.ts](../../../projects/xaml-ui/src/lib/basic-input/RadioButton.ts)
-
 # RadioButton / RadioButtonGroup
+
+> Source: [RadioButton.ts](../../../projects/xaml-ui/src/lib/basic-input/RadioButton.ts)
 
 Mutually exclusive selection controls. RadioButton extends [Border](../layout/Border.md). RadioButtonGroup extends [StackPanel](../layout/StackPanel.md).
 

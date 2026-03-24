@@ -1,6 +1,6 @@
-> Source: [ToggleSwitch.ts](../../../projects/xaml-ui/src/lib/basic-input/ToggleSwitch.ts)
-
 # ToggleSwitch
+
+> Source: [ToggleSwitch.ts](../../../projects/xaml-ui/src/lib/basic-input/ToggleSwitch.ts)
 
 Boolean toggle rendered as a switch. Extends [CheckBox](CheckBox.md).
 

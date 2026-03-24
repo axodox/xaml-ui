@@ -1,6 +1,6 @@
-> Source: [ContentDialog.ts](../../../projects/xaml-ui/src/lib/dialogs-and-flyouts/ContentDialog.ts)
-
 # ContentDialog
+
+> Source: [ContentDialog.ts](../../../projects/xaml-ui/src/lib/dialogs-and-flyouts/ContentDialog.ts)
 
 Modal dialog with title, content area, and up to three buttons. Created programmatically. Extends Dialog → [FrameworkElement](../FrameworkElement.md).
 

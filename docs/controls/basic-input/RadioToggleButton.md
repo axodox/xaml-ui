@@ -1,6 +1,6 @@
-> Source: [RadioToggleButton.ts](../../../projects/xaml-ui/src/lib/basic-input/RadioToggleButton.ts)
-
 # RadioToggleButton
+
+> Source: [RadioToggleButton.ts](../../../projects/xaml-ui/src/lib/basic-input/RadioToggleButton.ts)
 
 A RadioButton styled as a toggle button (like a toolbar segmented control). Extends [RadioButton](RadioButton.md).
 

@@ -1,6 +1,6 @@
-> Source: [CommandBar.ts](../../../projects/xaml-ui/src/lib/menus-and-toolbars/CommandBar.ts)
-
 # CommandBar
+
+> Source: [CommandBar.ts](../../../projects/xaml-ui/src/lib/menus-and-toolbars/CommandBar.ts)
 
 Horizontal toolbar container for AppBarButton children. Extends [FrameworkElement](../FrameworkElement.md).
 
