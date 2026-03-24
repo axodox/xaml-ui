@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"EventEmitter\\\\|ViewChild\\\\|ContentChild\\\\|FrameworkElementComponent\" \"H:/cae/asgard-master/Holomaps.Streamer.Client/src/app/views/\"*.ts)",
+      "Bash(grep -h \"Class=\\\\|class=\" \"H:/cae/asgard-master/Holomaps.Streamer.Client/src/app/views/\"*.html)",
+      "Bash(grep -h \"import.*from.*xaml-ui\" \"H:/cae/asgard-master/Holomaps.Streamer.Client/src/app/\"*/*.ts)",
+      "Bash(sed 's/^[[:space:]]*//')",
+      "Bash(grep -E \"\\\\.\\(ts|scss\\)$\")"
+    ]
+  }
+}
