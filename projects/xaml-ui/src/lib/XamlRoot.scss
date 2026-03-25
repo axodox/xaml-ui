@@ -7,7 +7,10 @@
 
   &::ng-deep * {
     user-select: none;
-    touch-action: none;      
+    touch-action: none;
+    font-family: var(--SystemFontFamily);
+    font-size: var(--SystemFontSize);
+    color: var(--TextFillColorPrimary);
   }
 
   @media (prefers-color-scheme: dark) {
