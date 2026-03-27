@@ -36,6 +36,7 @@ export * from './lib/icons/FontIcon';
 export * from './lib/layout/Border';
 export * from './lib/layout/Grid';
 export * from './lib/layout/Panel';
+export * from './lib/layout/Separator';
 export * from './lib/layout/StackPanel';
 
 //Media
