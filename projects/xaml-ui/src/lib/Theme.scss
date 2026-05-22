@@ -6,8 +6,11 @@
   --OverlayCornerRadius:                      var(--XamlUiOverrideOverlayCornerRadius,                      8px);
 
   --SystemFontSize:                           var(--XamlUiOverrideSystemFontSize,                           10pt);
+  --SymbolFontSize:                           var(--XamlUiOverrideSymbolFontSize,                           inherit);
   --SystemFontFamily:                         var(--XamlUiOverrideSystemFontFamily,                         'Segoe UI', Arial, sans-serif);
   --SymbolFontFamily:                         var(--XamlUiOverrideSymbolFontFamily,                         'Segoe Fluent Icons', 'Segoe MDL2 Assets');
+
+  --ButtonPadding:                            var(--XamlUiOverrideButtonPadding,                            5px 11px);
 
   --SystemAccentColor:                        var(--XamlUiOverrideSystemAccentColor,                        #0078d4);
   --SmokeFillColorDefault:                    var(--XamlUiOverrideSmokeFillColorDefault,                    #0000004D);

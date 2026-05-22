@@ -7,7 +7,8 @@ import { TextBlockComponent } from "../text/TextBlock";
   selector: 'FontIcon',
   template: `{{Glyph}}`,
   styles: `:host {
-    font-family: 'Segoe Fluent Icons', 'Segoe MDL2 Assets';
+    font-family: var(--SymbolFontFamily);
+    font-size: var(--SymbolFontSize);
     align-content: center;
   }`
 })

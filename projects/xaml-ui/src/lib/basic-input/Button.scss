@@ -72,7 +72,7 @@
 
 :host {
   display: grid;
-  padding: 5px 11px;
+  padding: var(--ButtonPadding);
   border-width: var(--ControlBorderThickness);
   border-style: solid;
   border-radius: var(--ControlCornerRadius);
