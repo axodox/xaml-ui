@@ -10,7 +10,7 @@ import { FlyoutBaseComponent } from "../primitives/FlyoutBase";
   selector: 'SplitButton',
   template: `<Grid ColumnDefinitions="1fr auto">
     <Button CornerRadius="4px 0 0 4px" [IsEnabled]="IsEnabled" (Click)="onButtonClick()" [ngClass]="buttonClass"><ng-content/></Button>
-    <DropDownButton CornerRadius="0 4px 4px 0" Width="12px" (Click)="onDropDownClick()" [IsEnabled]="IsEnabled"/>
+    <DropDownButton CornerRadius="0 4px 4px 0" (Click)="onDropDownClick()" [IsEnabled]="IsEnabled"/>
   </Grid>`,
   imports: [CommonModule, ButtonComponent, DropDownButtonComponent, GridModule]
 })

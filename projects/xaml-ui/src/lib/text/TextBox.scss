@@ -10,21 +10,21 @@
   border-radius: var(--ControlCornerRadius);
   padding: 6px;
 
-  background-color: var(--ControlFillColorDefault);
+  background-color: var(--InputFillColorDefault);
   border-color: var(--ControlStrokeColorDefault);
   border-bottom-color: var(--ControlStrongStrokeColorDefault);
 
   &:hover {
-    background-color: var(--ControlFillColorSecondary);
+    background-color: var(--InputFillColorSecondary);
   }
 
   &:focus-within, &:active {
-    background-color: var(--ControlFillColorInputActive);
+    background-color: var(--InputFillColorActive);
     border-bottom-color: var(--AccentFillColorDefault);
   }
 
   &.disabled {
-    background-color: var(--ControlFillColorDisabled);
+    background-color: var(--InputFillColorDisabled);
     border-bottom-color: var(--ControlStrokeColorDefault);
     pointer-events: none;
   }

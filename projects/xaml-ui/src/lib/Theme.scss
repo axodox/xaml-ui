@@ -28,6 +28,12 @@
   --ControlFillColorDisabled:                 var(--XamlUiOverrideControlFillColorDisabled,                 #FFFFFF0B);
   --ControlFillColorInputActive:              var(--XamlUiOverrideControlFillColorInputActive,              #1E1E1EB3);
 
+  --InputFillColorDefault:                    var(--XamlUiOverrideInputFillColorDefault,                    var(--ControlFillColorDefault));
+  --InputFillColorSecondary:                  var(--XamlUiOverrideInputFillColorSecondary,                  var(--ControlFillColorSecondary));
+  --InputFillColorDisabled:                   var(--XamlUiOverrideInputFillColorDisabled,                   var(--ControlFillColorDisabled));
+  --InputFillColorActive:                     var(--XamlUiOverrideInputFillColorActive,                     var(--ControlFillColorInputActive));
+
+
   --ControlSolidFillColorDefault:             var(--XamlUiOverrideControlSolidFillColorDefault,             #454545FF);
 
   --ControlAltFillColorSecondary:             var(--XamlUiOverrideControlAltFillColorSecondary,             #00000019);
@@ -37,6 +43,8 @@
 
   --ControlStrongFillColorDefault:            var(--XamlUiOverrideControlStrongFillColorDefault,            #FFFFFF8B);
   --ControlStrongFillColorDisabled:           var(--XamlUiOverrideControlStrongFillColorDisabled,           #FFFFFF3F);
+
+  --SliderTrackFillColorDefault:              var(--XamlUiOverrideSliderTrackFillColorDefault,              var(--ControlStrongFillColorDefault));
 
   --ControlFillColorTransparent:              var(--XamlUiOverrideControlFillColorTransparent,              #FFFFFF00);
   --SubtleFillColorTransparent:               var(--XamlUiOverrideSubtleFillColorTransparent,               #FFFFFF00);
@@ -84,6 +92,10 @@
     --ControlFillColorDisabled:               var(--XamlUiOverrideControlFillColorDisabled,                 #F9F9F94D);
     --ControlFillColorInputActive:            var(--XamlUiOverrideControlFillColorInputActive,              #FFFFFF);
 
+    --InputFillColorDefault:                  var(--XamlUiOverrideInputFillColorDefault,                    var(--ControlFillColorDefault));
+    --InputFillColorSecondary:                var(--XamlUiOverrideInputFillColorSecondary,                  var(--ControlFillColorSecondary));
+    --InputFillColorDisabled:                 var(--XamlUiOverrideInputFillColorDisabled,                   var(--ControlFillColorDisabled));
+
     --ControlSolidFillColorDefault:           var(--XamlUiOverrideControlSolidFillColorDefault,             #FFFFFFFF);
 
     --ControlAltFillColorSecondary:           var(--XamlUiOverrideControlAltFillColorSecondary,             #00000006);
@@ -93,6 +105,8 @@
 
     --ControlStrongFillColorDefault:          var(--XamlUiOverrideControlStrongFillColorDefault,            #00000072);
     --ControlStrongFillColorDisabled:         var(--XamlUiOverrideControlStrongFillColorDisabled,           #00000051);
+
+    --SliderTrackFillColorDefault:            var(--XamlUiOverrideSliderTrackFillColorDefault,              var(--ControlStrongFillColorDefault));
 
     --ControlFillColorTransparent:            var(--XamlUiOverrideControlFillColorTransparent,              #FFFFFF00);
     --SubtleFillColorTransparent:             var(--XamlUiOverrideSubtleFillColorTransparent,               #FFFFFF00);

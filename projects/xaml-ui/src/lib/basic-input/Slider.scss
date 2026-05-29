@@ -12,7 +12,7 @@ $thumb-offset: calc(-#{$track-margin});
 
 .track {
   display: grid;
-  background-color: var(--ControlStrongFillColorDefault);
+  background-color: var(--SliderTrackFillColorDefault);
   border-radius: calc(0.5 * $track-thickness);
 
   &>.usable-range {
@@ -26,7 +26,7 @@ $thumb-offset: calc(-#{$track-margin});
     background:
       linear-gradient(to right,
         var(--AccentFillColorDefault) 0 var(--progress-percent),
-        var(--ControlStrongFillColorDefault) var(--progress-percent) 100%);
+        var(--SliderTrackFillColorDefault) var(--progress-percent) 100%);
 
     &>.usable-range {
       margin: 0 $thumb-radius;
@@ -40,7 +40,7 @@ $thumb-offset: calc(-#{$track-margin});
     background:
       linear-gradient(to top,
         var(--AccentFillColorDefault) 0 var(--progress-percent),
-        var(--ControlStrongFillColorDefault) var(--progress-percent) 100%);
+        var(--SliderTrackFillColorDefault) var(--progress-percent) 100%);
 
     &>.usable-range {
       margin: $thumb-radius 0;
