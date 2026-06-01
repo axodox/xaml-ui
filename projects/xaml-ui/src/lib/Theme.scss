@@ -73,6 +73,9 @@
   --TextFillColorSecondary:                   var(--XamlUiOverrideTextFillColorSecondary,                   #FFFFFFC5);
   --TextFillColorDisabled:                    var(--XamlUiOverrideTextFillColorDisabled,                    #FFFFFF5D);
 
+  // Foreground for subtle/transparent buttons (AppBarButton etc.); defaults to the primary text color
+  --SubtleButtonForeground:                   var(--XamlUiOverrideSubtleButtonForeground,                   var(--TextFillColorPrimary));
+
   --TextOnAccentFillColorSelected:            var(--XamlUiOverrideTextOnAccentFillColorSelected,            #FFFFFFFF);
   --TextOnAccentFillColorPrimary:             var(--XamlUiOverrideTextOnAccentFillColorPrimary,             #000000);
   --TextOnAccentFillColorSecondary:           var(--XamlUiOverrideTextOnAccentFillColorSecondary,           #00000080);

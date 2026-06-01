@@ -12,14 +12,14 @@
   background-color: var(--SubtleFillColorTransparent);
 
   & * {
-    color: var(--TextFillColorPrimary);
+    color: var(--SubtleButtonForeground);
   }
 
   &:hover {
     background-color: var(--SubtleFillColorSecondary);
 
     & * {
-      color: var(--TextFillColorPrimary);
+      color: var(--SubtleButtonForeground);
     }
   }
 
