@@ -6,13 +6,13 @@
 
   outline-style: none;
   border-style: solid;
-  border-width: 1px;
+  border-width: var(--InputBorderThickness);
   border-radius: var(--ControlCornerRadius);
   padding: 6px;
 
   background-color: var(--InputFillColorDefault);
-  border-color: var(--ControlStrokeColorDefault);
-  border-bottom-color: var(--ControlStrongStrokeColorDefault);
+  border-color: var(--InputStrokeColorDefault);
+  border-bottom-color: var(--InputStrongStrokeColorDefault);
 
   &:hover {
     background-color: var(--InputFillColorSecondary);
@@ -20,12 +20,12 @@
 
   &:focus-within, &:active {
     background-color: var(--InputFillColorActive);
-    border-bottom-color: var(--AccentFillColorDefault);
+    border-bottom-color: var(--InputStrokeColorActive);
   }
 
   &.disabled {
     background-color: var(--InputFillColorDisabled);
-    border-bottom-color: var(--ControlStrokeColorDefault);
+    border-bottom-color: var(--InputStrokeColorDefault);
     pointer-events: none;
   }
 }

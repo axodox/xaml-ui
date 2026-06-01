@@ -2,6 +2,7 @@
   //Invariant
   --AcrylicBlur:                              var(--XamlUiOverrideAcrylicBlur,                              blur(12px));
   --ControlBorderThickness:                   var(--XamlUiOverrideControlBorderThickness,                   1px);
+  --InputBorderThickness:                     var(--XamlUiOverrideInputBorderThickness,                     var(--ControlBorderThickness));
   --ControlCornerRadius:                      var(--XamlUiOverrideControlCornerRadius,                      4px);
   --OverlayCornerRadius:                      var(--XamlUiOverrideOverlayCornerRadius,                      8px);
 
@@ -33,7 +34,6 @@
   --InputFillColorDisabled:                   var(--XamlUiOverrideInputFillColorDisabled,                   var(--ControlFillColorDisabled));
   --InputFillColorActive:                     var(--XamlUiOverrideInputFillColorActive,                     var(--ControlFillColorInputActive));
 
-
   --ControlSolidFillColorDefault:             var(--XamlUiOverrideControlSolidFillColorDefault,             #454545FF);
 
   --ControlAltFillColorSecondary:             var(--XamlUiOverrideControlAltFillColorSecondary,             #00000019);
@@ -64,6 +64,10 @@
   --ControlStrongStrokeColorDefault:          var(--XamlUiOverrideControlStrongStrokeColorDefault,          #FFFFFF8B);
   --ControlStrongStrokeColorDisabled:         var(--XamlUiOverrideControlStrongStrokeColorDisabled,         #FFFFFF28);
   --ControlStrokeColorOnAccentDefault:        var(--XamlUiOverrideControlStrokeColorOnAccentDefault,        #FFFFFF14);
+
+  --InputStrokeColorDefault:                  var(--XamlUiOverrideInputStrokeColorDefault,                  var(--ControlStrokeColorDefault));
+  --InputStrongStrokeColorDefault:            var(--XamlUiOverrideInputStrongStrokeColorDefault,            var(--ControlStrongStrokeColorDefault));
+  --InputStrokeColorActive:                   var(--XamlUiOverrideInputStrokeColorActive,                   var(--AccentFillColorDefault));
 
   --TextFillColorPrimary:                     var(--XamlUiOverrideTextFillColorPrimary,                     #FFFFFFFF);
   --TextFillColorSecondary:                   var(--XamlUiOverrideTextFillColorSecondary,                   #FFFFFFC5);
@@ -126,6 +130,10 @@
     --ControlStrongStrokeColorDefault:        var(--XamlUiOverrideControlStrongStrokeColorDefault,          #00000072);
     --ControlStrongStrokeColorDisabled:       var(--XamlUiOverrideControlStrongStrokeColorDisabled,         #00000037);
     --ControlStrokeColorOnAccentDefault:      var(--XamlUiOverrideControlStrokeColorOnAccentDefault,        #FFFFFF14);
+
+    --InputStrokeColorDefault:                var(--XamlUiOverrideInputStrokeColorDefault,                  var(--ControlStrokeColorDefault));
+    --InputStrongStrokeColorDefault:          var(--XamlUiOverrideInputStrongStrokeColorDefault,            var(--ControlStrongStrokeColorDefault));
+    --InputStrokeColorActive:                 var(--XamlUiOverrideInputStrokeColorActive,                   var(--AccentFillColorDefault));
 
     --TextFillColorPrimary:                   var(--XamlUiOverrideTextFillColorPrimary,                     #000000E4);
     --TextFillColorSecondary:                 var(--XamlUiOverrideTextFillColorSecondary,                   #0000009E);
