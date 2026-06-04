@@ -4,11 +4,15 @@ import { CommonModule } from "@angular/common";
 
 @Component({
   selector: 'DialogPresenter',
-  template: `<div #header class="header" [ngStyle]="{'display': isHeaderVisible ? 'grid' : 'none'}"><ng-content select="[Header]"/></div>
-  <div class="body"><ng-content/></div>
-  <div #footer class="footer" [ngStyle]="{'display': isFooterVisible ? 'grid' : 'none'}"><ng-content select="[Footer]"/></div>`,
-  styleUrls: ['../XamlRoot.scss', 'DialogPresenter.scss'],
-  imports: [CommonModule],
+  template: `<XamlRoot>
+    <div class="frame">
+      <div #header class="header" [ngStyle]="{'display': isHeaderVisible ? 'grid' : 'none'}"><ng-content select="[Header]"/></div>
+      <div class="body"><ng-content/></div>
+      <div #footer class="footer" [ngStyle]="{'display': isFooterVisible ? 'grid' : 'none'}"><ng-content select="[Footer]"/></div>
+    </div>
+  </XamlRoot>`,
+  styleUrls: ['DialogPresenter.scss'],
+  imports: [CommonModule, XamlRootComponent],
   providers: [{ provide: 'xaml-dialog-presenter', useExisting: DialogPresenter }]
 })
 export class DialogPresenter extends XamlRootComponent {

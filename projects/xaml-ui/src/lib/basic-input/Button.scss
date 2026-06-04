@@ -72,11 +72,15 @@
 
 :host {
   display: grid;
-  padding: 5px 11px;
+  padding: var(--ButtonPadding);
   border-width: var(--ControlBorderThickness);
   border-style: solid;
   border-radius: var(--ControlCornerRadius);
   position: relative;
+  box-sizing: border-box;
+  
+  font-size: var(--SystemFontSize);
+  font-family: var(--SystemFontFamily);
 
   background: var(--ControlFillColorDefault);
   border-color: var(--ControlStrokeColorDefault);

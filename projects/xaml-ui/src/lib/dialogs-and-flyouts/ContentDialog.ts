@@ -5,6 +5,7 @@ import { ButtonComponent } from "../basic-input/Button";
 import { CommonModule } from "@angular/common";
 import { Dialog } from "./Dialog";
 import { TextBlockComponent } from "../text/TextBlock";
+import { XamlRootComponent } from "../XamlRoot";
 
 export enum ContentDialogResult {
   None,
@@ -21,21 +22,25 @@ export enum ContentDialogButton {
 
 @Component({
   selector: 'ContentDialogPresenter',
-  template: `<div #header class="header">{{_dialog.Title}}</div>
-    <div class="body">
-      <TextBlock TextWrapping="Wrap">{{_dialog.Content}}</TextBlock>
-      <ng-content/>
+  template: `<XamlRoot>
+    <div class="frame">
+      <div #header class="header">{{_dialog.Title}}</div>
+      <div class="body">
+        <TextBlock TextWrapping="Wrap">{{_dialog.Content}}</TextBlock>
+        <ng-content/>
+      </div>
+      <div #footer class="footer" [ngStyle]="{'display': isFooterVisible ? 'grid' : 'none'}">
+        <Grid Orientation="Horizontal" ColumnSpacing="6px" AutoColumnDefinition="minmax(0, 1fr)" Footer>
+          <Button *ngIf="_dialog.PrimaryButtonText !== undefined" [IsEnabled]="_dialog.IsPrimaryButtonEnabled" (Click)="onPrimaryButtonClicked()" [class.AccentButtonStyle]="isPrimaryButtonDefault">{{_dialog.PrimaryButtonText}}</Button>
+          <Button *ngIf="_dialog.SecondaryButtonText !== undefined" [IsEnabled]="_dialog.IsSecondaryButtonEnabled" (Click)="onSecondaryButtonClicked()" [class.AccentButtonStyle]="isSecondaryButtonDefault">{{_dialog.SecondaryButtonText}}</Button>
+          <Button *ngIf="_dialog.CloseButtonText !== undefined" (Click)="onCloseButtonClicked()" [class.AccentButtonStyle]="isCloseButtonDefault">{{_dialog.CloseButtonText}}</Button>
+        </Grid>
+      </div>
     </div>
-    <div #footer class="footer" [ngStyle]="{'display': isFooterVisible ? 'grid' : 'none'}">
-      <Grid Orientation="Horizontal" ColumnSpacing="6px" AutoColumnDefinition="minmax(0, 1fr)" Footer>
-        <Button *ngIf="_dialog.PrimaryButtonText !== undefined" [IsEnabled]="_dialog.IsPrimaryButtonEnabled" (Click)="onPrimaryButtonClicked()" [class.AccentButtonStyle]="isPrimaryButtonDefault">{{_dialog.PrimaryButtonText}}</Button>
-        <Button *ngIf="_dialog.SecondaryButtonText !== undefined" [IsEnabled]="_dialog.IsSecondaryButtonEnabled" (Click)="onSecondaryButtonClicked()" [class.AccentButtonStyle]="isSecondaryButtonDefault">{{_dialog.SecondaryButtonText}}</Button>
-        <Button *ngIf="_dialog.CloseButtonText !== undefined" (Click)="onCloseButtonClicked()" [class.AccentButtonStyle]="isCloseButtonDefault">{{_dialog.CloseButtonText}}</Button>
-      </Grid>
-    </div>`,
+  </XamlRoot>`,
   styles: ``,
-  imports: [GridModule, ButtonComponent, CommonModule, TextBlockComponent],
-  styleUrls: ['../XamlRoot.scss', '../Primitives/DialogPresenter.scss'],
+  imports: [GridModule, ButtonComponent, CommonModule, TextBlockComponent, XamlRootComponent],
+  styleUrl: '../Primitives/DialogPresenter.scss',
   providers: [{ provide: 'xaml-dialog-presenter', useExisting: ContentDialogPresenter }]
 })
 export class ContentDialogPresenter extends DialogPresenter {

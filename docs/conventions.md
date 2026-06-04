@@ -228,11 +228,9 @@ Inside `<ng-template let-item>`, use Grid for multi-column layouts:
 
 ### Global CSS classes
 
-Define reusable style classes in your app's `styles.scss`:
+Define reusable style classes in your app's `styles.scss`. xaml-ui's tokens become available wherever `<XamlRoot>` is mounted — no import needed — so reference them by their short names directly:
 
 ```scss
-@use 'xaml-ui/styles/XamlGlobals.css';
-
 .HeaderTextBlockStyle {
   color: var(--AccentFillColorDefault) !important;
   font-size: 16pt !important;
@@ -282,17 +280,17 @@ StackPanel {
 
 ### Custom CSS variables
 
-Define app-specific variables in `:root`:
+Define app-specific variables in `:root`. To customise xaml-ui tokens, use the `--XamlUiOverride*` slots (see [theming.md](theming.md)):
 
 ```scss
 :root {
   --FormLabelColumnWidth: 72px;
   --FormColumnSpacing: 6px;
   --FormRowSpacing: 6px;
-  --AcrylicInAppFillColorDefault: #2C2C2C99;
+  --XamlUiOverrideAcrylicInAppFillColorDefault: #2C2C2C99;
 
   @media (prefers-color-scheme: light) {
-    --AcrylicInAppFillColorDefault: #FCFCFC99;
+    --XamlUiOverrideAcrylicInAppFillColorDefault: #FCFCFC99;
   }
 }
 ```

@@ -1,0 +1,133 @@
+@mixin theme-variables {
+  //Invariant
+  --AcrylicBlur:                              var(--XamlUiOverrideAcrylicBlur,                              blur(12px));
+  --ControlBorderThickness:                   var(--XamlUiOverrideControlBorderThickness,                   1px);
+  --ControlCornerRadius:                      var(--XamlUiOverrideControlCornerRadius,                      4px);
+  --OverlayCornerRadius:                      var(--XamlUiOverrideOverlayCornerRadius,                      8px);
+
+  --ButtonPadding:                            var(--XamlUiOverrideButtonPadding,                            5px 11px);
+
+  --SystemFontSize:                           var(--XamlUiOverrideSystemFontSize,                           10pt);
+  --SystemFontFamily:                         var(--XamlUiOverrideSystemFontFamily,                         'Segoe UI', Arial, sans-serif);
+  --SymbolFontSize:                           var(--XamlUiOverrideSymbolFontSize,                           10pt);
+  --SymbolFontFamily:                         var(--XamlUiOverrideSymbolFontFamily,                         'Segoe Fluent Icons', 'Segoe MDL2 Assets');
+
+  --SystemAccentColor:                        var(--XamlUiOverrideSystemAccentColor,                        #0078d4);
+  --SmokeFillColorDefault:                    var(--XamlUiOverrideSmokeFillColorDefault,                    #0000004D);
+
+  --ControlNormalAnimationDuration:           var(--XamlUiOverrideControlNormalAnimationDuration,           0.25s);
+  --ControlFastAnimationDuration:             var(--XamlUiOverrideControlFastAnimationDuration,             0.167s);
+  --ControlFasterAnimationDuration:           var(--XamlUiOverrideControlFasterAnimationDuration,           0.083s);
+
+  //Dark-mode
+  --WindowFillColorDefault:                   var(--XamlUiOverrideWindowFillColorDefault,                   #202020FF);
+
+  --ControlFillColorDefault:                  var(--XamlUiOverrideControlFillColorDefault,                  #FFFFFF0F);
+  --ControlFillColorSecondary:                var(--XamlUiOverrideControlFillColorSecondary,                #FFFFFF15);
+  --ControlFillColorTertiary:                 var(--XamlUiOverrideControlFillColorTertiary,                 #FFFFFF08);
+  --ControlFillColorDisabled:                 var(--XamlUiOverrideControlFillColorDisabled,                 #FFFFFF0B);
+  --ControlFillColorInputActive:              var(--XamlUiOverrideControlFillColorInputActive,              #1E1E1EB3);
+
+  --ControlSolidFillColorDefault:             var(--XamlUiOverrideControlSolidFillColorDefault,             #454545FF);
+
+  --ControlAltFillColorSecondary:             var(--XamlUiOverrideControlAltFillColorSecondary,             #00000019);
+  --ControlAltFillColorTertiary:              var(--XamlUiOverrideControlAltFillColorTertiary,              #FFFFFF0B);
+  --ControlAltFillColorQuarternary:           var(--XamlUiOverrideControlAltFillColorQuarternary,           #FFFFFF12);
+  --ControlAltFillColorDisabled:              var(--XamlUiOverrideControlAltFillColorDisabled,              #FFFFFF00);
+
+  --ControlStrongFillColorDefault:            var(--XamlUiOverrideControlStrongFillColorDefault,            #FFFFFF8B);
+  --ControlStrongFillColorDisabled:           var(--XamlUiOverrideControlStrongFillColorDisabled,           #FFFFFF3F);
+
+  --ControlFillColorTransparent:              var(--XamlUiOverrideControlFillColorTransparent,              #FFFFFF00);
+  --SubtleFillColorTransparent:               var(--XamlUiOverrideSubtleFillColorTransparent,               #FFFFFF00);
+  --SubtleFillColorSecondary:                 var(--XamlUiOverrideSubtleFillColorSecondary,                 #FFFFFF0F);
+  --SubtleFillColorTertiary:                  var(--XamlUiOverrideSubtleFillColorTertiary,                  #FFFFFF0A);
+
+  --AccentFillColorDefault:                   var(--XamlUiOverrideAccentFillColorDefault,                   #4CC2FFFF);
+  --AccentFillColorSecondary:                 var(--XamlUiOverrideAccentFillColorSecondary,                 #4CC2FFE6);
+  --AccentFillColorTertiary:                  var(--XamlUiOverrideAccentFillColorTertiary,                  #4CC2FFCC);
+  --AccentFillColorDisabled:                  var(--XamlUiOverrideAccentFillColorDisabled,                  #FFFFFF28);
+
+  --SystemControlHighlightListAccentLow:      var(--XamlUiOverrideSystemControlHighlightListAccentLow,      #0078D499);
+  --SystemControlHighlightListAccentMedium:   var(--XamlUiOverrideSystemControlHighlightListAccentMedium,   #0078D4CC);
+  --SystemControlHighlightListAccentHigh:     var(--XamlUiOverrideSystemControlHighlightListAccentHigh,     #0078D4E6);
+
+  --ControlStrokeColorDefault:                var(--XamlUiOverrideControlStrokeColorDefault,                #FFFFFF12);
+  --ControlStrongStrokeColorDefault:          var(--XamlUiOverrideControlStrongStrokeColorDefault,          #FFFFFF8B);
+  --ControlStrongStrokeColorDisabled:         var(--XamlUiOverrideControlStrongStrokeColorDisabled,         #FFFFFF28);
+  --ControlStrokeColorOnAccentDefault:        var(--XamlUiOverrideControlStrokeColorOnAccentDefault,        #FFFFFF14);
+
+  --TextFillColorPrimary:                     var(--XamlUiOverrideTextFillColorPrimary,                     #FFFFFFFF);
+  --TextFillColorSecondary:                   var(--XamlUiOverrideTextFillColorSecondary,                   #FFFFFFC5);
+  --TextFillColorDisabled:                    var(--XamlUiOverrideTextFillColorDisabled,                    #FFFFFF5D);
+
+  --TextOnAccentFillColorSelected:            var(--XamlUiOverrideTextOnAccentFillColorSelected,            #FFFFFFFF);
+  --TextOnAccentFillColorPrimary:             var(--XamlUiOverrideTextOnAccentFillColorPrimary,             #000000);
+  --TextOnAccentFillColorSecondary:           var(--XamlUiOverrideTextOnAccentFillColorSecondary,           #00000080);
+  --TextOnAccentFillColorDisabled:            var(--XamlUiOverrideTextOnAccentFillColorDisabled,            #FFFFFF87);
+
+  --SurfaceStrokeColorFlyout:                 var(--XamlUiOverrideSurfaceStrokeColorFlyout,                 #00000033);
+  --AcrylicInAppFillColorDefault:             var(--XamlUiOverrideAcrylicInAppFillColorDefault,             #2C2C2C26);
+  --SystemChromeMediumLowColor:               var(--XamlUiOverrideSystemChromeMediumLowColor,               #2B2B2BFF);
+
+  --DividerStrokeColorDefault:                var(--XamlUiOverrideDividerStrokeColorDefault,                #FFFFFF15);
+  --LayerFillColorAlt:                        var(--XamlUiOverrideLayerFillColorAlt,                        #FFFFFF0D);
+  --SurfaceStrokeColorDefault:                var(--XamlUiOverrideSurfaceStrokeColorDefault,                #75757566);
+
+  //Light mode
+  @media (prefers-color-scheme: light) {
+    --WindowFillColorDefault:                 var(--XamlUiOverrideWindowFillColorDefault,                   #F3F3F3FF);
+
+    --ControlFillColorDefault:                var(--XamlUiOverrideControlFillColorDefault,                  #FFFFFFB3);
+    --ControlFillColorSecondary:              var(--XamlUiOverrideControlFillColorSecondary,                #F9F9F980);
+    --ControlFillColorTertiary:               var(--XamlUiOverrideControlFillColorTertiary,                 #F9F9F94D);
+    --ControlFillColorDisabled:               var(--XamlUiOverrideControlFillColorDisabled,                 #F9F9F94D);
+    --ControlFillColorInputActive:            var(--XamlUiOverrideControlFillColorInputActive,              #FFFFFF);
+
+    --ControlSolidFillColorDefault:           var(--XamlUiOverrideControlSolidFillColorDefault,             #FFFFFFFF);
+
+    --ControlAltFillColorSecondary:           var(--XamlUiOverrideControlAltFillColorSecondary,             #00000006);
+    --ControlAltFillColorTertiary:            var(--XamlUiOverrideControlAltFillColorTertiary,              #0000000F);
+    --ControlAltFillColorQuarternary:         var(--XamlUiOverrideControlAltFillColorQuarternary,           #00000018);
+    --ControlAltFillColorDisabled:            var(--XamlUiOverrideControlAltFillColorDisabled,              #FFFFFF00);
+
+    --ControlStrongFillColorDefault:          var(--XamlUiOverrideControlStrongFillColorDefault,            #00000072);
+    --ControlStrongFillColorDisabled:         var(--XamlUiOverrideControlStrongFillColorDisabled,           #00000051);
+
+    --ControlFillColorTransparent:            var(--XamlUiOverrideControlFillColorTransparent,              #FFFFFF00);
+    --SubtleFillColorTransparent:             var(--XamlUiOverrideSubtleFillColorTransparent,               #FFFFFF00);
+    --SubtleFillColorSecondary:               var(--XamlUiOverrideSubtleFillColorSecondary,                 #00000009);
+    --SubtleFillColorTertiary:                var(--XamlUiOverrideSubtleFillColorTertiary,                  #00000006);
+
+    --AccentFillColorDefault:                 var(--XamlUiOverrideAccentFillColorDefault,                   #0067C0FF);
+    --AccentFillColorSecondary:               var(--XamlUiOverrideAccentFillColorSecondary,                 #0067C0E6);
+    --AccentFillColorTertiary:                var(--XamlUiOverrideAccentFillColorTertiary,                  #0067C0CC);
+    --AccentFillColorDisabled:                var(--XamlUiOverrideAccentFillColorDisabled,                  #FFFFFF37);
+
+    --SystemControlHighlightListAccentLow:    var(--XamlUiOverrideSystemControlHighlightListAccentLow,      #0078D466);
+    --SystemControlHighlightListAccentMedium: var(--XamlUiOverrideSystemControlHighlightListAccentMedium,   #0078D499);
+    --SystemControlHighlightListAccentHigh:   var(--XamlUiOverrideSystemControlHighlightListAccentHigh,     #0078D4B3);
+
+    --ControlStrokeColorDefault:              var(--XamlUiOverrideControlStrokeColorDefault,                #0000000F);
+    --ControlStrongStrokeColorDefault:        var(--XamlUiOverrideControlStrongStrokeColorDefault,          #00000072);
+    --ControlStrongStrokeColorDisabled:       var(--XamlUiOverrideControlStrongStrokeColorDisabled,         #00000037);
+    --ControlStrokeColorOnAccentDefault:      var(--XamlUiOverrideControlStrokeColorOnAccentDefault,        #FFFFFF14);
+
+    --TextFillColorPrimary:                   var(--XamlUiOverrideTextFillColorPrimary,                     #000000E4);
+    --TextFillColorSecondary:                 var(--XamlUiOverrideTextFillColorSecondary,                   #0000009E);
+    --TextFillColorDisabled:                  var(--XamlUiOverrideTextFillColorDisabled,                    #0000005C);
+
+    --TextOnAccentFillColorSelected:          var(--XamlUiOverrideTextOnAccentFillColorSelected,            #FFFFFFFF);
+    --TextOnAccentFillColorPrimary:           var(--XamlUiOverrideTextOnAccentFillColorPrimary,             #FFFFFF);
+    --TextOnAccentFillColorSecondary:         var(--XamlUiOverrideTextOnAccentFillColorSecondary,           #FFFFFFB3);
+    --TextOnAccentFillColorDisabled:          var(--XamlUiOverrideTextOnAccentFillColorDisabled,            #FFFFFF);
+
+    --SurfaceStrokeColorFlyout:               var(--XamlUiOverrideSurfaceStrokeColorFlyout,                 #0000000F);
+    --AcrylicInAppFillColorDefault:           var(--XamlUiOverrideAcrylicInAppFillColorDefault,             #FCFCFC26);
+    --SystemChromeMediumLowColor:             var(--XamlUiOverrideSystemChromeMediumLowColor,               #F2F2F2FF);
+
+    --DividerStrokeColorDefault:              var(--XamlUiOverrideDividerStrokeColorDefault,                #0000000F);
+    --LayerFillColorAlt:                      var(--XamlUiOverrideLayerFillColorAlt,                        #FFFFFF);
+    --SurfaceStrokeColorDefault:              var(--XamlUiOverrideSurfaceStrokeColorDefault,                #75757566);
+  }
+}

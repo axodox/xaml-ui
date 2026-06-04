@@ -1,9 +1,13 @@
-import { Component, HostListener } from "@angular/core";
+import { Component, HostListener, ViewEncapsulation } from "@angular/core";
 
 @Component({
   selector: 'XamlRoot',
   template: `<ng-content/>`,
-  styleUrl: 'XamlRoot.scss'
+  styleUrl: 'XamlRoot.scss',
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    'class': 'xaml-themed'
+  }
 })
 export class XamlRootComponent {
 

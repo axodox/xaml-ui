@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
 import { FlyoutBaseComponent, PopupTemplate } from "../primitives/FlyoutBase";
 import { FlyoutPresenter, FlyoutPresenterAnimation } from "../primitives/FlyoutPresenter";
+import { XamlRootComponent } from "../XamlRoot";
 
 @Component({
   selector: 'Flyout',
-  imports: [FlyoutPresenter],
+  imports: [FlyoutPresenter, XamlRootComponent],
   template: PopupTemplate,
   providers: [{ provide: 'xaml-flyout', useExisting: FlyoutComponent }],
   styles: `FlyoutPresenter { padding: 16px; }`

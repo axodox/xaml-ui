@@ -3,11 +3,12 @@ import { TemplatePortal } from "@angular/cdk/portal";
 import { Component, ElementRef, EmbeddedViewRef, EventEmitter, HostBinding, Input, OnDestroy, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
 import { FlyoutPresenter, FlyoutPresenterAnimation } from "./FlyoutPresenter";
 import { resume_after, FlyoutPlacementMode } from "../Common";
+import { XamlRootComponent } from "../XamlRoot";
 
-export const PopupTemplate = `<ng-template #template><FlyoutPresenter #presenter [IsVisible]="isVisible" [TransitionAnimation]="transitionAnimation" [Padding]="Padding"><ng-content/></FlyoutPresenter></ng-template>`;
+export const PopupTemplate = `<ng-template #template><XamlRoot><FlyoutPresenter #presenter [IsVisible]="isVisible" [TransitionAnimation]="transitionAnimation" [Padding]="Padding"><ng-content/></FlyoutPresenter></XamlRoot></ng-template>`;
 
 @Component({
-  imports: [FlyoutPresenter],
+  imports: [FlyoutPresenter, XamlRootComponent],
   selector: 'FlyoutBase',
   template: PopupTemplate,
   providers: [{ provide: 'xaml-flyout', useExisting: FlyoutBaseComponent }]
@@ -65,6 +66,7 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
     //Create overlay
     let config = new OverlayConfig({
       hasBackdrop: this.HasBackdrop,
+      panelClass: 'xaml-overlay-pane',
       scrollStrategy: this._overlay.scrollStrategies.reposition(),
       backdropClass: 'xaml-flyout-overlay-backdrop'
     });

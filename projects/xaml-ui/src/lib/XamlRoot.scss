@@ -1,19 +1,54 @@
-:host { 
-  display: grid;    
+@use 'Theme' as *;
+
+XamlRoot {
+  
+  // Block hostile inheritance from the host app.
+  // `all: initial` resets every inherited property to its spec-initial value,
+  // cutting the cascade chain at this element. Custom properties (--*) are
+  // exempt from `all`, so theming via --XamlUiOverride* still flows through.
+  // `direction` and `unicode-bidi` are also exempt, preserving RTL behavior.
+  all: initial;
+  
+  // Re-establish chrome (these declarations win over `all: initial` via source order).
+  display: grid;
   overflow: hidden;
-  user-select: none; 
-  background-color: #f3f3f3;
+  user-select: none;
   touch-action: none;
+  box-sizing: border-box;
 
-  &, &::ng-deep :host {
-    font-family: var(--SystemFontFamily);
-    font-size: var(--SystemFontSize);
-    color: var(--TextFillColorPrimary);
-    user-select: none;
-    touch-action: none;
-  }
+  
+  // Re-establish inherited properties we care about, sourced from our own tokens
+  // rather than the host's cascade.
+  
+  font-family: var(--SystemFontFamily);
+  font-size: var(--SystemFontSize);
+  color: var(--TextFillColorPrimary);
 
-  @media (prefers-color-scheme: dark) {
-    background-color: #202020;
+  background: var(--WindowFillColorDefault);
+}
+
+.xaml-themed {
+  @include theme-variables;
+}
+
+// Overlay infrastructure — global, outside the XamlRoot scope by design
+// (CDK Overlay creates these elements at <body> level).
+// The pane rule is scoped via `.xaml-overlay-pane` so it only affects xaml-ui's
+// own overlays, not other CDK Overlay usage in the host app.
+.xaml-flyout-overlay-backdrop {
+  background: transparent;
+}
+
+.xaml-dialog-overlay-backdrop {  
+  background: var(--SmokeFillColorDefault);
+}
+
+.cdk-overlay-pane.xaml-overlay-pane {
+  display: grid !important;
+
+  & XamlRoot {
+    //Overlays need no background and have visible overflow
+    overflow: visible;
+    background: transparent;
   }
 }

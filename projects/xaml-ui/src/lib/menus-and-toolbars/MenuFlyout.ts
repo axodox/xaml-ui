@@ -4,10 +4,11 @@ import { FlyoutComponent } from "../dialogs-and-flyouts/Flyout";
 import { FlyoutPresenter, FlyoutPresenterAnimation } from "../primitives/FlyoutPresenter";
 import { PopupTemplate } from "../primitives/FlyoutBase";
 import { OverlayRef } from "@angular/cdk/overlay-module.d-CSrPj90C";
+import { XamlRootComponent } from "../XamlRoot";
 
 @Component({
   selector: 'MenuFlyout',
-  imports: [CommonModule, FlyoutPresenter],
+  imports: [CommonModule, FlyoutPresenter, XamlRootComponent],
   template: PopupTemplate,
   styleUrls: ['MenuFlyout.scss'],
   providers: [{ provide: 'xaml-flyout', useExisting: MenuFlyoutComponent }]

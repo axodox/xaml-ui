@@ -10,17 +10,7 @@ npm install xaml-ui
 
 ## Setup
 
-### 1. Import global styles
-
-In your root `styles.scss`:
-
-```scss
-@use 'xaml-ui/styles/XamlGlobals.css';
-```
-
-This provides all CSS custom properties for theming (colors, fonts, borders, animations) and overlay/backdrop styles. The theme auto-switches between dark and light mode via `prefers-color-scheme`.
-
-### 2. Wrap your app in XamlRoot
+### 1. Wrap your app in XamlRoot
 
 Every app template must have `<XamlRoot>` as the outermost element:
 
@@ -32,9 +22,11 @@ Every app template must have `<XamlRoot>` as the outermost element:
 </XamlRoot>
 ```
 
-`XamlRoot` blocks the browser context menu (right-click is reserved for `ContextFlyout`), sets the background color, and disables user selection.
+`XamlRoot` ships xaml-ui's global styles (theme tokens, overlay infrastructure) and is the root of the token-inheritance scope — no separate CSS import is needed. It also blocks the browser context menu (right-click is reserved for `ContextFlyout`), sets the background color, and disables user selection.
 
-### 3. Import components
+To customise the theme, set `--XamlUiOverride*` variables at `:root` — see [theming.md](theming.md). The theme switches automatically between dark and light mode via `prefers-color-scheme`.
+
+### 2. Import components
 
 All components are standalone (except `GridModule` which is an NgModule). Import them directly in your component's `imports` array:
 
@@ -68,18 +60,19 @@ All components use `display: grid; position: relative` as their default host sty
 
 ### Theming
 
-Everything is themed through CSS custom properties defined in `XamlGlobals.css`. The key variable families:
+Tokens are declared on `<XamlRoot>` and inherit to its descendants. The key families:
 
-- `--AccentFillColor*` — accent/highlight colors
+- `--AccentFillColor*` — accent / highlight colors
 - `--ControlFillColor*` — control backgrounds (Default, Secondary, Tertiary, Disabled)
 - `--TextFillColor*` — text colors (Primary, Secondary, Disabled)
 - `--ControlStrokeColor*` — border colors
+- `--WindowFillColorDefault` — app background
 - `--SystemFontFamily`, `--SystemFontSize` — base typography
 - `--SymbolFontFamily` — icon font (Segoe Fluent Icons)
 - `--ControlCornerRadius` — default border radius (4px)
 - `--ControlBorderThickness` — default border width (1px)
 
-Override any variable in your app's `:root` to customize the theme.
+To customise, set the matching `--XamlUiOverride<Name>` at `:root`. See [theming.md](theming.md) for the full token list and override pattern.
 
 ### Two-way binding
 

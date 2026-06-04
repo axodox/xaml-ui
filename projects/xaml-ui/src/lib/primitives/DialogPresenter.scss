@@ -1,20 +1,19 @@
-
-
-:host {
+.frame {
   border-radius: var(--OverlayCornerRadius);
   border-color: var(--SurfaceStrokeColorDefault);
   border-style: solid;
   border-width: 1px;
   box-shadow: 0px 0px 15px 0px rgba(black, 0.5);
+  background: var(--WindowFillColorDefault);
 
   opacity: 0;
   transform: scale(1.1);
   transition: transform var(--ControlNormalAnimationDuration), opacity var(--ControlNormalAnimationDuration);
+}
 
-  &.visible {
-    opacity: 1;
-    transform: scale(1.0);
-  }
+:host.visible .frame {
+  opacity: 1;
+  transform: scale(1.0);
 }
 
 .header {

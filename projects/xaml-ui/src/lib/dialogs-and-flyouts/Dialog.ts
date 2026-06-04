@@ -39,8 +39,9 @@ export abstract class Dialog {
 
     let config = new OverlayConfig({
       hasBackdrop: true,
+      panelClass: 'xaml-overlay-pane',
       positionStrategy: positionStrategy,
-      backdropClass: 'xaml-dialog-overlay-backdrop'
+      backdropClass: ['xaml-dialog-overlay-backdrop', 'xaml-themed']
     });
 
     let overlayRef = this._overlay.create(config);
