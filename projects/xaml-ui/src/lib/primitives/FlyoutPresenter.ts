@@ -15,13 +15,23 @@ export class FlyoutPresenter {
 
   @Input() IsVisible: boolean = false;
 
-  @HostBinding('class')
-  private get transitionClass() {
-    return 'transition-' + this.TransitionAnimation.toLowerCase();
-  }
+  @HostBinding('class.transition-default')
+  private get isDefault() { return this.TransitionAnimation === 'Default'; }
+
+  @HostBinding('class.transition-slideup')
+  private get isSlideUp() { return this.TransitionAnimation === 'SlideUp'; }
+
+  @HostBinding('class.transition-slidedown')
+  private get isSlideDown() { return this.TransitionAnimation === 'SlideDown'; }
+
+  @HostBinding('class.transition-slideleft')
+  private get isSlideLeft() { return this.TransitionAnimation === 'SlideLeft'; }
+
+  @HostBinding('class.transition-slideright')
+  private get isSlideRight() { return this.TransitionAnimation === 'SlideRight'; }
 
   @HostBinding('class.visible')
-  private get visible() {
+  private get visible() {    
     return this.IsVisible;
   }
 

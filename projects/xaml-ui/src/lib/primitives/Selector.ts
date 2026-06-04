@@ -34,6 +34,11 @@ export abstract class SelectorComponent extends FrameworkElementComponent {
 
   //ItemSource
   private _itemSource: any[] = [];
+  // A SelectedValue write can arrive before ItemSource (e.g. binding order in a
+  // template). When it can't be resolved against the current source we remember
+  // it here and re-resolve once a source that contains it is assigned.
+  private _pendingSelectedValue: any = undefined;
+  private _hasPendingSelectedValue = false;
   get ItemSource() {
     return this._itemSource;
   }
@@ -41,12 +46,17 @@ export abstract class SelectorComponent extends FrameworkElementComponent {
     let oldIndex = this.SelectedIndex;
     let oldValue = this.SelectedValue;
     let oldItem = this.SelectedItem;
-    let newIndex = value.findIndex(p => this.getValue(-1, p) == oldValue);
-    let newValue = newIndex !== -1 ? oldValue : null;
-    let newItem = newIndex !== -1 ? value[newIndex] : null;
+
+    // Honor a pending SelectedValue write over the (possibly null) live value.
+    let target = this._hasPendingSelectedValue ? this._pendingSelectedValue : oldValue;
+    let newIndex = value.findIndex(p => this.getValue(-1, p) == target);
 
     this._itemSource = value;
     this._selectedIndex = newIndex;
+    if (newIndex !== -1) this._hasPendingSelectedValue = false;
+
+    let newValue = this.SelectedValue;
+    let newItem = this.SelectedItem;
 
     if (oldIndex !== newIndex) this.SelectedIndexChange.emit(this.SelectedIndex);
     if (oldValue !== newValue) this.SelectedValueChange.emit(this.SelectedValue);
@@ -60,6 +70,8 @@ export abstract class SelectorComponent extends FrameworkElementComponent {
   }
   @Input() set SelectedIndex(value: number) {
     if (this.ItemSource === undefined) return;
+    // An explicit index selection supersedes any deferred SelectedValue request.
+    this._hasPendingSelectedValue = false;
     if (value < 0 && this.ItemSource.length > 0) value = -1;
     if (value >= this.ItemSource.length) value = this.ItemSource.length - 1;
 
@@ -84,7 +96,11 @@ export abstract class SelectorComponent extends FrameworkElementComponent {
   }
   @Input() set SelectedValue(value: any) {
     if (this.ItemSource === undefined) return;
-    this.SelectedIndex = this.ItemSource.findIndex(p => this.getValue(-1, p) == value);
+    let newIndex = this.ItemSource.findIndex(p => this.getValue(-1, p) == value);
+    this.SelectedIndex = newIndex;
+    // Remember the request so a later ItemSource assignment can honor it.
+    this._pendingSelectedValue = value;
+    this._hasPendingSelectedValue = newIndex === -1;
   }
   @Output() SelectedValueChange = new EventEmitter<any>();
 

@@ -1,6 +1,6 @@
 import { ConnectedPosition, FlexibleConnectedPositionStrategyOrigin, Overlay, OverlayConfig, OverlayRef, OverlaySizeConfig } from "@angular/cdk/overlay";
 import { TemplatePortal } from "@angular/cdk/portal";
-import { Component, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
+import { Component, ElementRef, EmbeddedViewRef, EventEmitter, HostBinding, Input, OnDestroy, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
 import { FlyoutPresenter, FlyoutPresenterAnimation } from "./FlyoutPresenter";
 import { resume_after, FlyoutPlacementMode } from "../Common";
 
@@ -40,6 +40,7 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
   @Output() IsOpenChange = new EventEmitter<boolean>();
 
   private _overlayRef?: OverlayRef;
+  private _viewRef?: EmbeddedViewRef<any>;
   protected isVisible = false;
 
   private updatePlacement() {
@@ -79,7 +80,7 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
       this._viewContainerRef
     );
 
-    this._overlayRef.attach(templatePortal);
+    this._viewRef = this._overlayRef.attach(templatePortal);
 
     //Ensure backdrop event handling
     this._overlayRef.backdropClick().subscribe(() => this.Hide());
@@ -88,12 +89,14 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
     //Make content visible - after next layout
     await resume_after(0);
 
-    this.isVisible = true;
+    this.isVisible = true;    
+    this._viewRef?.detectChanges();    
   }
 
   private async hideOverlay() {
     //Start hide animation
     this.isVisible = false;
+    this._viewRef?.detectChanges();
 
     //Remove event handlers
     if (this._backdropContextMenuSubscription) this._backdropContextMenuSubscription();
@@ -105,6 +108,7 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
     this._overlayRef.detach();
     this._overlayRef.dispose();
     this._overlayRef = undefined;
+    this._viewRef = undefined;
   }
 
   private _target: FlexibleConnectedPositionStrategyOrigin | null = null;
