@@ -1,14 +1,13 @@
 import { ConnectedPosition, FlexibleConnectedPositionStrategyOrigin, Overlay, OverlayConfig, OverlayRef, OverlaySizeConfig } from "@angular/cdk/overlay";
 import { TemplatePortal } from "@angular/cdk/portal";
-import { Component, ElementRef, EmbeddedViewRef, EventEmitter, HostBinding, Input, OnDestroy, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
+import { Component, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
 import { FlyoutPresenter, FlyoutPresenterAnimation } from "./FlyoutPresenter";
 import { resume_after, FlyoutPlacementMode } from "../Common";
-import { XamlRootComponent } from "../XamlRoot";
 
-export const PopupTemplate = `<ng-template #template><XamlRoot><FlyoutPresenter #presenter [IsVisible]="isVisible" [TransitionAnimation]="transitionAnimation" [Padding]="Padding"><ng-content/></FlyoutPresenter></XamlRoot></ng-template>`;
+export const PopupTemplate = `<ng-template #template><FlyoutPresenter #presenter [IsVisible]="isVisible" [TransitionAnimation]="transitionAnimation" [Padding]="Padding"><ng-content/></FlyoutPresenter></ng-template>`;
 
 @Component({
-  imports: [FlyoutPresenter, XamlRootComponent],
+  imports: [FlyoutPresenter],
   selector: 'FlyoutBase',
   template: PopupTemplate,
   providers: [{ provide: 'xaml-flyout', useExisting: FlyoutBaseComponent }]
@@ -41,7 +40,6 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
   @Output() IsOpenChange = new EventEmitter<boolean>();
 
   private _overlayRef?: OverlayRef;
-  private _viewRef?: EmbeddedViewRef<any>;
   protected isVisible = false;
 
   private updatePlacement() {
@@ -66,7 +64,6 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
     //Create overlay
     let config = new OverlayConfig({
       hasBackdrop: this.HasBackdrop,
-      panelClass: 'xaml-overlay-pane',
       scrollStrategy: this._overlay.scrollStrategies.reposition(),
       backdropClass: 'xaml-flyout-overlay-backdrop'
     });
@@ -82,7 +79,7 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
       this._viewContainerRef
     );
 
-    this._viewRef = this._overlayRef.attach(templatePortal);
+    this._overlayRef.attach(templatePortal);
 
     //Ensure backdrop event handling
     this._overlayRef.backdropClick().subscribe(() => this.Hide());
@@ -91,14 +88,12 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
     //Make content visible - after next layout
     await resume_after(0);
 
-    this.isVisible = true;    
-    this._viewRef?.detectChanges();    
+    this.isVisible = true;
   }
 
   private async hideOverlay() {
     //Start hide animation
     this.isVisible = false;
-    this._viewRef?.detectChanges();
 
     //Remove event handlers
     if (this._backdropContextMenuSubscription) this._backdropContextMenuSubscription();
@@ -110,7 +105,6 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
     this._overlayRef.detach();
     this._overlayRef.dispose();
     this._overlayRef = undefined;
-    this._viewRef = undefined;
   }
 
   private _target: FlexibleConnectedPositionStrategyOrigin | null = null;
