@@ -12,7 +12,7 @@ export type SpinButtonPlacementMode = 'None' | 'Compact';
 
 @Component({
   selector: 'NumberBox',
-  template: `<label>
+  template: `<label [ngClass]="SpinButtonPlacementMode === 'None'?'SpinButtonNone':''">
     <div class="icon" *ngIf="SpinButtonPlacementMode !== 'None'">&#xEC8F;</div>
     <input class="text-box" #input size="1" type="text" [disabled]="!IsEnabled" [value]="Text" (change)="onChange()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}" (blur)="onBlur()" (keydown)="onKeyDown($event)"/>
     <Flyout #flyout Padding="2px" Placement="Left" [HasBackdrop]="false" [Target]="flyoutTarget" *ngIf="SpinButtonPlacementMode !== 'None'">
