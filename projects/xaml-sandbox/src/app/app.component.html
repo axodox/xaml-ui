@@ -94,6 +94,8 @@
         <AppBarButton Icon="&#xE719;" Text="Shop" [IsEnabled]="false" />
       </CommandBar>
       <ColorPicker Width="200px" Height="200px" (ColorChange)="onColorSelected($event)" />
+      <ColorPicker Width="200px" Height="200px" [IsBrightnessEnabled]="true" [IsAlphaEnabled]="true"
+        [(Color)]="DemoColor" (ColorChange)="onColorSelected($event)" />
       <Button> MenuFlyout from Flyout
         <Flyout>
           <FontIcon Icon Glyph="&#xE713;" Foreground="Red" />

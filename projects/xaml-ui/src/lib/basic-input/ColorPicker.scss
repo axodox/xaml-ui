@@ -1,14 +1,33 @@
 :host {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ring {
+  // Sized to the canvas so the absolutely-positioned selector shares its
+  // coordinate space; centered within the (possibly wider) control.
+  align-self: center;
   position: relative;
+  width: fit-content;
+  line-height: 0;
+  // Room for the selector ring to extend past the wheel rim without being
+  // clipped by the host's overflow:hidden. Must match _selectorInset in
+  // ColorPicker.ts (the canvas is shrunk by the same amount).
+  margin: 8px;
 }
 
 canvas {
+  display: block;
   clip-path: circle(50%);
   position: relative;
 }
 
 .selector {
   position: absolute;
+  // Let clicks pass through to the canvas so a press that lands on the selector
+  // still starts a drag (and clicks elsewhere still jump the selector here).
+  pointer-events: none;
   transform: translate(-50%, -50%);
   width: 10px;
   height: 10px;
@@ -17,4 +36,17 @@ canvas {
   border-style: solid;
   border-radius: 10px;
   mix-blend-mode: difference;
+}
+
+// Custom track backgrounds for the brightness/alpha sliders. The gradient
+// endpoints come from CSS custom properties published by the component.
+.channel-slider.brightness ::ng-deep .track.horizontal {
+  background: linear-gradient(to right, #000000, var(--full-color, #ffffff));
+}
+
+.channel-slider.alpha ::ng-deep .track.horizontal {
+  background:
+    linear-gradient(to right, transparent, var(--opaque-color, #ffffff)) 0 0 / 100% 100% no-repeat,
+    conic-gradient(from 90deg, #cccccc 25%, #ffffff 0 50%, #cccccc 0 75%, #ffffff 0) 0 0 / 8px 8px repeat,
+    #ffffff;
 }
