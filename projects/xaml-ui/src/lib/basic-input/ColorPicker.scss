@@ -11,15 +11,10 @@
   position: relative;
   width: fit-content;
   line-height: 0;
-  // Room for the selector ring to extend past the wheel rim without being
-  // clipped by the host's overflow:hidden. Must match _selectorInset in
-  // ColorPicker.ts (the canvas is shrunk by the same amount).
-  margin: 8px;
 }
 
 canvas {
   display: block;
-  clip-path: circle(50%);
   position: relative;
 }
 

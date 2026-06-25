@@ -70,16 +70,20 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     super();
   }
 
-  // Keep the wheel inset from the control edge by the selector's overhang so the
-  // selector ring isn't clipped at the rim by the host's overflow:hidden. Must
-  // match the .ring margin in ColorPicker.scss.
+  // The wheel is drawn as a circle inset from the canvas edge by this many px.
+  // The canvas itself fills the whole control and is fully clickable; the inset
+  // band around the wheel is clickable too (clicks clamp to the rim) and gives
+  // the selector room so it never spills outside the host's overflow:hidden.
   static _selectorInset = 8;
+
+  // Canvas centre and wheel radius, derived from the (full-size) canvas.
+  private get center() { return this._canvas.nativeElement.width / 2; }
+  private get radius() { return this.center - ColorPickerComponent._selectorInset; }
 
   ngAfterViewInit(): void {
     let canvas = this._canvas.nativeElement;
-    let inset = 2 * ColorPickerComponent._selectorInset;
-    let width = canvas.width = parseInt(this.Width ?? '300') - inset;
-    let height = canvas.height = parseInt(this.Height ?? '300') - inset;
+    let width = canvas.width = parseInt(this.Width ?? '300');
+    let height = canvas.height = parseInt(this.Height ?? '300');
     this._context = canvas.getContext('2d')!;
 
     // Build the pristine wheel on an offscreen canvas we can sample from.
@@ -87,15 +91,23 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     this._wheelCanvas.width = width;
     this._wheelCanvas.height = height;
     let wheel = this._wheelContext = this._wheelCanvas.getContext('2d', { willReadFrequently: true })!;
-    let radius = width / 2;
+    let center = this.center;
+    let radius = this.radius;
+
+    // Confine every wheel paint to the inset circle; the surrounding band stays
+    // transparent so the corners and rim margin are clear (no CSS clip needed).
+    wheel.save();
+    wheel.beginPath();
+    wheel.arc(center, center, radius, 0, 2 * Math.PI);
+    wheel.clip();
 
     // Draw hue circle
     for (let angle = 0; angle < 360; angle++) {
       let startAngle = (angle - 1) * (Math.PI / 180);
       let endAngle = (angle + 1) * (Math.PI / 180);
       wheel.beginPath();
-      wheel.moveTo(radius, radius);
-      wheel.arc(radius, radius, radius * 2, startAngle, endAngle);
+      wheel.moveTo(center, center);
+      wheel.arc(center, center, radius * 2, startAngle, endAngle);
       wheel.closePath();
       wheel.fillStyle = `hsl(${angle}, 100%, 50%)`;
       wheel.fill();
@@ -104,12 +116,14 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     // Add radial gradient for saturation. The small fully-opaque white plateau
     // at the core guarantees the exact center samples as pure white (#ffffff)
     // instead of bleeding a sliver of the hue arcs that converge there.
-    let gradient = wheel.createRadialGradient(radius, radius, 0, radius, radius, radius);
+    let gradient = wheel.createRadialGradient(center, center, 0, center, center, radius);
     gradient.addColorStop(0, 'white');
     gradient.addColorStop(0.03, 'white');
     gradient.addColorStop(1, 'transparent');
     wheel.fillStyle = gradient;
     wheel.fillRect(0, 0, width, height);
+
+    wheel.restore();
 
     this._dimCanvas = document.createElement('canvas');
     this._dimCanvas.width = width;
@@ -131,20 +145,25 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
   protected onPointerMove(event: PointerEvent) {
     if (!this._ring.nativeElement.hasPointerCapture(event.pointerId)) return;
     let width = this._canvas.nativeElement.width;
-    let radius = width / 2;
-    let rawX = event.offsetX - radius;
-    let rawY = event.offsetY - radius;
+    let center = this.center;
+    let radius = this.radius;
+    let rawX = event.offsetX - center;
+    let rawY = event.offsetY - center;
     let length = Math.sqrt(rawX * rawX + rawY * rawY);
+    // Clamp anything outside the wheel (incl. the inset band and corners) to the rim.
     let scale = length < radius ? 1 : radius / length;
-    let sampleX = radius + rawX * scale;
-    let sampleY = radius + rawY * scale;
+    let sampleX = center + rawX * scale;
+    let sampleY = center + rawY * scale;
 
     this._selector.nativeElement.style.left = sampleX + 'px';
     this._selector.nativeElement.style.top = sampleY + 'px';
 
     // Sample the pristine (full-brightness) wheel; brightness/alpha are kept.
-    let readX = Math.min(Math.max(Math.round(sampleX), 0), width - 1);
-    let readY = Math.min(Math.max(Math.round(sampleY), 0), width - 1);
+    // Read a hair inside the rim so a clamped edge pick doesn't land on the
+    // antialiased clip boundary (transparent there → would read as black).
+    let readScale = length < radius - 1 ? 1 : (radius - 1) / length;
+    let readX = Math.min(Math.max(Math.round(center + rawX * readScale), 0), width - 1);
+    let readY = Math.min(Math.max(Math.round(center + rawY * readScale), 0), width - 1);
     let [r, g, b] = this._wheelContext.getImageData(readX, readY, 1, 1).data;
     this._wheelRgb = { r, g, b };
     if (!this.IsBrightnessEnabled) this._brightness = 1;
@@ -229,17 +248,26 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     dim.clearRect(0, 0, width, height);
     dim.drawImage(this._wheelCanvas, 0, 0);
     if (this._brightness < 1) {
+      // Darken only where the wheel is painted so the transparent surround stays clear.
+      dim.globalCompositeOperation = 'source-atop';
       dim.fillStyle = `rgba(0, 0, 0, ${1 - this._brightness})`;
       dim.fillRect(0, 0, width, height);
+      dim.globalCompositeOperation = 'source-over';
     }
 
     let context = this._context;
     context.clearRect(0, 0, width, height);
+    // Keep the checkerboard (and faded wheel) inside the wheel circle.
+    context.save();
+    context.beginPath();
+    context.arc(this.center, this.center, this.radius, 0, 2 * Math.PI);
+    context.clip();
     let alpha = this._alpha / 255;
     if (alpha < 1) this.drawCheckerboard(context, width, height);
     context.globalAlpha = alpha;
     context.drawImage(this._dimCanvas, 0, 0);
     context.globalAlpha = 1;
+    context.restore();
   }
 
   private drawCheckerboard(context: CanvasRenderingContext2D, width: number, height: number) {
@@ -259,11 +287,11 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
 
     let hsl = rgbToHsl({ ...this._wheelRgb, a: 255 });
 
-    let radius = this._canvas.nativeElement.width / 2;
+    let center = this.center;
     let angle = hsl.h / 180 * Math.PI;
-    let length = hsl.s / 100 * radius;
-    let x = radius + Math.cos(angle) * length;
-    let y = radius + Math.sin(angle) * length;
+    let length = hsl.s / 100 * this.radius;
+    let x = center + Math.cos(angle) * length;
+    let y = center + Math.sin(angle) * length;
     this._selector.nativeElement.style.left = x + 'px';
     this._selector.nativeElement.style.top = y + 'px';
   }
