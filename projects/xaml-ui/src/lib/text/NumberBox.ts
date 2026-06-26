@@ -12,8 +12,8 @@ export type SpinButtonPlacementMode = 'None' | 'Compact';
 
 @Component({
   selector: 'NumberBox',
-  template: `<label [ngClass]="SpinButtonPlacementMode === 'None'?'SpinButtonNone':''">
-    <div class="icon" *ngIf="SpinButtonPlacementMode !== 'None'">&#xEC8F;</div>
+  template: `<label [ngClass]="!showSpinButton()?'SpinButtonNone':''">
+    <div class="icon" *ngIf="showSpinButton()">&#xEC8F;</div>
     <input class="text-box" #input size="1" type="text" [disabled]="!IsEnabled" [value]="Text" (change)="onChange()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}" (blur)="onBlur()" (keydown)="onKeyDown($event)"/>
     <Flyout #flyout Padding="2px" Placement="Left" [HasBackdrop]="false" [Target]="flyoutTarget" *ngIf="SpinButtonPlacementMode !== 'None'">
       <RepeatButton Class="InlineButtonStyle" (Click)="onIncreaseClick()" [Delay]="500" [Interval]="50"  (pointerdown)="onButtonPress()" (pointerup)="onButtonPress()"><FontIcon Glyph="&#xE70E;"/></RepeatButton>
@@ -86,6 +86,10 @@ export class NumberBoxComponent extends FrameworkElementComponent {
   constructor() {
     super();
     this.TextAlignment = 'Right';
+  }
+
+  protected showSpinButton():boolean {
+    return this.SpinButtonPlacementMode !== 'None' && this.IsEnabled;
   }
 
   protected onChange() {

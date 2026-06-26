@@ -18,12 +18,7 @@ export class FlyoutPresenter {
   @HostBinding('class')
   private get transitionClass() {
     return 'transition-' + this.TransitionAnimation.toLowerCase();
-  }
-
-  @HostBinding('class.visible')
-  private get visible() {
-    return this.IsVisible;
-  }
+  } 
 
   @HostBinding('class.visible')
   private get visible() {
