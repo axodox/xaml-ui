@@ -18,6 +18,7 @@ import { CommandBarComponent } from "../../../xaml-ui/src/lib/menus-and-toolbars
 import { NumberBoxComponent } from "../../../xaml-ui/src/lib/text/NumberBox";
 import { RepeatButtonComponent } from "../../../xaml-ui/src/lib/basic-input/RepeatButton";
 import { ColorPickerComponent } from "../../../xaml-ui/src/lib/basic-input/ColorPicker";
+import { NatoSymbolPickerComponent } from "../../../xaml-ui/src/lib/basic-input/NatoSymbolPicker";
 import { Color, colorToString } from '../../../xaml-ui/src/lib/Color';
 import { DialogPresenter } from "../../../xaml-ui/src/lib/primitives/DialogPresenter";
 import { ContentDialog, ContentDialogButton } from '../../../xaml-ui/src/lib/dialogs-and-flyouts/ContentDialog';
@@ -60,7 +61,7 @@ export class KeyValuePair {
 
 @Component({
   selector: 'app-root',
-  imports: [XamlRootComponent, StackPanelComponent, ButtonComponent, FlyoutComponent, ScrollViewerComponent, SliderComponent, TextBoxComponent, TextBlockComponent, ListViewComponent, ComboBoxComponent, MenuFlyoutComponent, MenuFlyoutItemComponent, ContextFlyoutDirective, AppBarButtonComponent, CommandBarComponent, NumberBoxComponent, GridModule, RepeatButtonComponent, ColorPickerComponent, RadioButtonGroupComponent, FlyoutComponent, ContextFlyoutDirective, RadioToggleButtonComponent, ToggleButtonComponent, ToggleMenuFlyoutItemComponent, ItemFlyoutDirective, FontIconComponent, ProgressBarComponent, ProgressRingComponent, GridViewComponent, PersonPictureComponent, EllipseComponent, CheckBoxComponent, RadioButtonComponent, HyperlinkButtonComponent, ImageComponent, BorderComponent, SeparatorComponent],
+  imports: [XamlRootComponent, StackPanelComponent, ButtonComponent, FlyoutComponent, ScrollViewerComponent, SliderComponent, TextBoxComponent, TextBlockComponent, ListViewComponent, ComboBoxComponent, MenuFlyoutComponent, MenuFlyoutItemComponent, ContextFlyoutDirective, AppBarButtonComponent, CommandBarComponent, NumberBoxComponent, GridModule, RepeatButtonComponent, ColorPickerComponent, NatoSymbolPickerComponent, RadioButtonGroupComponent, FlyoutComponent, ContextFlyoutDirective, RadioToggleButtonComponent, ToggleButtonComponent, ToggleMenuFlyoutItemComponent, ItemFlyoutDirective, FontIconComponent, ProgressBarComponent, ProgressRingComponent, GridViewComponent, PersonPictureComponent, EllipseComponent, CheckBoxComponent, RadioButtonComponent, HyperlinkButtonComponent, ImageComponent, BorderComponent, SeparatorComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -88,6 +89,12 @@ export class AppComponent {
 
   onColorSelected(value: Color) {
     console.log(colorToString(value));
+  }
+
+  protected SymbolCode = 'SFGPUCI-----';
+
+  onSymbolChange(value: string) {
+    console.log('symbol:', value);
   }
 
   async onDialogClick() {

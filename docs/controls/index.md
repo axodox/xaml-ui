@@ -31,6 +31,7 @@ Complete index of all xaml-ui controls, organized by category.
 | [Slider](basic-input/Slider.md) | Range input for selecting a numeric value. Horizontal or vertical. |
 | [ComboBox](basic-input/ComboBox.md) | Dropdown selection with item templates and value/display paths. |
 | [ColorPicker](basic-input/ColorPicker.md) | Canvas-based color wheel for HSL color selection. |
+| [NatoSymbolPicker](basic-input/NatoSymbolPicker.md) | NATO military-symbol (MIL-STD-2525C) picker with live milsymbol preview. |
 | [DropDownButton](basic-input/DropDownButton.md) | Button with dropdown chevron. Hosts a Flyout or MenuFlyout. |
 | [SplitButton](basic-input/SplitButton.md) | Button split into a main action area and a dropdown section. |
 | [RepeatButton](basic-input/RepeatButton.md) | Button that emits Click events repeatedly while held down. |
