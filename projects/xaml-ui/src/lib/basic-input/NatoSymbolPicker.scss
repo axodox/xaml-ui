@@ -1,3 +1,6 @@
+// WinUI critical colour (no theme token exists for it yet).
+$invalid-color: #d13438;
+
 :host {
   display: flex;
   flex-direction: column;
@@ -65,13 +68,13 @@
 
   // Let the combo shrink to its column and truncate a long selected label with
   // an ellipsis instead of clipping it mid-glyph or forcing the layout wider.
+  // (DropDownButton already reserves room on the right for the drop-down glyph.)
   ::ng-deep DropDownButton > ItemContainer {
     display: block;
     min-width: 0;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    padding-right: 16px; // clear the drop-down glyph
   }
 }
 
@@ -110,7 +113,7 @@
   background-color: var(--ControlFillColorDefault);
 
   &.invalid {
-    border-color: #d13438;
+    border-color: $invalid-color;
   }
 
   // milsymbol emits a raw <svg>; keep it within the box.
@@ -121,6 +124,6 @@
 }
 
 .preview-error {
-  color: #d13438;
+  color: $invalid-color;
   font-size: calc(var(--SystemFontSize) * 0.9);
 }

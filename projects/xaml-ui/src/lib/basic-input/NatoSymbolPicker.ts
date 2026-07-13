@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import ms from "milsymbol";
 import { FrameworkElementComponent } from "../FrameworkElement";
@@ -74,7 +74,7 @@ import {
   </div>`,
   styleUrl: 'NatoSymbolPicker.scss'
 })
-export class NatoSymbolPickerComponent extends FrameworkElementComponent implements AfterViewInit, OnDestroy {
+export class NatoSymbolPickerComponent extends FrameworkElementComponent implements AfterViewInit {
 
   // Option lists for the dropdowns.
   protected readonly Schemes = CodingSchemes;
@@ -123,16 +123,8 @@ export class NatoSymbolPickerComponent extends FrameworkElementComponent impleme
   @ViewChild('functionCombo')
   private _functionCombo?: ComboBoxComponent;
 
-  constructor(private _changeDetector: ChangeDetectorRef) {
-    super();
-  }
-
   ngAfterViewInit(): void {
     this.render();
-  }
-
-  ngOnDestroy(): void {
-    if (this._functionSyncHandle !== undefined) clearTimeout(this._functionSyncHandle);
   }
 
   protected onSchemeChange(value: string) {
@@ -181,18 +173,12 @@ export class NatoSymbolPickerComponent extends FrameworkElementComponent impleme
   // to -1 when the list shrinks to one that no longer contains the previous
   // value, writing that -1 back over the correct selection through its two-way
   // [(SelectedIndex)] binding. FunctionOptions always contains the current
-  // FunctionId, so once change detection has settled (ItemSource is stable),
-  // re-assert the value to keep the selected function visible.
-  private _functionSyncHandle?: ReturnType<typeof setTimeout>;
+  // FunctionId, so re-assert the value once the item list has settled. Deferring
+  // with setTimeout (as elsewhere in the library) lets change detection re-run.
   private scheduleFunctionSync() {
-    if (this._functionSyncHandle !== undefined) clearTimeout(this._functionSyncHandle);
-    this._functionSyncHandle = setTimeout(() => {
-      this._functionSyncHandle = undefined;
+    setTimeout(() => {
       let combo = this._functionCombo;
-      if (combo && combo.SelectedValue !== this.FunctionId) {
-        combo.SelectedValue = this.FunctionId;
-        this._changeDetector.detectChanges();
-      }
+      if (combo && combo.SelectedValue !== this.FunctionId) combo.SelectedValue = this.FunctionId;
     });
   }
 
@@ -222,7 +208,7 @@ export class NatoSymbolPickerComponent extends FrameworkElementComponent impleme
     this.Affiliation = code.charAt(1);
     this.Dimension = code.charAt(2);
     this.Status = code.charAt(3);
-    this.FunctionId = code.substr(4, 6);
+    this.FunctionId = code.slice(4, 10);
     this.Modifier1 = code.charAt(10);
     this.Modifier2 = code.charAt(11);
   }

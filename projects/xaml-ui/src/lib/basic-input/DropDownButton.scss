@@ -1,3 +1,10 @@
+:host {
+  // Reserve room on the right for the absolutely-positioned drop-down glyph, so
+  // the selected content (which can size the button to its own width) never runs
+  // underneath the arrow. The glyph sits at right: 12px and is ~12px wide.
+  padding-right: 28px;
+}
+
 .drop-down-glyph {
   display: grid;
   font-family: var(--SymbolFontFamily);
