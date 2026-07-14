@@ -1,8 +1,8 @@
-# NatoSymbolPicker
+# SymbolPicker
 
-> Source: [NatoSymbolPicker.ts](../../../projects/xaml-ui/src/lib/basic-input/NatoSymbolPicker.ts)
+> Source: [SymbolPicker.ts](../../../projects/xaml-ui/src/lib/basic-input/SymbolPicker.ts)
 
-A NATO military-symbol picker (a "unit generator") for **MIL-STD-2525C** SIDC codes,
+A military-symbol picker (a "unit generator") for **MIL-STD-2525C** SIDC codes,
 built on [milsymbol](https://github.com/spatialillusions/milsymbol). It renders a live
 symbol preview and edits the code through dropdowns for the basic fields, plus a manual
 code field. The code and the dropdowns stay in two-way sync, and the preview reflects
@@ -33,7 +33,7 @@ validity. Extends [FrameworkElement](../FrameworkElement.md).
 
 ## Data
 
-The function-icon options live in [NatoSymbolData.ts](../../../projects/xaml-ui/src/lib/basic-input/NatoSymbolData.ts)
+The function-icon options live in [SymbolData.ts](../../../projects/xaml-ui/src/lib/basic-input/SymbolData.ts)
 as a curated (not exhaustive) subset, keyed by coding scheme then battle dimension, and
 validated against milsymbol. Extend `FUNCTION_ICONS` there as needed — any scheme/dimension
 without curated entries falls back to a single generic icon.
@@ -41,8 +41,8 @@ without curated entries falls back to a single generic icon.
 ## Example
 
 ```html
-<NatoSymbolPicker Width="260px" [(Code)]="symbolCode"
-                  (CodeChange)="onSymbolChange($event)" />
+<SymbolPicker Width="260px" [(Code)]="symbolCode"
+              (CodeChange)="onSymbolChange($event)" />
 ```
 
 ## Dependency

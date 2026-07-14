@@ -7,10 +7,10 @@ import { TextBoxComponent } from "../text/TextBox";
 import {
   Affiliations, BattleDimensions, CodingSchemes, getFunctionIcons,
   Modifier1Options, Modifier2Options, Statuses, SymbolOption
-} from "./NatoSymbolData";
+} from "./SymbolData";
 
 /**
- * A NATO military-symbol picker (a "unit generator") for MIL-STD-2525C SIDC codes.
+ * A military-symbol picker (a "unit generator") for MIL-STD-2525C SIDC codes.
  * Renders a live milsymbol preview and edits the code through dropdowns for the
  * basic fields (coding scheme, affiliation, battle dimension, status, function,
  * and two modifiers) plus a manual code field. The code and the dropdowns stay in
@@ -19,7 +19,7 @@ import {
  * `Code` is the 15-character SIDC string (in/out); `CodeChange` emits on edits.
  */
 @Component({
-  selector: 'NatoSymbolPicker',
+  selector: 'SymbolPicker',
   imports: [CommonModule, ComboBoxComponent, TextBoxComponent],
   template: `<div class="header">
     <TextBox class="code" MinWidth="0px" [Text]="Code" UpdateTrigger="LostFocus" (TextChange)="onCodeText($event)" />
@@ -72,9 +72,9 @@ import {
         [SelectedValue]="Modifier2" (SelectedValueChange)="onFieldChange('Modifier2', $event)" />
     </div>
   </div>`,
-  styleUrl: 'NatoSymbolPicker.scss'
+  styleUrl: 'SymbolPicker.scss'
 })
-export class NatoSymbolPickerComponent extends FrameworkElementComponent implements AfterViewInit {
+export class SymbolPickerComponent extends FrameworkElementComponent implements AfterViewInit {
 
   // Option lists for the dropdowns.
   protected readonly Schemes = CodingSchemes;

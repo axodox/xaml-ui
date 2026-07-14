@@ -1,4 +1,4 @@
-// MIL-STD-2525C field option data for the NATO symbol picker.
+// MIL-STD-2525C field option data for the symbol picker.
 //
 // A SIDC is a 15-character code, sliced positionally:
 //   1: coding scheme | 2: affiliation | 3: battle dimension | 4: status
