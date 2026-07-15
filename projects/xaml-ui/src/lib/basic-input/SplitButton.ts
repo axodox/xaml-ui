@@ -11,7 +11,7 @@ import { FlyoutPlacementMode } from "../Common";
   selector: 'SplitButton',
   template: `<Grid ColumnDefinitions="1fr auto">
     <Button CornerRadius="4px 0 0 4px" [IsEnabled]="IsEnabled" (Click)="onButtonClick()" [ngClass]="buttonClass"><ng-content/></Button>
-    <DropDownButton #dropDown CornerRadius="0 4px 4px 0" Width="12px" (Click)="onDropDownClick()" [IsEnabled]="IsEnabled"/>
+    <DropDownButton #dropDown CornerRadius="0 4px 4px 0" Width="36px" (Click)="onDropDownClick()" [IsEnabled]="IsEnabled"/>
   </Grid>`,
   imports: [CommonModule, ButtonComponent, DropDownButtonComponent, GridModule]
 })
