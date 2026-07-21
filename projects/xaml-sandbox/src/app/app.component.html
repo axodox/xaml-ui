@@ -36,6 +36,14 @@
 
       <ComboBox [ItemSource]="TestCollection" DisplayMemberPath="Value" SelectedValuePath="Key" />
 
+      <SplitButton VerticalAlignment="Center">
+        <FontIcon Glyph="&#xE710;" />
+        <MenuFlyout>
+          <MenuFlyoutItem Text="Action A" />
+          <MenuFlyoutItem Text="Action B" />
+        </MenuFlyout>
+      </SplitButton>
+      
       <ProgressBar />
       <ProgressBar [Value]="0.3" />
       <ProgressBar [Value]="0.7" />
