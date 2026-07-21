@@ -9,6 +9,8 @@ Canvas-based color wheel for selecting colors. Uses HSL color space internally. 
 | Input | Type | Default | Description |
 |---|---|---|---|
 | `Color` | `Color` (number) | `0xffffffff` | ARGB color as 32-bit number |
+| `IsBrightnessEnabled` | `boolean` | `false` | Show a brightness slider below the ring (sets the value of the picked hue/saturation) |
+| `IsAlphaEnabled` | `boolean` | `false` | Show an alpha slider below the ring (sets the alpha byte) |
 
 | Output | Type | Description |
 |---|---|---|
@@ -23,7 +25,16 @@ From [FrameworkElement](../FrameworkElement.md): `Width`, `Height`, `Margin`, `P
 ```html
 <ColorPicker Width="150px" Height="150px" HorizontalAlignment="Center"
              [(Color)]="selectedColor" />
+
+<!-- With brightness and alpha sliders; the ring reflects both -->
+<ColorPicker Width="150px" [IsBrightnessEnabled]="true" [IsAlphaEnabled]="true"
+             [(Color)]="selectedColor" />
 ```
+
+When `IsBrightnessEnabled`/`IsAlphaEnabled` are `true`, sliders appear below the
+ring. The emitted `Color` carries the alpha byte and the RGB scaled by
+brightness; the ring is dimmed by brightness and faded by alpha (over a
+checkerboard) so the exact selected color is shown.
 
 ## Color Utilities
 

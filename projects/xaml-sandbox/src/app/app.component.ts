@@ -69,6 +69,8 @@ export class AppComponent {
 
   title = 'xaml-sandbox';
 
+  protected DemoColor: Color = 0x80ff8000;
+
   protected TestCollection = [
     new KeyValuePair('A', 'Aladár'),
     new KeyValuePair('B', 'Béla'),
