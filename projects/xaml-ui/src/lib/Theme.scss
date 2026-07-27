@@ -75,8 +75,9 @@
   --SurfaceStrokeColorDefault:                var(--XamlUiOverrideSurfaceStrokeColorDefault,                #75757566);
 
   //Derived — control-specific aliases of the base palette; theme-independent, so declared once.
+  --TextControlPadding:                       var(--XamlUiOverrideTextControlPadding,                       6px);                                      // TextControlThemePadding
   --TextControlBorderThickness:               var(--XamlUiOverrideTextControlBorderThickness,               var(--ControlBorderThickness));            // TextControlBorderThemeThickness
-  --TextControlBorderThicknessFocused:        var(--XamlUiOverrideTextControlBorderThicknessFocused,        1px 1px 2px);                              // TextControlBorderThemeThicknessFocused
+  --TextControlBorderThicknessFocused:        var(--XamlUiOverrideTextControlBorderThicknessFocused,        2px);                                      // TextControlBorderThemeThicknessFocused
 
   --TextControlBackgroundColor:               var(--XamlUiOverrideTextControlBackgroundColor,               var(--ControlFillColorDefault));           // TextControlBackground
   --TextControlBackgroundColorPointerOver:    var(--XamlUiOverrideTextControlBackgroundColorPointerOver,    var(--ControlFillColorSecondary));         // TextControlBackgroundPointerOver

@@ -9,7 +9,7 @@
   box-sizing: border-box;
   border-width: var(--TextControlBorderThickness);
   border-radius: var(--ControlCornerRadius);
-  padding: 6px;
+  padding: var(--TextControlPadding);
 
   background-color: var(--TextControlBackgroundColor);
   border-color: var(--TextControlElevationBorderColor);
@@ -20,9 +20,13 @@
   }
 
   &:focus-within, &:active {
-    border-width: var(--TextControlBorderThicknessFocused);
+    border-bottom-width: var(--TextControlBorderThicknessFocused);
     background-color: var(--TextControlBackgroundColorFocused);
     border-bottom-color: var(--TextControlElevationBorderColorFocused);
+
+    // The focused bottom border is thicker; take the difference out of the bottom padding so
+    // the content box — and therefore the text — stays put.
+    padding-bottom: calc(var(--TextControlPadding) + var(--TextControlBorderThickness) - var(--TextControlBorderThicknessFocused));
   }
 
   &.disabled {
