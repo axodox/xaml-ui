@@ -74,6 +74,25 @@
   --LayerFillColorAlt:                        var(--XamlUiOverrideLayerFillColorAlt,                        #FFFFFF0D);
   --SurfaceStrokeColorDefault:                var(--XamlUiOverrideSurfaceStrokeColorDefault,                #75757566);
 
+  //Derived — control-specific aliases of the base palette; theme-independent, so declared once.
+  --TextControlPadding:                       var(--XamlUiOverrideTextControlPadding,                       6px);
+  --TextControlBorderThickness:               var(--XamlUiOverrideTextControlBorderThickness,               var(--ControlBorderThickness));
+  --TextControlBorderThicknessFocused:        var(--XamlUiOverrideTextControlBorderThicknessFocused,        2px);
+
+  --TextControlBackgroundColor:               var(--XamlUiOverrideTextControlBackgroundColor,               var(--ControlFillColorDefault));
+  --TextControlBackgroundColorPointerOver:    var(--XamlUiOverrideTextControlBackgroundColorPointerOver,    var(--ControlFillColorSecondary));
+  --TextControlBackgroundColorFocused:        var(--XamlUiOverrideTextControlBackgroundColorFocused,        var(--ControlFillColorInputActive));
+  --TextControlBackgroundColorDisabled:       var(--XamlUiOverrideTextControlBackgroundColorDisabled,       var(--ControlFillColorDisabled));
+
+  --TextControlElevationBorderColor:          var(--XamlUiOverrideTextControlElevationBorderColor,          var(--ControlStrokeColorDefault));
+  --TextControlElevationBorderColorStrong:    var(--XamlUiOverrideTextControlElevationBorderColorStrong,    var(--ControlStrongStrokeColorDefault));
+  --TextControlElevationBorderColorFocused:   var(--XamlUiOverrideTextControlElevationBorderColorFocused,   var(--AccentFillColorDefault));
+  --TextControlElevationBorderColorDisabled:  var(--XamlUiOverrideTextControlElevationBorderColorDisabled,  var(--ControlStrokeColorDefault));
+
+  --SliderTrackFillColor:                     var(--XamlUiOverrideSliderTrackFillColor,                     var(--ControlStrongFillColorDefault));
+
+  --AppBarButtonForegroundColor:              var(--XamlUiOverrideAppBarButtonForegroundColor,              var(--TextFillColorPrimary));
+
   //Light mode
   @media (prefers-color-scheme: light) {
     --WindowFillColorDefault:                 var(--XamlUiOverrideWindowFillColorDefault,                   #F3F3F3FF);

@@ -1,12 +1,30 @@
+$glyph-size: 12px;
+$glyph-gap: 8px;
+
+:host {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.content {
+  display: grid;
+  justify-content: inherit;
+  align-content: inherit;
+  min-width: 0;
+
+  &:not(:empty) {
+    margin-right: $glyph-gap;
+  }
+}
+
 .drop-down-glyph {
   display: grid;
   font-family: var(--SymbolFontFamily);
   font-size: 8pt;
-  position: absolute;
-  right: 12px;
-  top: 0;
-  bottom: 0;
+  width: $glyph-size;
+  justify-content: center;
   align-content: center;
+  grid-column: 2;
   transition: transform var(--ControlNormalAnimationDuration);
 
   :host:active:not(.flyout-open):not(.disabled) & {
