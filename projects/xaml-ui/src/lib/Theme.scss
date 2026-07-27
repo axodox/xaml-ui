@@ -75,23 +75,23 @@
   --SurfaceStrokeColorDefault:                var(--XamlUiOverrideSurfaceStrokeColorDefault,                #75757566);
 
   //Derived — control-specific aliases of the base palette; theme-independent, so declared once.
-  --TextControlPadding:                       var(--XamlUiOverrideTextControlPadding,                       6px);                                      // TextControlThemePadding
-  --TextControlBorderThickness:               var(--XamlUiOverrideTextControlBorderThickness,               var(--ControlBorderThickness));            // TextControlBorderThemeThickness
-  --TextControlBorderThicknessFocused:        var(--XamlUiOverrideTextControlBorderThicknessFocused,        2px);                                      // TextControlBorderThemeThicknessFocused
+  --TextControlPadding:                       var(--XamlUiOverrideTextControlPadding,                       6px);
+  --TextControlBorderThickness:               var(--XamlUiOverrideTextControlBorderThickness,               var(--ControlBorderThickness));
+  --TextControlBorderThicknessFocused:        var(--XamlUiOverrideTextControlBorderThicknessFocused,        2px);
 
-  --TextControlBackgroundColor:               var(--XamlUiOverrideTextControlBackgroundColor,               var(--ControlFillColorDefault));           // TextControlBackground
-  --TextControlBackgroundColorPointerOver:    var(--XamlUiOverrideTextControlBackgroundColorPointerOver,    var(--ControlFillColorSecondary));         // TextControlBackgroundPointerOver
-  --TextControlBackgroundColorFocused:        var(--XamlUiOverrideTextControlBackgroundColorFocused,        var(--ControlFillColorInputActive));       // TextControlBackgroundFocused
-  --TextControlBackgroundColorDisabled:       var(--XamlUiOverrideTextControlBackgroundColorDisabled,       var(--ControlFillColorDisabled));          // TextControlBackgroundDisabled
+  --TextControlBackgroundColor:               var(--XamlUiOverrideTextControlBackgroundColor,               var(--ControlFillColorDefault));
+  --TextControlBackgroundColorPointerOver:    var(--XamlUiOverrideTextControlBackgroundColorPointerOver,    var(--ControlFillColorSecondary));
+  --TextControlBackgroundColorFocused:        var(--XamlUiOverrideTextControlBackgroundColorFocused,        var(--ControlFillColorInputActive));
+  --TextControlBackgroundColorDisabled:       var(--XamlUiOverrideTextControlBackgroundColorDisabled,       var(--ControlFillColorDisabled));
 
-  --TextControlElevationBorderColor:          var(--XamlUiOverrideTextControlElevationBorderColor,          var(--ControlStrokeColorDefault));         // TextControlElevationBorderBrush, stop @1.0
-  --TextControlElevationBorderColorStrong:    var(--XamlUiOverrideTextControlElevationBorderColorStrong,    var(--ControlStrongStrokeColorDefault));   // TextControlElevationBorderBrush, stop @0.5
-  --TextControlElevationBorderColorFocused:   var(--XamlUiOverrideTextControlElevationBorderColorFocused,   var(--AccentFillColorDefault));            // TextControlElevationBorderFocusedBrush, bottom stop
-  --TextControlElevationBorderColorDisabled:  var(--XamlUiOverrideTextControlElevationBorderColorDisabled,  var(--ControlStrokeColorDefault));         // TextControlBorderBrushDisabled
+  --TextControlElevationBorderColor:          var(--XamlUiOverrideTextControlElevationBorderColor,          var(--ControlStrokeColorDefault));
+  --TextControlElevationBorderColorStrong:    var(--XamlUiOverrideTextControlElevationBorderColorStrong,    var(--ControlStrongStrokeColorDefault));
+  --TextControlElevationBorderColorFocused:   var(--XamlUiOverrideTextControlElevationBorderColorFocused,   var(--AccentFillColorDefault));
+  --TextControlElevationBorderColorDisabled:  var(--XamlUiOverrideTextControlElevationBorderColorDisabled,  var(--ControlStrokeColorDefault));
 
-  --SliderTrackFillColor:                     var(--XamlUiOverrideSliderTrackFillColor,                     var(--ControlStrongFillColorDefault));     // SliderTrackFill
+  --SliderTrackFillColor:                     var(--XamlUiOverrideSliderTrackFillColor,                     var(--ControlStrongFillColorDefault));
 
-  --AppBarButtonForegroundColor:              var(--XamlUiOverrideAppBarButtonForegroundColor,              var(--TextFillColorPrimary));              // AppBarButtonForeground
+  --AppBarButtonForegroundColor:              var(--XamlUiOverrideAppBarButtonForegroundColor,              var(--TextFillColorPrimary));
 
   //Light mode
   @media (prefers-color-scheme: light) {
