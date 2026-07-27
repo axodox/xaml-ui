@@ -5,8 +5,8 @@ import { FlyoutBaseComponent } from "../primitives/FlyoutBase";
 import { CommonModule } from "@angular/common";
 import { TextBlockComponent } from "../text/TextBlock";
 
-export const ButtonTemplate = `<ng-content *ngIf="Content === undefined"/>
-  <TextBlock *ngIf="Content !== undefined">{{Content}}</TextBlock>`;
+export const ButtonTemplate = `<TextBlock *ngIf="Content !== undefined" [Text]="Content"/>
+  <ng-content/>`;
 
 @Component({
   selector: 'Button',

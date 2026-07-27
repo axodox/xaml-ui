@@ -1,9 +1,12 @@
 import { Component } from "@angular/core";
-import { ButtonComponent } from "./Button";
+import { ButtonComponent, ButtonTemplate } from "./Button";
+import { TextBlockComponent } from "../text/TextBlock";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: 'DropDownButton',
-  template: `<div class="drop-down-glyph">&#xE70D;</div><ng-content/>`,
+  imports: [TextBlockComponent, CommonModule],
+  template: ButtonTemplate + `<div class="drop-down-glyph">&#xE70D;</div>`,
   styleUrls: ['Button.scss', 'DropDownButton.scss']
 })
 export class DropDownButtonComponent extends ButtonComponent {

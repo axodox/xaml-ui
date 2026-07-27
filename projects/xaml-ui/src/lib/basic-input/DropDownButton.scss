@@ -1,15 +1,22 @@
+$glyph-size: 12px;
+$glyph-inset: 12px;
+$glyph-gap: 8px;
+
 :host {
-  display: flex;
-  align-items: center;
+  padding-right: calc(#{$glyph-inset} + #{$glyph-size} + #{$glyph-gap});
 }
 
 .drop-down-glyph {
   display: grid;
   font-family: var(--SymbolFontFamily);
   font-size: 8pt;
+  position: absolute;
+  right: $glyph-inset;
+  top: 0;
+  bottom: 0;
+  width: $glyph-size;
+  justify-content: center;
   align-content: center;
-  order: 1;
-  margin-left: auto;
   transition: transform var(--ControlNormalAnimationDuration);
 
   :host:active:not(.flyout-open):not(.disabled) & {
