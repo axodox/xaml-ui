@@ -6,26 +6,28 @@
 
   outline-style: none;
   border-style: solid;
-  border-width: var(--InputBorderThickness);
+  box-sizing: border-box;
+  border-width: var(--TextControlBorderThickness);
   border-radius: var(--ControlCornerRadius);
   padding: 6px;
 
-  background-color: var(--InputFillColorDefault);
-  border-color: var(--InputStrokeColorDefault);
-  border-bottom-color: var(--InputStrongStrokeColorDefault);
+  background-color: var(--TextControlBackgroundColor);
+  border-color: var(--TextControlElevationBorderColor);
+  border-bottom-color: var(--TextControlElevationBorderColorStrong);
 
   &:hover {
-    background-color: var(--InputFillColorSecondary);
+    background-color: var(--TextControlBackgroundColorPointerOver);
   }
 
   &:focus-within, &:active {
-    background-color: var(--InputFillColorActive);
-    border-bottom-color: var(--InputStrokeColorActive);
+    border-width: var(--TextControlBorderThicknessFocused);
+    background-color: var(--TextControlBackgroundColorFocused);
+    border-bottom-color: var(--TextControlElevationBorderColorFocused);
   }
 
   &.disabled {
-    background-color: var(--InputFillColorDisabled);
-    border-bottom-color: var(--InputStrokeColorDefault);
+    background-color: var(--TextControlBackgroundColorDisabled);
+    border-bottom-color: var(--TextControlElevationBorderColorDisabled);
     pointer-events: none;
   }
 }

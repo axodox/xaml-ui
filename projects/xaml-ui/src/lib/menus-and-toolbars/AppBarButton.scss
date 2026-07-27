@@ -12,14 +12,14 @@
   background-color: var(--SubtleFillColorTransparent);
 
   & * {
-    color: var(--SubtleButtonForeground);
+    color: var(--AppBarButtonForegroundColor);
   }
 
   &:hover {
     background-color: var(--SubtleFillColorSecondary);
 
     & * {
-      color: var(--SubtleButtonForeground);
+      color: var(--AppBarButtonForegroundColor);
     }
   }
 
