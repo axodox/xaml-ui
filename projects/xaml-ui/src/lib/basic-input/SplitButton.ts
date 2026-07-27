@@ -5,17 +5,21 @@ import { GridModule } from "../layout/Grid";
 import { CommonModule } from "@angular/common";
 import { FrameworkElementComponent } from "../FrameworkElement";
 import { FlyoutBaseComponent } from "../primitives/FlyoutBase";
+import { HorizontalAlignment, VerticalAlignment } from "../Common";
 
 @Component({
   selector: 'SplitButton',
   template: `<Grid ColumnDefinitions="1fr auto">
-    <Button CornerRadius="4px 0 0 4px" [IsEnabled]="IsEnabled" (Click)="onButtonClick()" [ngClass]="buttonClass"><ng-content/></Button>
+    <Button CornerRadius="4px 0 0 4px" [IsEnabled]="IsEnabled" (Click)="onButtonClick()" [ngClass]="buttonClass"
+            [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment"><ng-content/></Button>
     <DropDownButton CornerRadius="0 4px 4px 0" (Click)="onDropDownClick()" [IsEnabled]="IsEnabled"/>
   </Grid>`,
   imports: [CommonModule, ButtonComponent, DropDownButtonComponent, GridModule]
 })
 export class SplitButtonComponent extends FrameworkElementComponent {
   @Input() IsEnabled: boolean = true;
+  @Input() HorizontalContentAlignment: HorizontalAlignment = 'Center';
+  @Input() VerticalContentAlignment: VerticalAlignment = 'Center';
 
   @Output() Click = new EventEmitter();
 
