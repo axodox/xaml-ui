@@ -21,7 +21,7 @@
     }
   }
 
-  &:active:not(.flyout-open):not(.disabled) {
+  &.pressed:not(.flyout-open):not(.disabled) {
     background: var(--AccentFillColorTertiary);
     border-color: var(--ControlFillColorTransparent);
     color: var(--TextOnAccentFillColorSecondary);
@@ -51,7 +51,7 @@
     background: var(--SubtleFillColorSecondary);
   }
 
-  &:active:not(.checked):not(.flyout-open):not(.disabled) {
+  &.pressed:not(.checked):not(.flyout-open):not(.disabled) {
     background: var(--SubtleFillColorTertiary);
     color: var(--TextFillColorSecondary);
 
@@ -96,7 +96,7 @@
       background: var(--ControlFillColorSecondary);
     }
 
-    &:active:not(.flyout-open):not(.disabled) {
+    &.pressed:not(.flyout-open):not(.disabled) {
       background: var(--ControlFillColorTertiary);
       color: var(--TextFillColorSecondary);
 
@@ -137,7 +137,7 @@
       color: var(--AccentFillColorDefault);
     }
 
-    &:not(.checked):active:not(.flyout-open):not(.disabled) {
+    &:not(.checked).pressed:not(.flyout-open):not(.disabled) {
       color: var(--AccentFillColorSecondary);
 
       &::ng-deep * {

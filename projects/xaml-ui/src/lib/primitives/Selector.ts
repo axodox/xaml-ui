@@ -13,7 +13,18 @@ export const SelectorItemTemplate =
   template: '',
 })
 export abstract class SelectorComponent extends FrameworkElementComponent {
-  @ContentChild(TemplateRef) ItemTemplate!: TemplateRef<any>;
+  // The per-item template. Usually projected as content (`<ng-template>` inside the control), but can
+  // also be supplied via the input — e.g. a ComboBox forwards its own template to its dropdown ListView
+  // (a ContentChild can't be handed to a nested component otherwise). The input wins when both are set.
+  @ContentChild(TemplateRef) private _contentItemTemplate?: TemplateRef<any>;
+  private _inputItemTemplate?: TemplateRef<any>;
+
+  @Input() set ItemTemplate(value: TemplateRef<any> | undefined) {
+    this._inputItemTemplate = value;
+  }
+  get ItemTemplate(): TemplateRef<any> | undefined {
+    return this._inputItemTemplate ?? this._contentItemTemplate;
+  }
 
   @Input() IsEnabled: boolean = true;
   @Input() HorizontalContentAlignment: HorizontalAlignment = 'Left';

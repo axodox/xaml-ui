@@ -31,4 +31,8 @@ input {
   &:active+.popup {
     display: flex;
   }
+
+  &:disabled {
+    color: var(--TextFillColorDisabled);
+  }
 }

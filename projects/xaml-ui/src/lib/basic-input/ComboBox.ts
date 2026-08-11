@@ -14,11 +14,11 @@ const TEXT_SEARCH_RESET_MS = 1000;
 @Component({
   selector: 'ComboBox',
   imports: [CommonModule, DropDownButtonComponent, FlyoutComponent, ListViewComponent, ItemContainerComponent],
-  template: `<DropDownButton [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment" [IsEnabled]="IsEnabled">
+  template: `<DropDownButton [Height]="Height" [Width]="Width" [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment" [IsEnabled]="IsEnabled">
     <ItemContainer #container>${SelectorItemTemplate}</ItemContainer>
     <Flyout Placement="Cover" Padding="0" [Target]="target" (IsOpenChange)="onIsOpenChanged($event)">
       <ListView [ItemSource]="ItemSource" [(SelectedIndex)]="SelectedIndex" [HighlightedIndex]="_highlightedIndex" [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment"
-                [DisplayMemberPath]="DisplayMemberPath" [SelectedValuePath]="SelectedValuePath"/>
+                [ItemTemplate]="ItemTemplate" [DisplayMemberPath]="DisplayMemberPath" [SelectedValuePath]="SelectedValuePath"/>
     </Flyout>
   </DropDownButton>`,
   styleUrl: 'ComboBox.scss'

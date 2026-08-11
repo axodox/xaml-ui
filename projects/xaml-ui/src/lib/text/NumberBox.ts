@@ -15,7 +15,7 @@ export type SpinButtonPlacementMode = 'None' | 'Compact';
   template: `<label [ngClass]="!showSpinButton()?'SpinButtonNone':''">
     <div class="icon" *ngIf="showSpinButton()">&#xEC8F;</div>
     <input class="text-box" #input size="1" type="text" [disabled]="!IsEnabled" [value]="Text" (change)="onChange()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}" (blur)="onBlur()" (keydown)="onKeyDown($event)"/>
-    <Flyout #flyout Padding="2px" Placement="Left" [HasBackdrop]="false" [Target]="flyoutTarget" *ngIf="SpinButtonPlacementMode !== 'None'">
+    <Flyout #flyout Padding="2px" Placement="Left" [HasBackdrop]="false" *ngIf="SpinButtonPlacementMode !== 'None'">
       <RepeatButton Class="InlineButtonStyle" (Click)="onIncreaseClick()" [Delay]="500" [Interval]="50"  (pointerdown)="onButtonPress()" (pointerup)="onButtonPress()"><FontIcon Glyph="&#xE70E;"/></RepeatButton>
       <RepeatButton Class="InlineButtonStyle" (Click)="onDecreaseClick()" [Delay]="500" [Interval]="50"  (pointerdown)="onButtonPress()" (pointerup)="onButtonPress()"><FontIcon Glyph="&#xE70D;"/></RepeatButton>
     </Flyout>
@@ -40,6 +40,13 @@ export class NumberBoxComponent extends FrameworkElementComponent {
   @Input() SpinButtonPlacementMode: SpinButtonPlacementMode = 'Compact';
 
   @Output() ValueChange = new EventEmitter<number>();
+  /** Right mouse button (WinUI `RightTapped`); e.g. bind it to copy the field's value. */
+  @Output() RightTapped = new EventEmitter<MouseEvent>();
+
+  ngAfterViewInit() {
+    if (this._flyout)
+      this._flyout.Target = this.flyoutTarget;
+  }
 
   private _numberFormatter = (value: number) => value.toString();
   get NumberFormatter() {
@@ -88,7 +95,7 @@ export class NumberBoxComponent extends FrameworkElementComponent {
     this.TextAlignment = 'Right';
   }
 
-  protected showSpinButton():boolean {
+  protected showSpinButton(): boolean {
     return this.SpinButtonPlacementMode !== 'None' && this.IsEnabled;
   }
 
@@ -197,8 +204,9 @@ export class NumberBoxComponent extends FrameworkElementComponent {
   }
 
   @HostListener('contextmenu', ['$event'])
-  private onContextMenu(event: Event) {
+  private onContextMenu(event: MouseEvent) {
     event.stopPropagation();
+    this.RightTapped.emit(event);
   }
 
   @HostBinding('class.disabled')

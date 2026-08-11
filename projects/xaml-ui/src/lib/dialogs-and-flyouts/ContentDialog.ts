@@ -31,9 +31,9 @@ export enum ContentDialogButton {
       </div>
       <div #footer class="footer" [ngStyle]="{'display': isFooterVisible ? 'grid' : 'none'}">
         <Grid Orientation="Horizontal" ColumnSpacing="6px" AutoColumnDefinition="minmax(0, 1fr)" Footer>
-          <Button *ngIf="_dialog.PrimaryButtonText !== undefined" [IsEnabled]="_dialog.IsPrimaryButtonEnabled" (Click)="onPrimaryButtonClicked()" [class.AccentButtonStyle]="isPrimaryButtonDefault">{{_dialog.PrimaryButtonText}}</Button>
-          <Button *ngIf="_dialog.SecondaryButtonText !== undefined" [IsEnabled]="_dialog.IsSecondaryButtonEnabled" (Click)="onSecondaryButtonClicked()" [class.AccentButtonStyle]="isSecondaryButtonDefault">{{_dialog.SecondaryButtonText}}</Button>
           <Button *ngIf="_dialog.CloseButtonText !== undefined" (Click)="onCloseButtonClicked()" [class.AccentButtonStyle]="isCloseButtonDefault">{{_dialog.CloseButtonText}}</Button>
+          <Button *ngIf="_dialog.SecondaryButtonText !== undefined" [IsEnabled]="_dialog.IsSecondaryButtonEnabled" (Click)="onSecondaryButtonClicked()" [class.AccentButtonStyle]="isSecondaryButtonDefault">{{_dialog.SecondaryButtonText}}</Button>
+          <Button *ngIf="_dialog.PrimaryButtonText !== undefined" [IsEnabled]="_dialog.IsPrimaryButtonEnabled" (Click)="onPrimaryButtonClicked()" [class.AccentButtonStyle]="isPrimaryButtonDefault">{{_dialog.PrimaryButtonText}}</Button>
         </Grid>
       </div>
     </div>

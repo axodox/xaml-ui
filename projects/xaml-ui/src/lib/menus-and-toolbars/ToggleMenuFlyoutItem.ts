@@ -21,6 +21,7 @@ export class ToggleMenuFlyoutItemComponent extends MenuFlyoutItemBase {
   @HostListener('pointerup', ['$event'])
   private onPointerUp(event: PointerEvent) {
     if (!this.IsEnabled) return;
+    if (event.button !== 0) return; // left button only
     this.IsChecked = !this.IsChecked;
     this.IsCheckedChange.emit(this.IsChecked);
   }

@@ -63,6 +63,7 @@ export class SliderComponent extends FrameworkElementComponent {
   @HostListener('pointerdown', ['$event'])
   private onThumbPointerDown(event: PointerEvent) {
     if (!this.IsEnabled) return;
+    if (event.button !== 0) return; // left button only
 
     this._thumb.nativeElement.setPointerCapture(event.pointerId);
     this._thumbPointerMoveEventSubscription = this._renderer.listen(this._track.nativeElement, 'pointermove', p => this.onThumbPointerMove(p));
@@ -100,6 +101,8 @@ export class SliderComponent extends FrameworkElementComponent {
 
   @HostListener('pointerup', ['$event'])
   private onThumbPointerUp(event: PointerEvent) {
+    if (event.button !== 0) return; // left button only — pairs with the pointerdown guard
+
     this.onThumbPointerMove(event);
 
     this._thumb.nativeElement.releasePointerCapture(event.pointerId);

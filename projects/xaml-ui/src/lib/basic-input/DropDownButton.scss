@@ -16,7 +16,7 @@
   align-content: center;
   transition: transform var(--ControlNormalAnimationDuration);
 
-  :host:active:not(.flyout-open):not(.disabled) & {
+  :host.pressed:not(.flyout-open):not(.disabled) & {
     transform: translateY(3px);
   }
 }

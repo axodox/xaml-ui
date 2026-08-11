@@ -18,7 +18,8 @@
     background-color: var(--ControlFillColorSecondary);
   }
 
-  &:focus-within, &:active {
+  // Focus only — not `:active`, which the browser also sets on a right/middle press.
+  &:focus-within {
     background-color: var(--ControlFillColorInputActive);
     border-bottom-color: var(--AccentFillColorDefault);
   }
@@ -48,6 +49,10 @@ textarea {
 
   &:disabled {
     color: var(--TextFillColorDisabled);
+    
+    &::placeholder {
+      color: var(--TextFillColorDisabled);
+    }
   }
 }
 

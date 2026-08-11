@@ -34,6 +34,8 @@ export class TextBoxComponent extends FrameworkElementComponent {
     this.TextChange.emit(value);
   }
   @Output() TextChange = new EventEmitter<string>();
+  /** Right mouse button (WinUI `RightTapped`); e.g. bind it to copy the field's text. */
+  @Output() RightTapped = new EventEmitter<MouseEvent>();
 
   private _validatedValue = '';
   protected onInput() {
@@ -77,8 +79,9 @@ export class TextBoxComponent extends FrameworkElementComponent {
   }
 
   @HostListener('contextmenu', ['$event'])
-  private onContextMenu(event: Event) {
+  private onContextMenu(event: MouseEvent) {
     event.stopPropagation();
+    this.RightTapped.emit(event);
   }
 
   Focus() {

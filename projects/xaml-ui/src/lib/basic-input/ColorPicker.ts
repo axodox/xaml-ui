@@ -135,6 +135,7 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
   }
 
   protected onPointerDown(event: PointerEvent) {
+    if (event.button !== 0) return; // left button only
     // Capture on the (unclipped, full-square) ring rather than the canvas: the
     // canvas' clip-path:circle() also clips hit-testing, so presses just outside
     // the circle never reach it. The ring receives them and we clamp to the rim.

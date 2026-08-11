@@ -5,13 +5,13 @@ import { GridModule } from "../layout/Grid";
 import { CommonModule } from "@angular/common";
 import { FrameworkElementComponent } from "../FrameworkElement";
 import { FlyoutBaseComponent } from "../primitives/FlyoutBase";
-import { FlyoutPlacementMode } from "../Common";
+import { FlyoutPlacementMode, HorizontalAlignment } from "../Common";
 
 @Component({
   selector: 'SplitButton',
-  template: `<Grid ColumnDefinitions="1fr auto">
-    <Button CornerRadius="4px 0 0 4px" [IsEnabled]="IsEnabled" (Click)="onButtonClick()" [ngClass]="buttonClass"><ng-content/></Button>
-    <DropDownButton #dropDown CornerRadius="0 4px 4px 0" Width="36px" (Click)="onDropDownClick()" [IsEnabled]="IsEnabled"/>
+  template: `<Grid [Height]="Height" [Width]="Width" ColumnDefinitions="1fr auto">
+    <Button [Padding]="buttonPadding" CornerRadius="4px 0 0 4px" [HorizontalContentAlignment]="HorizontalContentAlignment" [IsEnabled]="IsEnabled" (Click)="onButtonClick()" [ngClass]="buttonClass"><ng-content/></Button>
+    <DropDownButton [Padding]="dropdownPadding" #dropDown CornerRadius="0 4px 4px 0" Width="36px" (Click)="onDropDownClick()" [IsEnabled]="IsEnabled"/>
   </Grid>`,
   imports: [CommonModule, ButtonComponent, DropDownButtonComponent, GridModule]
 })
@@ -19,6 +19,10 @@ export class SplitButtonComponent extends FrameworkElementComponent {
   @Input() IsEnabled: boolean = true;
 
   @Input() Placement: FlyoutPlacementMode = 'BottomEdgeAlignedLeft';
+
+  @Input() HorizontalContentAlignment: HorizontalAlignment = 'Center'
+
+  @Input() InnerPadding?: string | undefined;
 
   @Output() Click = new EventEmitter();
 
@@ -36,6 +40,38 @@ export class SplitButtonComponent extends FrameworkElementComponent {
     if (!this.IsEnabled) return;
 
     this.Click.emit();
+  }
+
+  protected get buttonPadding() {
+    let paddingArray = this.InnerPadding?.split(' ');
+    switch (paddingArray?.length) {
+      case 1:
+        return paddingArray[0] + ' ' + 'var(--ButtonHorizontalPadding)' + ' ' + paddingArray[0] + ' ' + paddingArray[0];
+      case 2:
+        return paddingArray[0] + ' ' + 'var(--ButtonHorizontalPadding)' + ' ' + paddingArray[0] + ' ' + paddingArray[1];
+      case 3:
+        return paddingArray[0] + ' ' + 'var(--ButtonHorizontalPadding)' + ' ' + paddingArray[2] + ' ' + paddingArray[1];
+      case 4:
+        return paddingArray[0] + ' ' + 'var(--ButtonHorizontalPadding)' + ' ' + paddingArray[2] + ' ' + paddingArray[3];
+      default:
+        return this.InnerPadding;
+    }
+  }
+
+  protected get dropdownPadding() {
+    let paddingArray = this.InnerPadding?.split(' ');
+    switch (paddingArray?.length) {
+      case 1:
+        return paddingArray[0] + ' ' + paddingArray[0] + ' ' + paddingArray[0] + ' ' + 'var(--ButtonHorizontalPadding)';
+      case 2:
+        return paddingArray[0] + ' ' + paddingArray[1] + ' ' + paddingArray[0] + ' ' + 'var(--ButtonHorizontalPadding)';
+      case 3:
+        return paddingArray[0] + ' ' + paddingArray[1] + ' ' + paddingArray[2] + ' ' + 'var(--ButtonHorizontalPadding)';
+      case 4:
+        return paddingArray[0] + ' ' + paddingArray[1] + ' ' + paddingArray[2] + ' ' + 'var(--ButtonHorizontalPadding)';
+      default:
+        return this.InnerPadding;
+    }
   }
 
   protected onDropDownClick() {

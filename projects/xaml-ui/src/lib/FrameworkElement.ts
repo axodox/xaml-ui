@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from "@angular/core";
+import { Component, HostBinding, HostListener, Input } from "@angular/core";
 import { HorizontalAlignment, toAlignment, toJustification, VerticalAlignment } from "./Common";
 
 @Component({
@@ -6,6 +6,15 @@ import { HorizontalAlignment, toAlignment, toJustification, VerticalAlignment } 
   template: `<ng-container/>`
 })
 export abstract class FrameworkElementComponent {
+  // Only the left button drives interaction (press / focus / activate). Cancelling the default of a
+  // non-left mousedown stops the browser from focusing, selecting, or activating the control on a
+  // right/middle press — the right button is surfaced separately via `RightTapped` where relevant.
+  // (Left-button handling and the `contextmenu`/RightTapped events are untouched.)
+  @HostListener('mousedown', ['$event'])
+  protected onNonPrimaryMouseDown(event: MouseEvent) {
+    if (event.button !== 0) event.preventDefault();
+  }
+
   @Input() Width?: string;
   @Input() MinWidth?: string;
   @Input() @HostBinding('style.max-width') MaxWidth?: string;

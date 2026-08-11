@@ -6,8 +6,8 @@ import { MenuFlyoutItemBase } from "./MenuFlyoutItemBase";
   selector: 'MenuFlyoutItem',
   imports: [CommonModule],
   template: `<div class="icon">{{Icon}}<ng-content select="[Icon]"/></div>
-  <div class="text">{{Text}}</div>
-  <div class="submenu-indicator"></div>`,
+  <div [ngClass]="Text !== '' ? 'text' : ''">{{Text}}</div>
+  <div [ngClass]="Text !== '' ? 'submenu-indicator' : ''"></div>`,
   styleUrl: 'MenuFlyoutItem.scss'
 })
 export class MenuFlyoutItemComponent extends MenuFlyoutItemBase {
