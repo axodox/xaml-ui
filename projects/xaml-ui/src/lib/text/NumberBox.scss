@@ -15,10 +15,24 @@ label {
   pointer-events: none;
 }
 
+// The unit belongs to the value, not to the chrome: "12" and "m/s" are read as one thing, so the unit
+// carries the same weight as the number rather than the secondary (hint) colour.
 .unit {
   align-self: center;
-  color: var(--TextFillColorSecondary);
+  color: var(--TextFillColorPrimary);
   pointer-events: none;
+}
+
+// The unit tracks whatever the input is actually showing, so the two never disagree in weight. These
+// use the sibling combinator because the unit sits after the input inside the same label, and the
+// disabled rule comes last so it wins over the placeholder one at equal specificity.
+input:placeholder-shown~.unit {
+  color: var(--TextFillColorSecondary);
+}
+
+// Disabled: follow the value down so the pair still matches, just flatter.
+input:disabled~.unit {
+  color: var(--TextFillColorDisabled);
 }
 
 .InlineButtonStyle {
