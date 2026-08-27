@@ -1,0 +1,30 @@
+:host {
+  display: block;
+
+  padding: 5px 8px;
+  max-width: 320px;
+
+  border: 1px solid var(--SurfaceStrokeColorFlyout);
+  border-radius: var(--ControlCornerRadius);
+  background-color: var(--ControlSolidFillColorDefault);
+  box-shadow: 0px 4px 8px 0px rgba(black, 0.14), 0px 0px 2px 0px rgba(black, 0.12);
+
+  color: var(--TextFillColorPrimary);
+  font-family: var(--SystemFontFamily);
+  font-size: var(--SystemFontSize);
+  line-height: 1.35;
+  white-space: normal;
+  overflow-wrap: break-word;
+
+  // WinUI fade/offset reveal; the offset direction is set per-placement by the directive.
+  opacity: 0;
+  transform: translate(var(--ToolTipOffsetX, 0), var(--ToolTipOffsetY, 0));
+  transition:
+    opacity var(--ControlFastAnimationDuration) ease-out,
+    transform var(--ControlFastAnimationDuration) ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}

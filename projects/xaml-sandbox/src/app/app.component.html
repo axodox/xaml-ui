@@ -30,14 +30,22 @@
         <Slider Height="200px" Orientation="Vertical" [Value]="0.0" />
         <Slider Height="200px" Orientation="Vertical" [Value]="0.1" />
         <Slider Height="200px" Orientation="Vertical" [Value]="0.5" [IsEnabled]="false" />
-        <Separator Width="10px"/>
+        <Separator Width="10px" />
         <Slider Height="200px" Orientation="Vertical" [Value]="1.0" />
       </StackPanel>
 
       <ComboBox [ItemSource]="TestCollection" DisplayMemberPath="Value" SelectedValuePath="Key" />
 
+      <SplitButton VerticalAlignment="Center">
+        <FontIcon Glyph="&#xE710;" />
+        <MenuFlyout>
+          <MenuFlyoutItem Text="Action A" />
+          <MenuFlyoutItem Text="Action B" />
+        </MenuFlyout>
+      </SplitButton>
+      
       <ProgressBar />
-      <ProgressBar [Value]="0.3" />
+      <ProgressBar [Value]="0.3" [DisableAnimation]="true" />
       <ProgressBar [Value]="0.7" />
       <ProgressBar [IsIndeterminate]="true" />
       <ProgressBar [Minimum]="50" [Maximum]="150" [Value]="100" />
@@ -60,7 +68,7 @@
         </RadioToggleButton>
         <RadioToggleButton>D</RadioToggleButton>
       </RadioButtonGroup>
-      <ComboBox [ItemSource]="[1, 2, 3, 4, 5, 6]" [SelectedValue]="1" Margin="12px" />
+      <ComboBox [ItemSource]="['alma', 'körte', 'répa', 'alma pite', 1, 2, 3]" [SelectedValue]="1" Margin="12px" />
       <TextBox PlaceholderText="test" Margin="6px" />
       <TextBox PlaceholderText="property change" Margin="6px" UpdateTrigger="PropertyChanged"
         (TextChange)="onValueChange($event)" />
@@ -82,7 +90,9 @@
       </Button>
       <Button Class="InlineButtonStyle" Margin="3px">Click here</Button>
       <NumberBox [Minimum]="-100" [Maximum]="100" Margin="48px" Unit="kg" [IsPlaceholderEditable]="true"
-        PlaceholderText="55" />
+        PlaceholderText="55"/>
+      <NumberBox [Minimum]="-100" SpinButtonPlacementMode="None" [Maximum]="100" Margin="48px" Unit="kg"
+        [IsPlaceholderEditable]="true" PlaceholderText="55" />
       <NumberBox VerticalAlignment="Center" TextAlignment="Right" [Minimum]="-100" [Maximum]="100" Margin="48px"
         Unit="kg" [IsPlaceholderEditable]="true" PlaceholderText="66" />
       <RepeatButton (Click)="onClick()" Class="InlineButtonStyle">Click and hold</RepeatButton>
@@ -94,6 +104,8 @@
         <AppBarButton Icon="&#xE719;" Text="Shop" [IsEnabled]="false" />
       </CommandBar>
       <ColorPicker Width="200px" Height="200px" (ColorChange)="onColorSelected($event)" />
+      <ColorPicker Width="200px" Height="200px" [IsBrightnessEnabled]="true" [IsAlphaEnabled]="true"
+        [(Color)]="DemoColor" (ColorChange)="onColorSelected($event)" />
       <Button> MenuFlyout from Flyout
         <Flyout>
           <FontIcon Icon Glyph="&#xE713;" Foreground="Red" />
@@ -158,7 +170,7 @@
   </SplitButton>
   <Grid Orientation="Vertical">
     <Button>A</Button>
-    <Separator Height="10px"/>
+    <Separator Height="10px" />
     <Button>B</Button>
     <Button>C</Button>
     <Button>D</Button>

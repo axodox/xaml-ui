@@ -8,17 +8,18 @@ import { FlyoutComponent } from "../dialogs-and-flyouts/Flyout";
 
 export type NumberInputMode = 'Float' | 'Integer';
 export type NumberFormatter = (value: number) => string;
+export type SpinButtonPlacementMode = 'None' | 'Compact';
 
 @Component({
   selector: 'NumberBox',
-  template: `<label>
-    <div class="icon">&#xEC8F;</div>
+  template: `<label [ngClass]="!showSpinButton()?'SpinButtonNone':''">
+    <div class="icon" *ngIf="showSpinButton()">&#xEC8F;</div>
     <input class="text-box" #input size="1" type="text" [disabled]="!IsEnabled" [value]="Text" (change)="onChange()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}" (blur)="onBlur()" (keydown)="onKeyDown($event)"/>
-    <Flyout #flyout Padding="2px" Placement="Left" [HasBackdrop]="false" [Target]="flyoutTarget">
+    <Flyout #flyout Padding="2px" Placement="Left" [HasBackdrop]="false" *ngIf="SpinButtonPlacementMode !== 'None'">
       <RepeatButton Class="InlineButtonStyle" (Click)="onIncreaseClick()" [Delay]="500" [Interval]="50"  (pointerdown)="onButtonPress()" (pointerup)="onButtonPress()"><FontIcon Glyph="&#xE70E;"/></RepeatButton>
       <RepeatButton Class="InlineButtonStyle" (Click)="onDecreaseClick()" [Delay]="500" [Interval]="50"  (pointerdown)="onButtonPress()" (pointerup)="onButtonPress()"><FontIcon Glyph="&#xE70D;"/></RepeatButton>
     </Flyout>
-    <div class="unit" *ngIf="Unit !== undefined">{{Unit}}</div>    
+    <div class="unit" *ngIf="Unit !== undefined">{{Unit}}</div>
   </label>`,
   styleUrls: ['TextBox.scss', 'NumberBox.scss'],
   imports: [CommonModule, RepeatButtonComponent, FontIconComponent, FlyoutComponent]
@@ -36,8 +37,16 @@ export class NumberBoxComponent extends FrameworkElementComponent {
   @Input() SmallChange: number = 1;
   @Input() LargeChange: number = 10;
   @Input() Unit?: string;
+  @Input() SpinButtonPlacementMode: SpinButtonPlacementMode = 'Compact';
 
   @Output() ValueChange = new EventEmitter<number>();
+  /** Right mouse button (WinUI `RightTapped`); e.g. bind it to copy the field's value. */
+  @Output() RightTapped = new EventEmitter<MouseEvent>();
+
+  ngAfterViewInit() {
+    if (this._flyout)
+      this._flyout.Target = this.flyoutTarget;
+  }
 
   private _numberFormatter = (value: number) => value.toString();
   get NumberFormatter() {
@@ -57,7 +66,7 @@ export class NumberBoxComponent extends FrameworkElementComponent {
   private _input!: ElementRef<HTMLInputElement>;
 
   @ViewChild('flyout')
-  private _flyout!: FlyoutComponent;
+  private _flyout?: FlyoutComponent;
 
   private _text = '';
   get Text() {
@@ -84,6 +93,10 @@ export class NumberBoxComponent extends FrameworkElementComponent {
   constructor() {
     super();
     this.TextAlignment = 'Right';
+  }
+
+  protected showSpinButton(): boolean {
+    return this.SpinButtonPlacementMode !== 'None' && this.IsEnabled;
   }
 
   protected onChange() {
@@ -137,7 +150,7 @@ export class NumberBoxComponent extends FrameworkElementComponent {
     this.cancelFlyoutDismiss();
 
     this._blurTimeout = setTimeout(() => {
-      this._flyout.Hide();
+      this._flyout?.Hide();
     }, 0);
   }
 
@@ -182,7 +195,7 @@ export class NumberBoxComponent extends FrameworkElementComponent {
       this.onChange();
     }
 
-    this._flyout.Show();
+    this._flyout?.Show();
     this._input.nativeElement.select();
   }
 
@@ -191,8 +204,9 @@ export class NumberBoxComponent extends FrameworkElementComponent {
   }
 
   @HostListener('contextmenu', ['$event'])
-  private onContextMenu(event: Event) {
+  private onContextMenu(event: MouseEvent) {
     event.stopPropagation();
+    this.RightTapped.emit(event);
   }
 
   @HostBinding('class.disabled')

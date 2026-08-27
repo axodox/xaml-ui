@@ -80,6 +80,8 @@ export class AppComponent {
 
   title = 'xaml-sandbox';
 
+  protected DemoColor: Color = 0x80ff8000;
+
   protected TestCollection = [
     new KeyValuePair('A', 'Aladár'),
     new KeyValuePair('B', 'Béla'),
@@ -101,6 +103,7 @@ export class AppComponent {
   onColorSelected(value: Color) {
     console.log(colorToString(value));
   }
+
 
   async onDialogClick() {
     let dialog = Dialog.Create(ContentDialog, this._viewContainerRef);

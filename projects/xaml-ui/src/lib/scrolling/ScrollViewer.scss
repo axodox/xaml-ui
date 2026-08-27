@@ -21,9 +21,46 @@
     align-self: stretch;
   }
 
+  //The CDK virtual-scroll viewport used in list mode. Same overlay placement and hidden native
+  //scrollbar as .content, but WITHOUT `display: grid` — the CDK viewport manages its own inner layout
+  //(an absolutely-positioned content wrapper), which grid would break.
+  &>.content-virtual {
+    -ms-overflow-style: none; //IE and Edge
+    scrollbar-width: none; //Firefox
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    //Scroll anchoring fights virtualization: as rows are recycled the browser "corrects" the scroll
+    //position to keep its anchor element in place, which drags the offset backwards and makes the end
+    //of a long list unreachable. The recycling viewport must opt out — including CDK's inner content
+    //wrapper (created by CDK, so it carries no scoping attribute of ours; hence ::ng-deep).
+    overflow-anchor: none;
+
+    ::ng-deep .cdk-virtual-scroll-content-wrapper {
+      overflow-anchor: none;
+    }
+
+    grid-row-start: 1;
+    grid-column-start: 1;
+    justify-self: stretch;
+    align-self: stretch;
+  }
+
   &>.scrollbar {
     display: grid;
     grid-row-start: 1;
     grid-column-start: 1;
+  }
+
+  //Each virtualized row is pinned to ItemSize px (height set inline). box-sizing keeps padding inside
+  //that height and overflow clips taller content, so the rendered row height matches the fixed itemSize
+  //the CDK strategy assumes — otherwise the scroll offset drifts and the view snaps back a row.
+  .virtual-row {
+    box-sizing: border-box;
+    overflow: hidden;
+    //Leave the rightmost strip clear so the overlay scrollbar doesn't sit on top of the row content.
+    width: 96%;
   }
 }

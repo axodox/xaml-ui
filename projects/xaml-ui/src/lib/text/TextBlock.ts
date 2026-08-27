@@ -105,6 +105,8 @@ export class TextBlockComponent extends FrameworkElementComponent {
         return 'nowrap';
       case 'Wrap':
         return 'pre-line';
+        case 'BreakSpace':
+        return 'break-spaces'
     }
   }
 }

@@ -19,6 +19,7 @@ export class RepeatButtonComponent extends ButtonComponent implements OnDestroy 
   @HostListener('pointerdown', ['$event'])
   private onPointerDown(event: PointerEvent) {
     if (!this.IsEnabled) return;
+    if (event.button !== 0) return; // left button only; right is exposed via RightTapped
 
     (event.target as HTMLElement).setPointerCapture(event.pointerId);
     this.Click.emit();

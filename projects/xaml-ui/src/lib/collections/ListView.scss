@@ -39,7 +39,8 @@
       color: var(--TextFillColorPrimary);
     }
   
-    &:hover:not(.active):not(.selected) {
+    &:hover:not(.active):not(.selected),
+    &.highlighted:not(:active):not(.selected) {
       background-color: var(--SubtleFillColorSecondary);
     }
   

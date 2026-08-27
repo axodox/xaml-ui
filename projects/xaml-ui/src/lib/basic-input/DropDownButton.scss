@@ -4,6 +4,7 @@ $glyph-gap: 8px;
 :host {
   grid-template-columns: 1fr auto;
   align-items: center;
+  padding-right: 28px;
 }
 
 .content {
@@ -27,7 +28,7 @@ $glyph-gap: 8px;
   grid-column: 2;
   transition: transform var(--ControlNormalAnimationDuration);
 
-  :host:active:not(.flyout-open):not(.disabled) & {
+  :host.pressed:not(.flyout-open):not(.disabled) & {
     transform: translateY(3px);
   }
 }

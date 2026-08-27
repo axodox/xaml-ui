@@ -5,7 +5,9 @@
   --ControlCornerRadius:                      var(--XamlUiOverrideControlCornerRadius,                      4px);
   --OverlayCornerRadius:                      var(--XamlUiOverrideOverlayCornerRadius,                      8px);
 
-  --ButtonPadding:                            var(--XamlUiOverrideButtonPadding,                            5px 11px);
+  --ButtonVerticalPadding:                    var(--XamlUiOverrideButtonVerticalPadding,                    5px);
+  --ButtonHorizontalPadding:                  var(--XamlUiOverrideButtonHorizontalPadding,                  11px);
+  --ButtonPadding:                            var(--XamlUiOverrideButtonPadding,                            var(--ButtonVerticalPadding) var(--ButtonHorizontalPadding));
 
   --SystemFontSize:                           var(--XamlUiOverrideSystemFontSize,                           10pt);
   --SystemFontFamily:                         var(--XamlUiOverrideSystemFontFamily,                         'Segoe UI', Arial, sans-serif);
