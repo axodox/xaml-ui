@@ -5,12 +5,12 @@ import { GridModule } from "../layout/Grid";
 import { CommonModule } from "@angular/common";
 import { FrameworkElementComponent } from "../FrameworkElement";
 import { FlyoutBaseComponent } from "../primitives/FlyoutBase";
-import { FlyoutPlacementMode, HorizontalAlignment } from "../Common";
+import { FlyoutPlacementMode,  VerticalAlignment, HorizontalAlignment } from "../Common";
 
 @Component({
   selector: 'SplitButton',
   template: `<Grid [Height]="Height" [Width]="Width" ColumnDefinitions="1fr auto">
-    <Button [Padding]="buttonPadding" CornerRadius="4px 0 0 4px" [HorizontalContentAlignment]="HorizontalContentAlignment" [IsEnabled]="IsEnabled" (Click)="onButtonClick()" [ngClass]="buttonClass"><ng-content/></Button>
+    <Button [Padding]="buttonPadding" CornerRadius="4px 0 0 4px" [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment" [IsEnabled]="IsEnabled" (Click)="onButtonClick()" [ngClass]="buttonClass"><ng-content/></Button>
     <DropDownButton [Padding]="dropdownPadding" #dropDown CornerRadius="0 4px 4px 0" Width="36px" (Click)="onDropDownClick()" [IsEnabled]="IsEnabled"/>
   </Grid>`,
   imports: [CommonModule, ButtonComponent, DropDownButtonComponent, GridModule]
@@ -20,7 +20,9 @@ export class SplitButtonComponent extends FrameworkElementComponent {
 
   @Input() Placement: FlyoutPlacementMode = 'BottomEdgeAlignedLeft';
 
-  @Input() HorizontalContentAlignment: HorizontalAlignment = 'Center'
+  @Input() HorizontalContentAlignment: HorizontalAlignment = 'Center';
+
+  @Input() VerticalContentAlignment: VerticalAlignment = 'Center';
 
   @Input() InnerPadding?: string | undefined;
 

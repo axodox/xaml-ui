@@ -1,40 +1,51 @@
 import { Component, ViewContainerRef } from '@angular/core';
-import { RadioToggleButtonComponent, XamlRootComponent, CheckBoxComponent, RadioButtonComponent, ImageComponent, BorderComponent } from '../../../xaml-ui/src/public-api';
-import { StackPanelComponent } from "../../../xaml-ui/src/lib/layout/StackPanel";
-import { ButtonComponent } from "../../../xaml-ui/src/lib/basic-input/Button";
-import { FlyoutComponent } from "../../../xaml-ui/src/lib/dialogs-and-flyouts/Flyout";
-import { ScrollViewerComponent } from "../../../xaml-ui/src/lib/scrolling/ScrollViewer";
-import { RadioButtonGroupComponent } from "../../../xaml-ui/src/lib/basic-input/RadioButton";
-import { SliderComponent } from "../../../xaml-ui/src/lib/basic-input/Slider";
-import { TextBoxComponent } from "../../../xaml-ui/src/lib/text/TextBox";
-import { TextBlockComponent } from "../../../xaml-ui/src/lib/text/TextBlock";
-import { ListViewComponent } from "../../../xaml-ui/src/lib/collections/ListView";
-import { ComboBoxComponent } from "../../../xaml-ui/src/lib/basic-input/ComboBox";
-import { MenuFlyoutComponent } from "../../../xaml-ui/src/lib/menus-and-toolbars/MenuFlyout";
-import { MenuFlyoutItemComponent } from "../../../xaml-ui/src/lib/menus-and-toolbars/MenuFlyoutItem";
-import { ContextFlyoutDirective, ItemFlyoutDirective } from '../../../xaml-ui/src/lib/dialogs-and-flyouts/ContextFlyout';
-import { AppBarButtonComponent } from "../../../xaml-ui/src/lib/menus-and-toolbars/AppBarButton";
-import { CommandBarComponent } from "../../../xaml-ui/src/lib/menus-and-toolbars/CommandBar";
-import { NumberBoxComponent } from "../../../xaml-ui/src/lib/text/NumberBox";
-import { RepeatButtonComponent } from "../../../xaml-ui/src/lib/basic-input/RepeatButton";
-import { ColorPickerComponent } from "../../../xaml-ui/src/lib/basic-input/ColorPicker";
-import { Color, colorToString } from '../../../xaml-ui/src/lib/Color';
-import { DialogPresenter } from "../../../xaml-ui/src/lib/primitives/DialogPresenter";
-import { ContentDialog, ContentDialogButton } from '../../../xaml-ui/src/lib/dialogs-and-flyouts/ContentDialog';
-import { Dialog } from '../../../xaml-ui/src/lib/dialogs-and-flyouts/Dialog';
-import { GridModule } from "../../../xaml-ui/src/lib/layout/Grid";
-import { ToggleButtonComponent } from "../../../xaml-ui/src/lib/basic-input/ToggleButton";
-import { GridViewComponent } from '../../../xaml-ui/src/lib/collections/GridView';
-import { ToggleMenuFlyoutItemComponent } from '../../../xaml-ui/src/lib/menus-and-toolbars/ToggleMenuFlyoutItem';
-import { FontIconComponent } from "../../../xaml-ui/src/lib/icons/FontIcon";
-import { ProgressBarComponent } from '../../../xaml-ui/src/public-api';
-import { ProgressRingComponent } from '../../../xaml-ui/src/public-api';
-import { PersonPictureComponent } from '../../../xaml-ui/src/lib/media/PersonPicture';
-import { EllipseComponent } from '../../../xaml-ui/src/lib/shapes/Ellipse';
-import { HyperlinkButtonComponent } from '../../../xaml-ui/src/lib/basic-input/HyperlinkButton';
-import { OpenFilePicker } from '../../../xaml-ui/src/lib/dialogs-and-flyouts/OpenFilePicker';
-import { SeparatorComponent } from '../../../xaml-ui/src/lib/layout/Separator';
-import { SplitButtonComponent } from "xaml-ui";
+import {
+  AppBarButtonComponent,
+  BorderComponent,
+  ButtonComponent,
+  CheckBoxComponent,
+  Color,
+  colorToString,
+  ColorPickerComponent,
+  ComboBoxComponent,
+  CommandBarComponent,
+  ContentDialog,
+  ContentDialogButton,
+  ContextFlyoutDirective,
+  Dialog,
+  DialogPresenter,
+  DropDownButtonComponent,
+  EllipseComponent,
+  FlyoutComponent,
+  FontIconComponent,
+  GridModule,
+  GridViewComponent,
+  HyperlinkButtonComponent,
+  ImageComponent,
+  ItemFlyoutDirective,
+  ListViewComponent,
+  MenuFlyoutComponent,
+  MenuFlyoutItemComponent,
+  NumberBoxComponent,
+  OpenFilePicker,
+  PersonPictureComponent,
+  ProgressBarComponent,
+  ProgressRingComponent,
+  RadioButtonComponent,
+  RadioButtonGroupComponent,
+  RadioToggleButtonComponent,
+  RepeatButtonComponent,
+  ScrollViewerComponent,
+  SeparatorComponent,
+  SliderComponent,
+  SplitButtonComponent,
+  StackPanelComponent,
+  TextBlockComponent,
+  TextBoxComponent,
+  ToggleButtonComponent,
+  ToggleMenuFlyoutItemComponent,
+  XamlRootComponent
+} from '../../../xaml-ui/src/public-api';
 
 @Component({
   template: `<ng-template #template>
@@ -61,7 +72,7 @@ export class KeyValuePair {
 
 @Component({
   selector: 'app-root',
-  imports: [XamlRootComponent, StackPanelComponent, ButtonComponent, FlyoutComponent, ScrollViewerComponent, SliderComponent, TextBoxComponent, TextBlockComponent, ListViewComponent, ComboBoxComponent, MenuFlyoutComponent, MenuFlyoutItemComponent, ContextFlyoutDirective, AppBarButtonComponent, CommandBarComponent, NumberBoxComponent, GridModule, RepeatButtonComponent, ColorPickerComponent, RadioButtonGroupComponent, FlyoutComponent, ContextFlyoutDirective, RadioToggleButtonComponent, ToggleButtonComponent, ToggleMenuFlyoutItemComponent, ItemFlyoutDirective, FontIconComponent, ProgressBarComponent, ProgressRingComponent, GridViewComponent, PersonPictureComponent, EllipseComponent, CheckBoxComponent, RadioButtonComponent, HyperlinkButtonComponent, ImageComponent, BorderComponent, SeparatorComponent, SplitButtonComponent],
+  imports: [XamlRootComponent, StackPanelComponent, ButtonComponent, FlyoutComponent, ScrollViewerComponent, SliderComponent, TextBoxComponent, TextBlockComponent, ListViewComponent, ComboBoxComponent, MenuFlyoutComponent, MenuFlyoutItemComponent, ContextFlyoutDirective, AppBarButtonComponent, CommandBarComponent, NumberBoxComponent, GridModule, RepeatButtonComponent, ColorPickerComponent, RadioButtonGroupComponent, FlyoutComponent, ContextFlyoutDirective, RadioToggleButtonComponent, ToggleButtonComponent, ToggleMenuFlyoutItemComponent, ItemFlyoutDirective, FontIconComponent, ProgressBarComponent, ProgressRingComponent, GridViewComponent, PersonPictureComponent, EllipseComponent, CheckBoxComponent, RadioButtonComponent, HyperlinkButtonComponent, ImageComponent, BorderComponent, SeparatorComponent, DropDownButtonComponent, SplitButtonComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

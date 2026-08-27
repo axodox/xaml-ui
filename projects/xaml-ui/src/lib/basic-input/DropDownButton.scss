@@ -1,19 +1,31 @@
+$glyph-size: 12px;
+$glyph-gap: 8px;
+
 :host {
-  // Reserve room on the right for the absolutely-positioned drop-down glyph, so
-  // the selected content (which can size the button to its own width) never runs
-  // underneath the arrow. The glyph sits at right: 12px and is ~12px wide.
+  grid-template-columns: 1fr auto;
+  align-items: center;
   padding-right: 28px;
+}
+
+.content {
+  display: grid;
+  justify-content: inherit;
+  align-content: inherit;
+  min-width: 0;
+
+  &:not(:empty) {
+    margin-right: $glyph-gap;
+  }
 }
 
 .drop-down-glyph {
   display: grid;
   font-family: var(--SymbolFontFamily);
   font-size: 8pt;
-  position: absolute;
-  right: 12px;
-  top: 0;
-  bottom: 0;
+  width: $glyph-size;
+  justify-content: center;
   align-content: center;
+  grid-column: 2;
   transition: transform var(--ControlNormalAnimationDuration);
 
   :host.pressed:not(.flyout-open):not(.disabled) & {
