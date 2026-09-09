@@ -22,19 +22,17 @@ export abstract class FrameworkElementComponent {
 
   @HostBinding('style.overflow')
   protected get overflow() {
-    return 'hidden';
+    return 'clip';
   }
 
   @HostBinding('style.min-width')
   protected get minWidth() {
-    if (this.MinWidth !== undefined) return this.MinWidth;
-    return this.MaxWidth === undefined && this.HorizontalAlignment === 'Stretch' ? 'fit-content' : undefined;
+    return this.MinWidth;    
   }
 
   @HostBinding('style.min-height')
   protected get minHeight() {
-    if (this.MinHeight !== undefined) return this.MinHeight;
-    return this.MaxHeight === undefined && this.VerticalAlignment === 'Stretch' ? 'fit-content' : undefined;
+    return this.MinHeight;    
   }
 
   @HostBinding('style.width')
