@@ -4,6 +4,8 @@
   touch-action: pan-x pan-y;
 
   &>.content {
+    touch-action: pan-x pan-y;
+
     //Hide scrollbar for IE, Edge and Firefox
     overflow: -moz-scrollbars-none;
     -ms-overflow-style: none; //IE and Edge

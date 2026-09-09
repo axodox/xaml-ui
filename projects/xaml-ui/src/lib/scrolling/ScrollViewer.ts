@@ -74,6 +74,10 @@ export class ScrollViewerComponent extends FrameworkElementComponent implements 
     if (this._content) this._content.nativeElement.scrollTop = value;
   }
 
+  protected override get overflow() {
+    return "hidden";
+  }
+
   private static toOverflow(value: ScrollMode) {
     switch (value) {
       case 'Disabled':
