@@ -27,12 +27,21 @@ export abstract class FrameworkElementComponent {
 
   @HostBinding('style.min-width')
   protected get minWidth() {
-    return this.MinWidth;    
+    return this.minimumSize(this.MinWidth, this.MaxWidth, this.HorizontalAlignment);
   }
 
   @HostBinding('style.min-height')
   protected get minHeight() {
-    return this.MinHeight;    
+    return this.minimumSize(this.MinHeight, this.MaxHeight, this.VerticalAlignment);
+  }
+
+  //An explicit minimum always wins, otherwise a stretched element without a maximum gets a content
+  //based minimum, so it is never squeezed below its content. Safari fails to scroll when that is set,
+  //so there we leave the minimum at its initial value instead.
+  private minimumSize(min: string | undefined, max: string | undefined, alignment: HorizontalAlignment | VerticalAlignment) {
+    if (min !== undefined) return min;
+    if (FrameworkElementComponent.IsSafari) return undefined;
+    return max === undefined && alignment === 'Stretch' ? 'fit-content' : undefined;
   }
 
   @HostBinding('style.width')
@@ -55,6 +64,17 @@ export abstract class FrameworkElementComponent {
   @HostBinding('style.align-self')
   protected get alignSelf() {
     return toAlignment(this.VerticalAlignment);
+  }
+
+  private static _isSafari?: boolean;
+
+  //True on Safari and on the other WebKit based browsers of Apple platforms, which share its layout
+  //engine. Evaluated once, as host bindings are re-read on every change detection pass.
+  static get IsSafari() {
+    if (this._isSafari === undefined) {
+      this._isSafari = typeof navigator !== 'undefined' && /apple/i.test(navigator.vendor ?? '');
+    }
+    return this._isSafari;
   }
 
   private static _nextId = 1;
