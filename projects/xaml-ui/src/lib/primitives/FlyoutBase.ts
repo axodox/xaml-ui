@@ -20,7 +20,6 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
   @Input() Padding?: string;
   @Input() HasBackdrop = true;
 
-  private readonly _changeDetector = inject(ChangeDetectorRef);
   private _backdropContextMenuSubscription?: () => void;
 
   private _isOpen = false;
@@ -103,7 +102,7 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
     if (this._backdropContextMenuSubscription) this._backdropContextMenuSubscription();
 
     //Dispose overlay after hidden
-    if (this._overlayRef === undefined) return;
+    if (!this._overlayRef) return;
     await resume_after(FlyoutPresenter.TransitionDuration);
 
     this._overlayRef.detach();
@@ -211,10 +210,11 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
   };
 
   constructor(
-    private _viewContainerRef: ViewContainerRef,
-    private _overlay: Overlay,
-    private _hostElement: ElementRef,
-    protected _renderer: Renderer2
+    private readonly _viewContainerRef: ViewContainerRef,
+    private readonly _overlay: Overlay,
+    private readonly _hostElement: ElementRef,
+    private readonly _changeDetector: ChangeDetectorRef,
+    protected readonly _renderer: Renderer2
   ) { }
 
   ngOnDestroy(): void {

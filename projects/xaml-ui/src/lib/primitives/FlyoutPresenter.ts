@@ -13,16 +13,11 @@ export class FlyoutPresenter {
   @Input() TransitionAnimation: FlyoutPresenterAnimation = 'Default';
   @Input() @HostBinding('style.padding') Padding?: string;
 
-  @Input() IsVisible: boolean = false;
+  @Input() @HostBinding('class.visible') IsVisible: boolean = false;
 
   @HostBinding('class')
   private get transitionClass() {
     return 'transition-' + this.TransitionAnimation.toLowerCase();
-  }
-
-  @HostBinding('class.visible')
-  private get visible() {
-    return this.IsVisible;
   }
 
   @HostListener('contextmenu', ['$event'])
