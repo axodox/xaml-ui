@@ -1,4 +1,6 @@
 :host {
+  --ToolTipSlideInLength: 4px;
+
   display: block;
 
   padding: 5px 8px;
@@ -16,12 +18,27 @@
   white-space: normal;
   overflow-wrap: break-word;
 
-  // WinUI fade/offset reveal; the offset direction is set per-placement by the directive.
+  // WinUI fade/slide reveal; the tip slides in from the direction of its target.
   opacity: 0;
-  transform: translate(var(--ToolTipOffsetX, 0), var(--ToolTipOffsetY, 0));
   transition:
     opacity var(--ControlFastAnimationDuration) ease-out,
     transform var(--ControlFastAnimationDuration) ease-out;
+
+  &.transition-slideup {
+    transform: translateY(var(--ToolTipSlideInLength));
+  }
+
+  &.transition-slidedown {
+    transform: translateY(calc(-1 * var(--ToolTipSlideInLength)));
+  }
+
+  &.transition-slideleft {
+    transform: translateX(var(--ToolTipSlideInLength));
+  }
+
+  &.transition-slideright {
+    transform: translateX(calc(-1 * var(--ToolTipSlideInLength)));
+  }
 
   &.visible {
     opacity: 1;

@@ -17,7 +17,7 @@ const TEXT_SEARCH_RESET_MS = 1000;
   template: `<DropDownButton [Height]="Height" [Width]="Width" [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment" [IsEnabled]="IsEnabled">
     <ItemContainer #container>${SelectorItemTemplate}</ItemContainer>
     <Flyout Placement="Cover" Padding="0" [Target]="target" (IsOpenChange)="onIsOpenChanged($event)">
-      <ListView [ItemSource]="ItemSource" [(SelectedIndex)]="SelectedIndex" [HighlightedIndex]="_highlightedIndex" [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment"
+      <ListView [ItemSource]="ItemSource" [(SelectedIndex)]="SelectedIndex" [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment"
                 [ItemTemplate]="ItemTemplate" [DisplayMemberPath]="DisplayMemberPath" [SelectedValuePath]="SelectedValuePath"/>
     </Flyout>
   </DropDownButton>`,
@@ -32,15 +32,15 @@ export class ComboBoxComponent extends SelectorComponent implements AfterViewIni
    */
   @Input() IsTextSearchEnabled: boolean = true;
 
-  // Make the ComboBox a keyboard tab-stop so it can receive the keydowns that
-  // drive text search (disabled combos are skipped).
+  //Make the ComboBox a keyboard tab-stop so it can receive the keydowns that
+  //drive text search (disabled combos are skipped).
   @HostBinding('attr.tabindex')
   protected get tabIndex() {
     return this.IsEnabled ? '0' : null;
   }
 
-  // Index highlighted (hover-like) by type-ahead but not yet committed; -1 = none.
-  protected _highlightedIndex = -1;
+  //Set while type-ahead moves the selection, so that change does not dismiss an open list.
+  private _isTextSearching = false;
   private _searchText = '';
   private _lastSearchTime = 0;
 
@@ -48,16 +48,9 @@ export class ComboBoxComponent extends SelectorComponent implements AfterViewIni
   protected onKeyDown(event: KeyboardEvent) {
     if (!this.IsEnabled) return;
 
-    // Enter commits the highlighted match; Escape dismisses the open list.
-    if (event.key === 'Enter') {
-      if (this._popup?.IsOpen && this._highlightedIndex >= 0) {
-        this.SelectedIndex = this._highlightedIndex;
-        this._popup.IsOpen = false;
-        event.preventDefault();
-      }
-      return;
-    }
-    if (event.key === 'Escape') {
+    //Type-ahead has already applied its match to the selection, so both keys
+    //just dismiss the open list.
+    if (event.key === 'Enter' || event.key === 'Escape') {
       if (this._popup?.IsOpen) {
         this._popup.IsOpen = false;
         event.preventDefault();
@@ -66,10 +59,10 @@ export class ComboBoxComponent extends SelectorComponent implements AfterViewIni
     }
 
     if (!this.IsTextSearchEnabled) return;
-    // Only printable single characters contribute; ignore arrows, shortcuts, etc.
+    //Only printable single characters contribute; ignore arrows, shortcuts, etc.
     if (event.key.length !== 1 || event.ctrlKey || event.altKey || event.metaKey) return;
 
-    // Append while typing is fast; a long-enough pause resets to a new search.
+    //Append while typing is fast; a long-enough pause resets to a new search.
     let now = Date.now();
     if (now - this._lastSearchTime > TEXT_SEARCH_RESET_MS) this._searchText = '';
     this._lastSearchTime = now;
@@ -78,17 +71,21 @@ export class ComboBoxComponent extends SelectorComponent implements AfterViewIni
     let query = this._searchText.toLowerCase();
     let index = this.ItemSource.findIndex(item => this.getDisplayText(item).toLowerCase().includes(query));
     if (index >= 0) {
-      // Preview the match with a hover-like highlight instead of selecting it; the
-      // user commits with Enter or a click. Open the list so the highlight shows.
-      this._highlightedIndex = index;
-      if (this._popup && !this._popup.IsOpen) this._popup.IsOpen = true;
+      //As in WinUI, the match moves the selection itself; an open list stays open
+      //so further keystrokes can refine the match.
+      this._isTextSearching = true;
+      try {
+        this.SelectedIndex = index;
+      } finally {
+        this._isTextSearching = false;
+      }
       setTimeout(() => this._selector?.GetElement(index)?.scrollIntoView({ block: 'nearest' }));
       event.preventDefault();
     }
   }
 
-  // The text shown for an item — the DisplayMemberPath property, or the item
-  // itself (mirrors how the ComboBox renders each item).
+  //The text shown for an item — the DisplayMemberPath property, or the item
+  //itself (mirrors how the ComboBox renders each item).
   private getDisplayText(item: any): string {
     if (item == null) return '';
     let value = this.DisplayMemberPath ? item[this.DisplayMemberPath] : item;
@@ -119,11 +116,8 @@ export class ComboBoxComponent extends SelectorComponent implements AfterViewIni
   protected target: FlexibleConnectedPositionStrategyOrigin | null = null;
 
   protected onIsOpenChanged(value: boolean) {
-    if (!value) {
-      // Drop the type-ahead highlight when the list closes.
-      this._highlightedIndex = -1;
-      return;
-    }
+    if (!value) return;
+
     let rect = this._host.nativeElement.getBoundingClientRect();
     let popupOffset = -(this._selector?.GetElement(this.SelectedIndex)?.offsetTop ?? 0);
     this.target = { x: rect.left + 3, y: rect.top + popupOffset - 4, width: rect.width };
@@ -135,6 +129,7 @@ export class ComboBoxComponent extends SelectorComponent implements AfterViewIni
   }
 
   private onSelectionChanged() {
-    if (this._popup) this._popup.IsOpen = false;
+    //Picking an item dismisses the list; type-ahead selection leaves it open.
+    if (this._popup && !this._isTextSearching) this._popup.IsOpen = false;
   }
 }

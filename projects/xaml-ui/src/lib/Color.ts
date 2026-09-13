@@ -46,7 +46,7 @@ export function rgbToHsl(rgb: ColorRGBA): ColorHSLA {
   let l = h;
 
   if (max === min) {
-    // Achromatic
+    //Achromatic
     return { h: 0, s: 0, l: l * 100, a: a * 100 };
   }
 

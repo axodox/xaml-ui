@@ -24,9 +24,9 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
   @Input() IsAlphaEnabled: boolean = false;
   @Input() IsBrightnessEnabled: boolean = false;
 
-  // Canonical state: the ring's hue+saturation at full brightness, plus the
-  // brightness (0..1) and alpha (0..255) channels. The emitted Color combines
-  // them as 0xAARRGGBB (alpha byte, RGB = ring color scaled by brightness).
+  //Canonical state: the ring's hue+saturation at full brightness, plus the
+  //brightness (0..1) and alpha (0..255) channels. The emitted Color combines
+  //them as 0xAARRGGBB (alpha byte, RGB = ring color scaled by brightness).
   private _wheelRgb: Rgb = { r: 255, g: 255, b: 255 };
   protected _brightness: number = 1;
   protected _alpha: number = 255;
@@ -36,10 +36,10 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     return this._color;
   }
   @Input() set Color(value: Color) {
-    // Ignore the echo from the two-way [(Color)] binding: when we emit a color,
-    // it flows back into this setter. Re-decomposing our own (lossy 8-bit) output
-    // would clobber the canonical _wheelRgb/_brightness state and lose hue and
-    // saturation at low brightness. Only decompose genuinely external values.
+    //Ignore the echo from the two-way [(Color)] binding: when we emit a color,
+    //it flows back into this setter. Re-decomposing our own (lossy 8-bit) output
+    //would clobber the canonical _wheelRgb/_brightness state and lose hue and
+    //saturation at low brightness. Only decompose genuinely external values.
     if (value === this._color) return;
     this.applyColor(value);
   }
@@ -57,12 +57,12 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
 
   private _context!: CanvasRenderingContext2D;
 
-  // Pristine hue/saturation wheel, sampled when picking and used as the source
-  // for the (possibly dimmed/faded) version shown on the visible canvas.
+  //Pristine hue/saturation wheel, sampled when picking and used as the source
+  //for the (possibly dimmed/faded) version shown on the visible canvas.
   private _wheelCanvas!: HTMLCanvasElement;
   private _wheelContext!: CanvasRenderingContext2D;
-  // Scratch canvas holding the brightness-dimmed wheel before it is blitted
-  // onto the visible canvas with alpha.
+  //Scratch canvas holding the brightness-dimmed wheel before it is blitted
+  //onto the visible canvas with alpha.
   private _dimCanvas!: HTMLCanvasElement;
   private _dimContext!: CanvasRenderingContext2D;
 
@@ -70,13 +70,13 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     super();
   }
 
-  // The wheel is drawn as a circle inset from the canvas edge by this many px.
-  // The canvas itself fills the whole control and is fully clickable; the inset
-  // band around the wheel is clickable too (clicks clamp to the rim) and gives
-  // the selector room so it never spills outside the host's overflow:hidden.
+  //The wheel is drawn as a circle inset from the canvas edge by this many px.
+  //The canvas itself fills the whole control and is fully clickable; the inset
+  //band around the wheel is clickable too (clicks clamp to the rim) and gives
+  //the selector room so it never spills outside the host's overflow:hidden.
   static _selectorInset = 8;
 
-  // Canvas centre and wheel radius, derived from the (full-size) canvas.
+  //Canvas centre and wheel radius, derived from the (full-size) canvas.
   private get center() { return this._canvas.nativeElement.width / 2; }
   private get radius() { return this.center - ColorPickerComponent._selectorInset; }
 
@@ -86,7 +86,7 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     let height = canvas.height = parseInt(this.Height ?? '300');
     this._context = canvas.getContext('2d')!;
 
-    // Build the pristine wheel on an offscreen canvas we can sample from.
+    //Build the pristine wheel on an offscreen canvas we can sample from.
     this._wheelCanvas = document.createElement('canvas');
     this._wheelCanvas.width = width;
     this._wheelCanvas.height = height;
@@ -94,14 +94,14 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     let center = this.center;
     let radius = this.radius;
 
-    // Confine every wheel paint to the inset circle; the surrounding band stays
-    // transparent so the corners and rim margin are clear (no CSS clip needed).
+    //Confine every wheel paint to the inset circle; the surrounding band stays
+    //transparent so the corners and rim margin are clear (no CSS clip needed).
     wheel.save();
     wheel.beginPath();
     wheel.arc(center, center, radius, 0, 2 * Math.PI);
     wheel.clip();
 
-    // Draw hue circle
+    //Draw hue circle
     for (let angle = 0; angle < 360; angle++) {
       let startAngle = (angle - 1) * (Math.PI / 180);
       let endAngle = (angle + 1) * (Math.PI / 180);
@@ -113,9 +113,9 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
       wheel.fill();
     }
 
-    // Add radial gradient for saturation. The small fully-opaque white plateau
-    // at the core guarantees the exact center samples as pure white (#ffffff)
-    // instead of bleeding a sliver of the hue arcs that converge there.
+    //Add radial gradient for saturation. The small fully-opaque white plateau
+    //at the core guarantees the exact center samples as pure white (#ffffff)
+    //instead of bleeding a sliver of the hue arcs that converge there.
     let gradient = wheel.createRadialGradient(center, center, 0, center, center, radius);
     gradient.addColorStop(0, 'white');
     gradient.addColorStop(0.03, 'white');
@@ -135,10 +135,10 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
   }
 
   protected onPointerDown(event: PointerEvent) {
-    if (event.button !== 0) return; // left button only
-    // Capture on the (unclipped, full-square) ring rather than the canvas: the
-    // canvas' clip-path:circle() also clips hit-testing, so presses just outside
-    // the circle never reach it. The ring receives them and we clamp to the rim.
+    if (event.button !== 0) return; //left button only
+    //Capture on the (unclipped, full-square) ring rather than the canvas: the
+    //canvas' clip-path:circle() also clips hit-testing, so presses just outside
+    //the circle never reach it. The ring receives them and we clamp to the rim.
     this._ring.nativeElement.setPointerCapture(event.pointerId);
     this.onPointerMove(event);
   }
@@ -151,7 +151,7 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     let rawX = event.offsetX - center;
     let rawY = event.offsetY - center;
     let length = Math.sqrt(rawX * rawX + rawY * rawY);
-    // Clamp anything outside the wheel (incl. the inset band and corners) to the rim.
+    //Clamp anything outside the wheel (incl. the inset band and corners) to the rim.
     let scale = length < radius ? 1 : radius / length;
     let sampleX = center + rawX * scale;
     let sampleY = center + rawY * scale;
@@ -159,9 +159,9 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     this._selector.nativeElement.style.left = sampleX + 'px';
     this._selector.nativeElement.style.top = sampleY + 'px';
 
-    // Sample the pristine (full-brightness) wheel; brightness/alpha are kept.
-    // Read a hair inside the rim so a clamped edge pick doesn't land on the
-    // antialiased clip boundary (transparent there → would read as black).
+    //Sample the pristine (full-brightness) wheel; brightness/alpha are kept.
+    //Read a hair inside the rim so a clamped edge pick doesn't land on the
+    //antialiased clip boundary (transparent there → would read as black).
     let readScale = length < radius - 1 ? 1 : (radius - 1) / length;
     let readX = Math.min(Math.max(Math.round(center + rawX * readScale), 0), width - 1);
     let readY = Math.min(Math.max(Math.round(center + rawY * readScale), 0), width - 1);
@@ -182,7 +182,7 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     this.update();
   }
 
-  // Decompose an incoming 0xAARRGGBB into ring color + brightness + alpha.
+  //Decompose an incoming 0xAARRGGBB into ring color + brightness + alpha.
   private applyColor(value: Color) {
     let { r, g, b, a } = colorToRgb(value);
     this._alpha = a;
@@ -190,7 +190,7 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     if (this.IsBrightnessEnabled) {
       let brightness = Math.max(r, g, b) / 255;
       this._brightness = brightness;
-      // Recover the full-brightness ring color; keep the previous hue when black.
+      //Recover the full-brightness ring color; keep the previous hue when black.
       if (brightness > 0) this._wheelRgb = { r: r / brightness, g: g / brightness, b: b / brightness };
     } else {
       this._brightness = 1;
@@ -198,13 +198,13 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     }
 
     this.update();
-    // Externally-set colors need the selector repositioned to match; interactive
-    // picks position it directly from the pointer (see onPointerMove), so update()
-    // itself deliberately leaves the selector alone.
+    //Externally-set colors need the selector repositioned to match; interactive
+    //picks position it directly from the pointer (see onPointerMove), so update()
+    //itself deliberately leaves the selector alone.
     this.updateSelectorPosition();
   }
 
-  // Recompose the canonical state into 0xAARRGGBB.
+  //Recompose the canonical state into 0xAARRGGBB.
   private compose(): Color {
     let scale = (channel: number) => Math.min(255, Math.max(0, Math.round(channel * this._brightness)));
     let r = scale(this._wheelRgb.r);
@@ -214,7 +214,7 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     return ((a << 24) + (r << 16) + (g << 8) + b) >>> 0;
   }
 
-  // Recompose, refresh the visuals, and emit if the color actually changed.
+  //Recompose, refresh the visuals, and emit if the color actually changed.
   private update() {
     this.updateChannelColors();
     this.redraw();
@@ -225,8 +225,8 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     this.ColorChange.emit(color);
   }
 
-  // Publish the ring color (full brightness and brightness-applied) as CSS
-  // custom properties so the slider track gradients can read them.
+  //Publish the ring color (full brightness and brightness-applied) as CSS
+  //custom properties so the slider track gradients can read them.
   private updateChannelColors() {
     let round = (v: number) => Math.min(255, Math.max(0, Math.round(v)));
     let full = `rgb(${round(this._wheelRgb.r)}, ${round(this._wheelRgb.g)}, ${round(this._wheelRgb.b)})`;
@@ -235,9 +235,9 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     this._host.nativeElement.style.setProperty('--opaque-color', opaque);
   }
 
-  // Render the ring dimmed by brightness and faded by alpha over a checkerboard,
-  // so the exact selected color is visible. With brightness 1 and alpha 255 this
-  // is pixel-identical to the pristine wheel.
+  //Render the ring dimmed by brightness and faded by alpha over a checkerboard,
+  //so the exact selected color is visible. With brightness 1 and alpha 255 this
+  //is pixel-identical to the pristine wheel.
   private redraw() {
     if (!this._context) return;
 
@@ -249,7 +249,7 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
     dim.clearRect(0, 0, width, height);
     dim.drawImage(this._wheelCanvas, 0, 0);
     if (this._brightness < 1) {
-      // Darken only where the wheel is painted so the transparent surround stays clear.
+      //Darken only where the wheel is painted so the transparent surround stays clear.
       dim.globalCompositeOperation = 'source-atop';
       dim.fillStyle = `rgba(0, 0, 0, ${1 - this._brightness})`;
       dim.fillRect(0, 0, width, height);
@@ -258,7 +258,7 @@ export class ColorPickerComponent extends FrameworkElementComponent implements A
 
     let context = this._context;
     context.clearRect(0, 0, width, height);
-    // Keep the checkerboard (and faded wheel) inside the wheel circle.
+    //Keep the checkerboard (and faded wheel) inside the wheel circle.
     context.save();
     context.beginPath();
     context.arc(this.center, this.center, this.radius, 0, 2 * Math.PI);

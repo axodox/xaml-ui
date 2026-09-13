@@ -63,9 +63,9 @@ export class TextBoxComponent extends FrameworkElementComponent {
   }
 
   protected onReturn() {
-    // Enter commits the current value (like losing focus), regardless of UpdateTrigger — so e.g. a
-    // LostFocus field applies on Enter without having to blur first. Multiline (textarea) keeps Enter as
-    // a newline, so it isn't wired there.
+    //Enter commits the current value (like losing focus), regardless of UpdateTrigger — so e.g. a
+    //LostFocus field applies on Enter without having to blur first. Multiline (textarea) keeps Enter as
+    //a newline, so it isn't wired there.
     this.update();
   }
 
