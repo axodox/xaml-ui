@@ -12,14 +12,14 @@ export type SpinButtonPlacementMode = 'None' | 'Compact';
 
 @Component({
   selector: 'NumberBox',
-  template: `<label [ngClass]="!showSpinButton()?'SpinButtonNone':''">
-    <div class="icon" *ngIf="showSpinButton()">&#xEC8F;</div>
+  template: `<label>
+    <div *ngIf="SpinButtonPlacementMode !== 'None'" class="spin-button">&#xEC8F;</div>
     <input class="text-box" #input size="1" type="text" [disabled]="!IsEnabled" [value]="Text" (change)="onChange()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}" (blur)="onBlur()" (keydown)="onKeyDown($event)"/>
-    <Flyout #flyout Padding="2px" Placement="Left" [HasBackdrop]="false" *ngIf="SpinButtonPlacementMode !== 'None'">
+    <Flyout *ngIf="SpinButtonPlacementMode !== 'None'" #flyout Padding="2px" Placement="Left" [HasBackdrop]="false" [Target]="flyoutTarget">
       <RepeatButton Class="InlineButtonStyle" (Click)="onIncreaseClick()" [Delay]="500" [Interval]="50"  (pointerdown)="onButtonPress()" (pointerup)="onButtonPress()"><FontIcon Glyph="&#xE70E;"/></RepeatButton>
       <RepeatButton Class="InlineButtonStyle" (Click)="onDecreaseClick()" [Delay]="500" [Interval]="50"  (pointerdown)="onButtonPress()" (pointerup)="onButtonPress()"><FontIcon Glyph="&#xE70D;"/></RepeatButton>
     </Flyout>
-    <div class="unit" *ngIf="Unit !== undefined">{{Unit}}</div>
+    <div *ngIf="Unit !== undefined" class="unit">{{Unit}}</div>
   </label>`,
   styleUrls: ['TextBox.scss', 'NumberBox.scss'],
   imports: [CommonModule, RepeatButtonComponent, FontIconComponent, FlyoutComponent]
@@ -40,13 +40,6 @@ export class NumberBoxComponent extends FrameworkElementComponent {
   @Input() SpinButtonPlacementMode: SpinButtonPlacementMode = 'Compact';
 
   @Output() ValueChange = new EventEmitter<number>();
-  /** Right mouse button (WinUI `RightTapped`); e.g. bind it to copy the field's value. */
-  @Output() RightTapped = new EventEmitter<MouseEvent>();
-
-  ngAfterViewInit() {
-    if (this._flyout)
-      this._flyout.Target = this.flyoutTarget;
-  }
 
   private _numberFormatter = (value: number) => value.toString();
   get NumberFormatter() {
@@ -95,10 +88,6 @@ export class NumberBoxComponent extends FrameworkElementComponent {
     this.TextAlignment = 'Right';
   }
 
-  protected showSpinButton(): boolean {
-    return this.SpinButtonPlacementMode !== 'None' && this.IsEnabled;
-  }
-
   protected onChange() {
     this._text = this._input.nativeElement.value;
 
@@ -140,7 +129,6 @@ export class NumberBoxComponent extends FrameworkElementComponent {
 
   private cancelFlyoutDismiss() {
     if (this._blurTimeout) {
-
       clearTimeout(this._blurTimeout);
       this._blurTimeout = undefined;
     }
@@ -204,9 +192,8 @@ export class NumberBoxComponent extends FrameworkElementComponent {
   }
 
   @HostListener('contextmenu', ['$event'])
-  private onContextMenu(event: MouseEvent) {
+  private onContextMenu(event: Event) {
     event.stopPropagation();
-    this.RightTapped.emit(event);
   }
 
   @HostBinding('class.disabled')

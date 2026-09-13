@@ -92,7 +92,7 @@ export class TextBlockComponent extends FrameworkElementComponent {
       case 'Clip':
         return 'clip';
       case 'CharacterEllipsis':
-        return 'Ellipsis';
+        return 'ellipsis';
       default:
         return undefined;
     }
@@ -105,8 +105,6 @@ export class TextBlockComponent extends FrameworkElementComponent {
         return 'nowrap';
       case 'Wrap':
         return 'pre-line';
-        case 'BreakSpace':
-        return 'break-spaces'
     }
   }
 }

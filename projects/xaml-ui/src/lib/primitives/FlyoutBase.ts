@@ -20,6 +20,7 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
   @Input() Padding?: string;
   @Input() HasBackdrop = true;
 
+  private readonly _changeDetector = inject(ChangeDetectorRef);
   private _backdropContextMenuSubscription?: () => void;
 
   private _isOpen = false;
@@ -42,20 +43,6 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
 
   private _overlayRef?: OverlayRef;
   protected isVisible = false;
-
-  private readonly _changeDetector = inject(ChangeDetectorRef);
-
-  /**
-   * `isVisible` drives the presenter's `visible` class through a host binding, and it is flipped from an
-   * async continuation (see showOverlay / hideOverlay) rather than from a template event — so nothing
-   * marks this view dirty. Under an `OnPush` ancestor the pass never comes and the flyout stays
-   * invisible until some later event happens to check the view (which looked like "the first click does
-   * nothing"). Marking dirty here makes the reveal independent of ambient change detection.
-   */
-  private setVisible(value: boolean): void {
-    this.isVisible = value;
-    this._changeDetector.markForCheck();
-  }
 
   private updatePlacement() {
     if (!this._overlayRef) return;
@@ -104,12 +91,13 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
     //Make content visible - after next layout
     await resume_after(0);
 
-    this.setVisible(true);
+    this.isVisible = true;
+    this._changeDetector.markForCheck();
   }
 
   private async hideOverlay() {
     //Start hide animation
-    this.setVisible(false);
+    this.isVisible = false;
 
     //Remove event handlers
     if (this._backdropContextMenuSubscription) this._backdropContextMenuSubscription();

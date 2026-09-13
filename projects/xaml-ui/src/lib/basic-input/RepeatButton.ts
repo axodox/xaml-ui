@@ -16,10 +16,9 @@ export class RepeatButtonComponent extends ButtonComponent implements OnDestroy 
   private _delayTimer: any;
   private _intervalTimer: any;
 
-  @HostListener('pointerdown', ['$event'])
-  private onPointerDown(event: PointerEvent) {
+  protected override onPointerDown(event: PointerEvent) {
     if (!this.IsEnabled) return;
-    if (event.button !== 0) return; // left button only; right is exposed via RightTapped
+    if (event.button !== 0) return;
 
     (event.target as HTMLElement).setPointerCapture(event.pointerId);
     this.Click.emit();
@@ -33,8 +32,8 @@ export class RepeatButtonComponent extends ButtonComponent implements OnDestroy 
     }, this.Delay);
   }
 
-  @HostListener('pointerup', ['$event'])
-  private onPointerUp(event: PointerEvent) {
+  protected override onPointerUp(event: PointerEvent) {
+    if (event.button !== 0) return;
     this.clearTimers();
   }
 

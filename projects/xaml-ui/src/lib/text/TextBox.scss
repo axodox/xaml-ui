@@ -19,10 +19,14 @@
     background-color: var(--TextControlBackgroundColorPointerOver);
   }
 
-  // Focus only — not `:active`, which the browser also sets on a right/middle press.
   &:focus-within {
-    background-color: var(--ControlFillColorInputActive);
-    border-bottom-color: var(--AccentFillColorDefault);
+    border-bottom-width: var(--TextControlBorderThicknessFocused);
+    background-color: var(--TextControlBackgroundColorFocused);
+    border-bottom-color: var(--TextControlElevationBorderColorFocused);
+
+    // The focused bottom border is thicker; take the difference out of the bottom padding so
+    // the content box — and therefore the text — stays put.
+    padding-bottom: calc(var(--TextControlPadding) + var(--TextControlBorderThickness) - var(--TextControlBorderThicknessFocused));
   }
 
   &.disabled {

@@ -14,21 +14,35 @@
 
 .icon {
   display: table-cell;
-  padding: 3px 6px;
+  padding-left: 6px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+
   border-radius: var(--ControlCornerRadius) 0 0 var(--ControlCornerRadius);
   font-family: var(--SymbolFontFamily);
   vertical-align: middle;
+
+  &:has(> *) {
+    padding-right: 6px;
+  }
 }
 
 .text {
   display: table-cell;
-  padding: 3px;
-  margin: 6px 0;
+  padding-top: 3px;
+  padding-bottom: 3px;
   white-space: nowrap;
 }
 
 .submenu-indicator {
   display: table-cell;
-  padding: 3px 6px;
+  padding-right: 6px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  
   border-radius: 0 var(--ControlCornerRadius) var(--ControlCornerRadius) 0;
+
+  &:has(> *) {
+    padding-left: 6px;
+  }
 }

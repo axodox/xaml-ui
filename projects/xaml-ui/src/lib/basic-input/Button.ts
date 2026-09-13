@@ -19,12 +19,6 @@ export class ButtonComponent extends BorderComponent {
   @Input() Content?: string;
 
   @Output() Click = new EventEmitter();
-  /**
-   * Right mouse button (WinUI `RightTapped`). `Click` is left-only, so this exposes the right button
-   * separately — e.g. to copy the value or open a custom menu. The native `MouseEvent` is passed so a
-   * handler can `preventDefault()` to suppress the browser context menu.
-   */
-  @Output() RightTapped = new EventEmitter<MouseEvent>();
 
   @Input() HorizontalContentAlignment: HorizontalAlignment = 'Center';
   @Input() VerticalContentAlignment: VerticalAlignment = 'Center';
@@ -41,22 +35,20 @@ export class ButtonComponent extends BorderComponent {
 
   @HostBinding('attr.type')
   private readonly type = 'button';
-
-  // Pressed visual (see Button.scss `.pressed`). Driven in JS so it engages on the LEFT button only —
-  // CSS `:active` can't tell the buttons apart and would light up on a right/middle press too.
+  
   @HostBinding('class.pressed')
-  protected _pressed = false;
+  protected isPressed = false;
 
   @HostListener('pointerdown', ['$event'])
-  protected onPressStart(event: PointerEvent) {
-    if (this.IsEnabled && event.button === 0) this._pressed = true;
+  protected onPointerDown(event: PointerEvent) {
+    if (this.IsEnabled && event.button === 0) this.isPressed = true;
   }
 
-  @HostListener('pointerup')
-  @HostListener('pointercancel')
-  @HostListener('pointerleave')
-  protected onPressEnd() {
-    this._pressed = false;
+  @HostListener('pointerup', ['$event'])
+  @HostListener('pointercancel', ['$event'])
+  @HostListener('pointerleave', ['$event'])
+  protected onPointerUp(event: PointerEvent) {
+    this.isPressed = false;
   }
 
   @HostBinding('attr.disabled')
@@ -79,12 +71,5 @@ export class ButtonComponent extends BorderComponent {
 
     this.Click.emit(event);
     this._flyout?.Show();
-  }
-
-  @HostListener('contextmenu', ['$event'])
-  protected onContextMenu(event: MouseEvent) {
-    if (!this.IsEnabled) return;
-
-    this.RightTapped.emit(event);
   }
 }
