@@ -1,12 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+
+//Segoe Fluent Icons ships with Windows and exists on no other platform, so it has
+//to be served for the icon glyphs to resolve anywhere else. Named exactly as the
+//--SymbolFontFamily token asks for it, so nothing else has to change. font-display
+//is block rather than the default swap, so the icons never flash as fallback boxes.
+@font-face {
+  font-family: "Segoe Fluent Icons";
+  src: url("/fonts/SegoeIcons.woff2") format("woff2");
+  font-display: block;
+}
+
+//The app fills the viewport exactly and nothing outside it scrolls. The height
+//comes from the html/body chain rather than 100vh, because on iOS vh is the
+//large viewport - the one with the toolbars retracted - so a 100vh root is
+//taller than the visible area while they are shown, and the page scrolls to
+//make up the difference.
+html,
 body {
-  padding: 0;
+  height: 100%;
   margin: 0;
+  padding: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
   background-color: black;
 }
 
 .root {
   display: grid;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
 }

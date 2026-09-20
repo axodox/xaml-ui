@@ -18,8 +18,8 @@
   transition: opacity var(--ControlNormalAnimationDuration), transform var(--ControlNormalAnimationDuration);
   opacity: 0;
 
-  max-width: calc(100vw - 32px);
-  max-height: calc(100vh - 32px);
+  max-width: calc(100dvw - 32px);
+  max-height: calc(100dvh - 32px);
 
   &.transition-slideup {
     transform: translateY(var(--FlyoutSlideInLength));

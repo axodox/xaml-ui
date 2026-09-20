@@ -4,19 +4,22 @@ import { FrameworkElementComponent } from "../FrameworkElement";
 import { Color, ColorHsva, ColorRgba } from "../Color";
 import { ColorSpectrumComponent } from "../primitives/ColorSpectrum";
 import { SliderComponent } from "./Slider";
+import { StackPanelComponent } from "../layout/StackPanel";
+import { GridModule } from "../layout/Grid";
 
 //A ColorSpectrum with sliders for the two channels the wheel itself cannot show
 //a position for. The spectrum holds the color; this decides which channels the
 //user can reach and publishes the result.
 @Component({
   selector: 'ColorPicker',
-  imports: [CommonModule, ColorSpectrumComponent, SliderComponent],
-  template: `<ColorSpectrum #spectrum [Width]="Width" [Height]="Height"
-    [(Color)]="Color"/>
-  <Slider *ngIf="IsBrightnessEnabled" class="channel-slider brightness"
-    [Minimum]="0" [Maximum]="1" [(Value)]="spectrum.Brightness"/>
-  <Slider *ngIf="IsAlphaEnabled" class="channel-slider alpha"
-    [Minimum]="0" [Maximum]="1" [(Value)]="spectrum.Alpha"/>`,
+  imports: [CommonModule, ColorSpectrumComponent, SliderComponent, GridModule],
+  template: `<Grid RowDefinitions="1fr auto auto" RowSpacing="3px">
+    <ColorSpectrum #spectrum [(Color)]="Color" [Width]="Width" [Height]="Width"/>
+    <Slider *ngIf="IsBrightnessEnabled" class="channel-slider brightness"
+      [Minimum]="0" [Maximum]="1" [(Value)]="spectrum.Brightness"/>
+    <Slider *ngIf="IsAlphaEnabled" class="channel-slider alpha"
+      [Minimum]="0" [Maximum]="1" [(Value)]="spectrum.Alpha"/>
+  </Grid>`,
   styleUrl: 'ColorPicker.scss'
 })
 export class ColorPickerComponent extends FrameworkElementComponent implements AfterViewInit {

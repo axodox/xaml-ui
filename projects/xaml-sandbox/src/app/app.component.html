@@ -1,8 +1,8 @@
 <XamlRoot>
-  <ScrollViewer>
+  <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollMode="Auto">
     <StackPanel>
 
-      <StackPanel Orientation="Horizontal" Spacing="6px" Padding="6px">
+      <StackPanel Orientation="Vertical" Spacing="6px" Padding="6px">
         <TextBlock VerticalAlignment="Center">Visit the </TextBlock>
         <HyperlinkButton Content="Microsoft home page" NavigateUri="http://www.microsoft.com" />
         <HyperlinkButton Content="Microsoft home page" NavigateUri="http://www.microsoft.com" [IsEnabled]="false" />
@@ -105,9 +105,9 @@
         </AppBarButton>
         <AppBarButton Icon="&#xE719;" Text="Shop" [IsEnabled]="false" />
       </CommandBar>
-      <ColorSpectrum Width="200px" Height="200px" (ColorChange)="onColorSelected($event)" />
-      <ColorPicker Width="200px" Height="200px" (ColorChange)="onColorSelected($event)" />
-      <ColorPicker Width="200px" Height="200px" [IsBrightnessEnabled]="true" [IsAlphaEnabled]="true"
+      <ColorSpectrum Width="200px" (ColorChange)="onColorSelected($event)" />
+      <ColorPicker Width="200px" (ColorChange)="onColorSelected($event)" />
+      <ColorPicker Width="200px" [IsBrightnessEnabled]="true" [IsAlphaEnabled]="true"
         [(Color)]="DemoColor" (ColorChange)="onColorSelected($event)" />
       <Button> MenuFlyout from Flyout
         <Flyout>

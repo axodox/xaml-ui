@@ -21,11 +21,21 @@ export class StackPanelComponent extends PanelComponent {
 
   @HostBinding('style.grid-auto-rows') 
   private get gridAutoRows() {
-    return this.Orientation === 'Vertical' ? 'min-content' : undefined;
+    return this.Orientation === 'Vertical' ? 'auto' : undefined;
   }
 
   @HostBinding('style.grid-auto-columns') 
   private get gridAutoColumns() {
-    return this.Orientation === 'Horizontal' ? 'min-content' : undefined;
+    return this.Orientation === 'Horizontal' ? 'auto' : undefined;
+  }
+
+  @HostBinding('style.align-content')
+  private get alignContent() {
+    return this.Orientation === 'Vertical' ? 'start' : undefined;
+  }
+
+  @HostBinding('style.justify-content')
+  private get justifyContent() {
+    return this.Orientation === 'Horizontal' ? 'start' : undefined;
   }
 }

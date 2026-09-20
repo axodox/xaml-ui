@@ -21,32 +21,28 @@ export abstract class FrameworkElementComponent {
   @Input() @HostBinding('style.opacity') Opacity?: string | number;
 
   @HostBinding('style.overflow')
-  protected get overflow() {
-    return 'hidden';
+  protected get overflow() : string | undefined {
+    return undefined;//'clip';
   }
 
   @HostBinding('style.min-width')
   protected get minWidth() {
-    if (this.MinWidth !== undefined) return this.MinWidth;
-    return this.MaxWidth === undefined && this.HorizontalAlignment === 'Stretch' ? 'fit-content' : undefined;
+    return this.MinWidth;
   }
 
   @HostBinding('style.min-height')
   protected get minHeight() {
-    if (this.MinHeight !== undefined) return this.MinHeight;
-    return this.MaxHeight === undefined && this.VerticalAlignment === 'Stretch' ? 'fit-content' : undefined;
+    return this.MinHeight;
   }
 
   @HostBinding('style.width')
   protected get width() {
-    if (this.Width !== undefined) return this.Width;
-    return this.HorizontalAlignment === 'Stretch' ? undefined : 'fit-content';
+    return this.Width;
   }
 
   @HostBinding('style.height')
   protected get height() {
-    if (this.Height !== undefined) return this.Height;
-    return this.VerticalAlignment === 'Stretch' ? undefined : 'fit-content';
+    return this.Height;
   }
 
   @HostBinding('style.justify-self')
@@ -57,6 +53,17 @@ export abstract class FrameworkElementComponent {
   @HostBinding('style.align-self')
   protected get alignSelf() {
     return ToAlignment(this.VerticalAlignment);
+  }
+
+  private static _isSafari?: boolean;
+
+  //True on Safari and on the other WebKit based browsers of Apple platforms, which share its layout
+  //engine. Evaluated once, as host bindings are re-read on every change detection pass.
+  static get IsSafari() {
+    if (this._isSafari === undefined) {
+      this._isSafari = typeof navigator !== 'undefined' && /apple/i.test(navigator.vendor ?? '');
+    }
+    return this._isSafari;
   }
 
   private static _nextId = 1;

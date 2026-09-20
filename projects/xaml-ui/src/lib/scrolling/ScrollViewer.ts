@@ -92,6 +92,10 @@ export class ScrollViewerComponent extends FrameworkElementComponent implements 
     }
   }
 
+  protected override get overflow() {
+    return "hidden";
+  }
+
   private static toOverflow(value: ScrollMode) {
     switch (value) {
       case 'Disabled':

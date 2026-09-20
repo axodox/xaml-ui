@@ -16,6 +16,7 @@ img {
   
   &.Uniform {
     object-fit: contain;
+    place-self: center;
   }
   
   &.UniformToFill {
