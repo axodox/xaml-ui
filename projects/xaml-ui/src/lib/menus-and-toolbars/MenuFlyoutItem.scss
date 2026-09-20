@@ -22,8 +22,12 @@
   font-family: var(--SymbolFontFamily);
   vertical-align: middle;
 
-  &:has(> *) {
+  &:not(:empty) {
     padding-right: 6px;
+  }
+
+  &.hidden {
+    color: transparent;
   }
 }
 
@@ -42,7 +46,7 @@
   
   border-radius: 0 var(--ControlCornerRadius) var(--ControlCornerRadius) 0;
 
-  &:has(> *) {
+  &:not(:empty) {
     padding-left: 6px;
   }
 }

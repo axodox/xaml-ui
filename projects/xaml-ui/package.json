@@ -4,6 +4,7 @@
   "license": "MPL-2.0",
   "description": "XAML UI is angular version of Microsoft's WinUI component library.",
   "peerDependencies": {
+    "@angular/cdk": "^19.2.11",
     "@angular/common": "^19.2.6",
     "@angular/core": "^19.2.6"
   },

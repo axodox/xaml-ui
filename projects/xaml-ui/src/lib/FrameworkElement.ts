@@ -21,39 +21,28 @@ export abstract class FrameworkElementComponent {
   @Input() @HostBinding('style.opacity') Opacity?: string | number;
 
   @HostBinding('style.overflow')
-  protected get overflow() {
-    return 'clip';
+  protected get overflow() : string | undefined {
+    return undefined;//'clip';
   }
 
   @HostBinding('style.min-width')
   protected get minWidth() {
-    return this.minimumSize(this.MinWidth, this.MaxWidth, this.HorizontalAlignment);
+    return this.MinWidth;
   }
 
   @HostBinding('style.min-height')
   protected get minHeight() {
-    return this.minimumSize(this.MinHeight, this.MaxHeight, this.VerticalAlignment);
-  }
-
-  //An explicit minimum always wins, otherwise a stretched element without a maximum gets a content
-  //based minimum, so it is never squeezed below its content. Safari fails to scroll when that is set,
-  //so there we leave the minimum at its initial value instead.
-  private minimumSize(min: string | undefined, max: string | undefined, alignment: HorizontalAlignment | VerticalAlignment) {
-    if (min !== undefined) return min;
-    if (FrameworkElementComponent.IsSafari) return undefined;
-    return max === undefined && alignment === 'Stretch' ? 'fit-content' : undefined;
+    return this.MinHeight;
   }
 
   @HostBinding('style.width')
   protected get width() {
-    if (this.Width !== undefined) return this.Width;
-    return this.HorizontalAlignment === 'Stretch' ? undefined : 'fit-content';
+    return this.Width;
   }
 
   @HostBinding('style.height')
   protected get height() {
-    if (this.Height !== undefined) return this.Height;
-    return this.VerticalAlignment === 'Stretch' ? undefined : 'fit-content';
+    return this.Height;
   }
 
   @HostBinding('style.justify-self')

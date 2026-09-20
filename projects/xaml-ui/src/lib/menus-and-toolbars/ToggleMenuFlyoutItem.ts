@@ -3,8 +3,9 @@ import { MenuFlyoutItemBase } from "./MenuFlyoutItemBase";
 
 @Component({
   selector: 'ToggleMenuFlyoutItem',
-  template: `<div class="icon">{{IsChecked ? '\uE73E' : '' }}</div>
-  <div class="text">{{Text}}</div>`,
+  template: `<div class="icon" [class.hidden]="!IsChecked">\uE73E</div>
+  <div class="text">{{Text}}</div>
+  <div class="submenu-indicator"></div>`,
   styleUrl: 'MenuFlyoutItem.scss'
 })
 export class ToggleMenuFlyoutItemComponent extends MenuFlyoutItemBase {
