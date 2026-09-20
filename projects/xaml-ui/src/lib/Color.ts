@@ -2,6 +2,16 @@ import { AreNearEqual } from "./Math";
 
 export type Color = number;
 
+//A Color as #aarrggbb. Unsigned first, or a colour with the top alpha bit set
+//would format as its negative.
+export function FormatColor(value: Color): string {
+  return '#' + (value >>> 0).toString(16).padStart(8, '0');
+}
+
+export function ParseColor(value: string): Color {
+  return parseInt(value.replace('#', ''), 16) >>> 0;
+}
+
 //Half a step of the 8 bit form every color ends up in: two colors closer than
 //this round to the same bytes and so cannot be told apart once rendered.
 const ColorTolerance = 0.5;

@@ -62,7 +62,7 @@ export class AppComponent {
 
 - [Getting Started](docs/getting-started.md) — setup, key concepts, component overview
 - [Controls Reference](docs/controls/index.md) — index of all controls
-- [Coding Conventions](docs/conventions.md) — naming, file structure, template and styling patterns
+- [Coding Conventions](docs/conventions.md) — naming, file structure, control properties, template and styling patterns
 - [Theming](docs/theming.md) — CSS custom properties reference for dark/light modes
 
 ## Development

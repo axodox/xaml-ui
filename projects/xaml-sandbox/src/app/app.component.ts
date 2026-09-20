@@ -5,6 +5,7 @@ import {
   ButtonComponent,
   CheckBoxComponent,
   Color,
+  FormatColor,
   ColorPickerComponent,
   ColorSpectrumComponent,
   ComboBoxComponent,
@@ -71,14 +72,6 @@ export class KeyValuePair {
     public Value: string) { }
 }
 
-export function colorToString(value: Color): string {
-  return '#' + (value >>> 0).toString(16).padStart(8, '0');
-}
-
-export function stringToColor(value: string): Color {
-  return parseInt(value.replace('#', ''), 16) >>> 0;
-}
-
 @Component({
   selector: 'app-root',
   imports: [XamlRootComponent, StackPanelComponent, ButtonComponent, FlyoutComponent, ScrollViewerComponent, SliderComponent, TextBoxComponent, TextBlockComponent, ListViewComponent, ComboBoxComponent, MenuFlyoutComponent, MenuFlyoutItemComponent, ContextFlyoutDirective, AppBarButtonComponent, CommandBarComponent, NumberBoxComponent, GridModule, RepeatButtonComponent, ColorPickerComponent, ColorSpectrumComponent, RadioButtonGroupComponent, FlyoutComponent, ContextFlyoutDirective, RadioToggleButtonComponent, ToggleButtonComponent, ToggleMenuFlyoutItemComponent, ItemFlyoutDirective, FontIconComponent, ProgressBarComponent, ProgressRingComponent, GridViewComponent, PersonPictureComponent, EllipseComponent, CheckBoxComponent, RadioButtonComponent, HyperlinkButtonComponent, ImageComponent, BorderComponent, SeparatorComponent, DropDownButtonComponent, SplitButtonComponent, ToolTipServiceModule],
@@ -110,7 +103,7 @@ export class AppComponent {
   }
 
   onColorSelected(value: Color) {
-    console.log(colorToString(value));
+    console.log(FormatColor(value));
   }
 
   async onDialogClick() {
