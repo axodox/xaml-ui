@@ -8,7 +8,7 @@
   border: 1px solid var(--SurfaceStrokeColorFlyout);
   border-radius: var(--OverlayCornerRadius);
   background-color: var(--AcrylicInAppFillColorDefault);
-  
+
   backdrop-filter: var(--AcrylicBlur);
   box-shadow: 0px 0px 15px 0px rgba(black, 0.5);
 
@@ -16,7 +16,6 @@
   font-family: var(--SystemFontFamily);
   font-size: var(--SystemFontSize);
 
-  // WinUI fade reveal.
   opacity: 0;
   transition: opacity var(--ControlFastAnimationDuration) ease-out;
 

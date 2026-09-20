@@ -115,11 +115,17 @@ export abstract class SelectorComponent extends FrameworkElementComponent {
 
   protected getValue: (index: number, item: any) => any;
 
-  protected onItemClick(event: Event, index: number, item: any) {
-    if (this.SelectedIndex === index || !this.IsEnabled) return;
+  @Output() ItemClick = new EventEmitter<number>();
 
-    this.SelectedIndex = index;
-    event.stopPropagation();
+  protected onItemClick(event: Event, index: number, item: any) {
+    if (!this.IsEnabled) return;
+
+    if (this.SelectedIndex !== index) {
+      this.SelectedIndex = index;
+      event.stopPropagation();
+    }
+
+    this.ItemClick.emit(index);
   }
 
   GetElement(index: number) {
