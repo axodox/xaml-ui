@@ -30,11 +30,22 @@ Scrollable container with custom ScrollBars. Extends [FrameworkElement](../Frame
 | `HorizontalOffset` | `number` | Current horizontal scroll position |
 | `VerticalOffset` | `number` | Current vertical scroll position |
 
+## Methods
+
+| Method | Description |
+|---|---|
+| `ScrollTo(horizontalOffset?, verticalOffset?)` | Scrolls to an absolute offset; omitted axes stay where they are |
+| `ScrollBy(horizontalDelta, verticalDelta)` | Scrolls by an offset relative to the current position |
+| `ScrollToElement(element, options?)` | Scrolls an element inside the content into view |
+
 ## Inherited Properties
 
 From [FrameworkElement](../FrameworkElement.md): `Width`, `Height`, `Margin`, `Padding`, etc.
 
 ## Example
+
+ScrollViewer scrolls whatever is placed inside it — presenting a collection is the job of the content,
+so compose it with a [ListView](../collections/ListView.md), a `StackPanel`, or plain markup.
 
 ```html
 <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollMode="Auto" MaxHeight="400px">

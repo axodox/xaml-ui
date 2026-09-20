@@ -12,14 +12,15 @@ export type TextDecorations = 'None' | 'Underline' | 'Strikethrough';
 export type TextTrimming = 'None' | 'CharacterEllipsis' | 'Clip';
 export type TextWrapping = 'NoWrap' | 'Wrap';
 export type FlyoutPlacementMode = 'Top' | 'Bottom' | 'Left' | 'Right' | 'TopEdgeAlignedLeft' | 'TopEdgeAlignedRight' | 'BottomEdgeAlignedLeft' | 'BottomEdgeAlignedRight' | 'LeftEdgeAlignedTop' | 'LeftEdgeAlignedBottom' | 'RightEdgeAlignedTop' | 'RightEdgeAlignedBottom' | 'Cover';
+export type PlacementMode = 'Top' | 'Bottom' | 'Left' | 'Right' | 'Mouse';
 export type Stretch = 'None' | 'Fill' | 'Uniform' | 'UniformToFill';
 export type UpdateTrigger = 'PropertyChanged' | 'LostFocus';
 
-export function toJustification(value: HorizontalAlignment) {
+export function ToJustification(value: HorizontalAlignment) {
   return value.toLowerCase();
 }
 
-export function toAlignment(value: VerticalAlignment) {
+export function ToAlignment(value: VerticalAlignment) {
   switch (value) {
     case 'Top':
       return 'flex-start';

@@ -1,6 +1,6 @@
 import { Component, ContentChild, EventEmitter, HostBinding, Input, Output, TemplateRef } from "@angular/core";
 import { FrameworkElementComponent } from "../FrameworkElement";
-import { HorizontalAlignment, toAlignment, toJustification, VerticalAlignment } from "../Common";
+import { HorizontalAlignment, ToAlignment, ToJustification, VerticalAlignment } from "../Common";
 
 export const SelectorItemTemplate =
   `<ng-container *ngIf="ItemTemplate">
@@ -13,18 +13,28 @@ export const SelectorItemTemplate =
   template: '',
 })
 export abstract class SelectorComponent extends FrameworkElementComponent {
-  @ContentChild(TemplateRef) ItemTemplate!: TemplateRef<any>;
+  
+  @ContentChild(TemplateRef) 
+  private _contentItemTemplate?: TemplateRef<any>;
+
+  private _inputItemTemplate?: TemplateRef<any>;
+  @Input() set ItemTemplate(value: TemplateRef<any> | undefined) {
+    this._inputItemTemplate = value;
+  }
+  get ItemTemplate(): TemplateRef<any> | undefined {
+    return this._inputItemTemplate ?? this._contentItemTemplate;
+  }
 
   @Input() IsEnabled: boolean = true;
   @Input() HorizontalContentAlignment: HorizontalAlignment = 'Left';
   @Input() VerticalContentAlignment: VerticalAlignment = 'Center';
 
   protected get alignContent() {
-    return toAlignment(this.VerticalContentAlignment);
+    return ToAlignment(this.VerticalContentAlignment);
   }
 
   protected get justifyContent() {
-    return toJustification(this.HorizontalContentAlignment);
+    return ToJustification(this.HorizontalContentAlignment);
   }
 
   @HostBinding('class.disabled')
@@ -105,11 +115,17 @@ export abstract class SelectorComponent extends FrameworkElementComponent {
 
   protected getValue: (index: number, item: any) => any;
 
-  protected onItemClick(event: Event, index: number, item: any) {
-    if (this.SelectedIndex === index || !this.IsEnabled) return;
+  @Output() ItemClick = new EventEmitter<number>();
 
-    this.SelectedIndex = index;
-    event.stopPropagation();
+  protected onItemClick(event: Event, index: number, item: any) {
+    if (!this.IsEnabled) return;
+
+    if (this.SelectedIndex !== index) {
+      this.SelectedIndex = index;
+      event.stopPropagation();
+    }
+
+    this.ItemClick.emit(index);
   }
 
   GetElement(index: number) {

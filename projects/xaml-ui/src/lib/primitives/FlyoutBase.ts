@@ -1,6 +1,6 @@
 import { ConnectedPosition, FlexibleConnectedPositionStrategyOrigin, Overlay, OverlayConfig, OverlayRef, OverlaySizeConfig } from "@angular/cdk/overlay";
 import { TemplatePortal } from "@angular/cdk/portal";
-import { Component, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef, inject } from "@angular/core";
 import { FlyoutPresenter, FlyoutPresenterAnimation } from "./FlyoutPresenter";
 import { resume_after, FlyoutPlacementMode } from "../Common";
 import { XamlRootComponent } from "../XamlRoot";
@@ -91,6 +91,7 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
     await resume_after(0);
 
     this.isVisible = true;
+    this._changeDetector.markForCheck();
   }
 
   private async hideOverlay() {
@@ -101,7 +102,7 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
     if (this._backdropContextMenuSubscription) this._backdropContextMenuSubscription();
 
     //Dispose overlay after hidden
-    if (this._overlayRef === undefined) return;
+    if (!this._overlayRef) return;
     await resume_after(FlyoutPresenter.TransitionDuration);
 
     this._overlayRef.detach();
@@ -209,10 +210,11 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
   };
 
   constructor(
-    private _viewContainerRef: ViewContainerRef,
-    private _overlay: Overlay,
-    private _hostElement: ElementRef,
-    protected _renderer: Renderer2
+    private readonly _viewContainerRef: ViewContainerRef,
+    private readonly _overlay: Overlay,
+    private readonly _hostElement: ElementRef,
+    private readonly _changeDetector: ChangeDetectorRef,
+    protected readonly _renderer: Renderer2
   ) { }
 
   ngOnDestroy(): void {

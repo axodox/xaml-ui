@@ -53,6 +53,7 @@ export * from './lib/menus-and-toolbars/MenuFlyoutItemBase';
 export * from './lib/menus-and-toolbars/MenuFlyoutSeparator';
 
 //Primitives
+export * from './lib/primitives/ColorSpectrum'
 export * from './lib/primitives/DialogPresenter'
 export * from './lib/primitives/FlyoutBase'
 export * from './lib/primitives/FlyoutPresenter'
@@ -66,6 +67,7 @@ export * from './lib/scrolling/ScrollBar';
 export * from './lib/scrolling/ScrollViewer';
 
 //Status and info
+export * from './lib/status-and-info/ToolTip';
 export * from './lib/status-and-info/ToolTipService';
 export * from './lib/status-and-info/ProgressBar';
 export * from './lib/status-and-info/ProgressRing';

@@ -125,6 +125,145 @@ protected OnDetailsClick() {
 }
 ```
 
+## Control Properties
+
+Controls expose state as PascalCase property pairs — a getter, an `@Input()` setter, and
+a matching `NameChange` `@Output()`. The rules below keep those properties honest as a
+control grows. They are worth following even where they cost a little efficiency: the
+failures they prevent are the kind that appear months later, in one edge case, in code
+that looked obviously correct.
+
+### Store one format, compute the rest
+
+A control should keep its state in exactly one representation. Anything else a caller can
+read is derived from it on demand. Two stored copies of the same thing will eventually
+disagree — usually in the one code path that forgot to update the second one.
+
+```typescript
+//One stored form, in the representation the control actually works in.
+private _color = new ColorHsva(0, 0, 1, 1);
+
+get Color(): Color { return this._color.ToRgba().ToNumber(); }
+get Brightness() { return this._color.V; }
+get Alpha() { return this._color.A; }
+```
+
+Choose the stored format for what it preserves, not for what is most convenient to return.
+`ColorSpectrum` stores HSVA in floating point rather than the packed `Color` it publishes,
+because an 8-bit colour at low brightness has almost no hue left in it — turn the
+brightness down and back up through the packed form and you come back a different hue.
+A control that re-reads its own published output loses whatever that output cannot carry.
+
+### The setter is the only writer
+
+If a value has a setter, nothing else assigns its backing field. A reader who sees a
+setter will reasonably assume it always runs, and will put a guard or a side effect in it
+expecting that. Internal code that writes the field directly quietly breaks that promise.
+
+In practice this means the whole control has exactly one assignment to each backing field.
+If a second one appears, it belongs behind the setter.
+
+### The setter does the whole job
+
+Calling the setter must be enough. Everything needed to bring the control in line with the
+new value happens inside it — repositioning, redrawing, raising the change event — so no
+caller has to remember a follow-up call.
+
+```typescript
+set HsvColor(value: ColorHsva) {
+  if (ColorHsva.AreNearEqual(value, this._color)) return;
+
+  this._color = value.Clone();
+  this.updateSelectorPosition();     //the visual that depends on it
+  this.HsvColorChange.emit(this.HsvColor);
+}
+```
+
+Work driven by a template binding is already covered — change detection re-reads the
+getter — so only imperative side effects need to be listed here.
+
+### Raise the change event in the setter
+
+Put the `NameChange` emit in the setter and nowhere else. Then it fires however the value
+moved — a binding, a gesture, another property, internal code — and no future code path
+can change the value silently. A control whose event fires from its gesture handler
+instead will go quiet the first time someone sets the property another way.
+
+### Guard against no-op sets
+
+Compare and return early. This is not only an optimization:
+
+- **It terminates two-way bindings.** `[(Value)]` feeds the control's own output back into
+  its setter. The guard is what stops that echo.
+- **It keeps events meaningful.** Subscribers should not be woken for a value that did
+  not change.
+- **It protects precision.** In `ColorSpectrum`, the echo arrives as a packed `Color`;
+  re-decomposing it would round hue and saturation away. The guard has to stop it before
+  the conversion, not after.
+
+Guard on the value the property publishes. Where a change too small to matter is possible
+— a slider is finer grained than the 8 bits it ends up in — compare with a tolerance.
+
+### Funnel several ways in to one writer
+
+When a control has more than one way to change the same state, give them one shared
+writer and let each entry point defer to it. Every path then gets the guard, the side
+effects and the event without repeating them, and there is one place to read to know what
+happens on a change.
+
+`ColorSpectrum` has four ways in — `Color`, `Brightness`, `Alpha` and the pointer — and
+all four end up in `set HsvColor`:
+
+```typescript
+@Input() set Color(value: Color) {
+  if (value === this.Color) return;
+  this.HsvColor = ColorRgba.FromNumber(value).ToHsva();
+}
+
+@Input() set Brightness(value: number) {
+  let color = this.HsvColor;
+  color.V = value;
+  this.HsvColor = color;
+}
+```
+
+Pick the funnel's type for what it preserves. `HsvColor` takes HSVA rather than `Color`
+precisely so the channel setters do not round-trip hue through 8 bits on every step.
+
+Where two published properties do not move together, they get one guard each rather than
+one shared one. `Color` and `HsvColor` are both raised from the same writer, but many HSVA
+states share one `Color` — at zero brightness every hue is black — so `HsvColor` changing
+does not imply `Color` did.
+
+### Class-typed values need value comparison
+
+`===` on a class instance compares references, not contents, so it is false for two
+separate instances however equal they are. A property of class type needs an explicit
+comparison — the colour classes provide `AreNearEqual`:
+
+```typescript
+if (ColorHsva.AreNearEqual(value, this._color)) return;   //not value === this._color
+```
+
+Primitive-typed properties (`Color` is a `number`) are the easy case, and are worth
+preferring for anything that has to be bindable — see below.
+
+### Getters that are bound must return a primitive or a stable reference
+
+Change detection compares bound values with `Object.is`. A getter that builds a new object
+each call hands it a new reference every check, so it looks changed every time. As an
+`@Input()` that is worse than wasteful: a `[(TwoWay)]` binding assigns a fresh reference
+back during change detection and trips `ExpressionChangedAfterItHasBeenChecked`.
+
+So a getter that clones — as `HsvColor` does, to stop callers mutating stored state — can
+be a plain property and an `@Output()`, but not an `@Input()`. Expose the bindable form as
+a primitive alongside it: `Color` is a `number`, and `Brightness` and `Alpha` are numbers,
+which is why those are the inputs and `HsvColor` is not.
+
+Cheap getters over fields (`get Brightness() { return this._color.V; }`) are fine to bind
+and fine to read from a template; they also avoid the allocation that reading through the
+cloning getter would cost on every check.
+
 ## Template Patterns
 
 ### HTML attribute ordering

@@ -8,6 +8,7 @@ Complete index of all xaml-ui controls, organized by category.
 |---|---|
 | [FrameworkElement](FrameworkElement.md) | Abstract base class for all controls. Provides sizing, alignment, margin, padding, opacity. |
 | [XamlRoot](XamlRoot.md) | Root container that must wrap the entire application. Sets theme, blocks context menu. |
+| [Color](Color.md) | The `Color` type and the RGBA/HSVA/HSLA classes controls convert through. |
 
 ## Layout
 
@@ -17,6 +18,7 @@ Complete index of all xaml-ui controls, organized by category.
 | [Grid](layout/Grid.md) | CSS Grid layout with XAML-style row/column definitions and 0-based placement directives. |
 | [StackPanel](layout/StackPanel.md) | Arranges children sequentially in a row or column with spacing. |
 | [Border](layout/Border.md) | Single-child container with panel styling. Children overlay in one cell. |
+| [Separator](layout/Separator.md) | Horizontal or vertical dividing line. |
 
 ## Basic Input
 
@@ -30,7 +32,8 @@ Complete index of all xaml-ui controls, organized by category.
 | [RadioToggleButton](basic-input/RadioToggleButton.md) | RadioButton styled as a toggle button (for toolbar segmented controls). |
 | [Slider](basic-input/Slider.md) | Range input for selecting a numeric value. Horizontal or vertical. |
 | [ComboBox](basic-input/ComboBox.md) | Dropdown selection with item templates and value/display paths. |
-| [ColorPicker](basic-input/ColorPicker.md) | Canvas-based color wheel for HSL color selection. |
+| [ColorPicker](basic-input/ColorPicker.md) | Color wheel with optional brightness and alpha sliders. Built on ColorSpectrum. |
+| [ColorSpectrum](primitives/ColorSpectrum.md) | Hue/saturation wheel primitive. Picks by position, in HSV. |
 | [DropDownButton](basic-input/DropDownButton.md) | Button with dropdown chevron. Hosts a Flyout or MenuFlyout. |
 | [SplitButton](basic-input/SplitButton.md) | Button split into a main action area and a dropdown section. |
 | [RepeatButton](basic-input/RepeatButton.md) | Button that emits Click events repeatedly while held down. |
@@ -66,6 +69,8 @@ Complete index of all xaml-ui controls, organized by category.
 | [Flyout](dialogs-and-flyouts/Flyout.md) | Lightweight popup anchored to parent. Supports placement and backdrop. |
 | [ContentDialog](dialogs-and-flyouts/ContentDialog.md) | Modal dialog with title, body, and up to three buttons. Created programmatically. |
 | [OpenFilePicker](dialogs-and-flyouts/OpenFilePicker.md) | Utility class for picking files via File System Access API. |
+| [FlyoutPresenter](primitives/FlyoutPresenter.md) | Surface, padding and transition chrome a flyout's content sits in. |
+| [DialogPresenter](primitives/DialogPresenter.md) | Frame with optional header and footer bands a dialog's content sits in. |
 
 ## Menus and Toolbars
 

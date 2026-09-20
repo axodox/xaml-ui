@@ -19,7 +19,7 @@
     background-color: var(--TextControlBackgroundColorPointerOver);
   }
 
-  &:focus-within, &:active {
+  &:focus-within {
     border-bottom-width: var(--TextControlBorderThicknessFocused);
     background-color: var(--TextControlBackgroundColorFocused);
     border-bottom-color: var(--TextControlElevationBorderColorFocused);
@@ -54,6 +54,10 @@ textarea {
 
   &:disabled {
     color: var(--TextFillColorDisabled);
+    
+    &::placeholder {
+      color: var(--TextFillColorDisabled);
+    }
   }
 }
 

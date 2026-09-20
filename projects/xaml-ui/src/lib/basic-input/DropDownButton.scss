@@ -27,7 +27,7 @@ $glyph-gap: 8px;
   grid-column: 2;
   transition: transform var(--ControlNormalAnimationDuration);
 
-  :host:active:not(.flyout-open):not(.disabled) & {
+  :host.pressed:not(.flyout-open):not(.disabled) & {
     transform: translateY(3px);
   }
 }

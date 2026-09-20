@@ -1,4 +1,6 @@
 :host {
+  --FlyoutSlideInLength: 10px;
+
   display: grid;
   overflow: hidden;
   user-select: none;
@@ -20,19 +22,19 @@
   max-height: calc(100vh - 32px);
 
   &.transition-slideup {
-    transform: translateY(10px);
+    transform: translateY(var(--FlyoutSlideInLength));
   }
 
   &.transition-slidedown {
-    transform: translateY(-10px);
+    transform: translateY(calc(-1 * var(--FlyoutSlideInLength)));
   }
 
   &.transition-slideleft {
-    transform: translatex(10px);
+    transform: translateX(var(--FlyoutSlideInLength));
   }
 
   &.transition-slideright {
-    transform: translatex(-10px);
+    transform: translateX(calc(-1 * var(--FlyoutSlideInLength)));
   }
 
   &.visible {
