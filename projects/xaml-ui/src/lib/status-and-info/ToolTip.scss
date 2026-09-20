@@ -1,0 +1,33 @@
+:host {
+  display: grid;
+  user-select: none;
+  
+  padding: 5px 8px;
+  max-width: 320px;
+
+  border: 1px solid var(--SurfaceStrokeColorFlyout);
+  border-radius: var(--OverlayCornerRadius);
+  background-color: var(--AcrylicInAppFillColorDefault);
+
+  backdrop-filter: var(--AcrylicBlur);
+  box-shadow: 0px 0px 15px 0px rgba(black, 0.5);
+
+  color: var(--TextFillColorPrimary);
+  font-family: var(--SystemFontFamily);
+  font-size: var(--SystemFontSize);
+
+  opacity: 0;
+  transition: opacity var(--ControlFastAnimationDuration) ease-out;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  //The chrome above is the tip's own box, so the inner root contributes none of its own. Its
+  //`all: initial` would also revive pointer events the overlay switches off, so switch them off again.
+  XamlRoot {
+    background: transparent;
+    overflow: visible;
+    pointer-events: none;
+  }
+}

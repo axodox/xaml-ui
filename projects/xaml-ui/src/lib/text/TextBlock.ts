@@ -92,7 +92,7 @@ export class TextBlockComponent extends FrameworkElementComponent {
       case 'Clip':
         return 'clip';
       case 'CharacterEllipsis':
-        return 'Ellipsis';
+        return 'ellipsis';
       default:
         return undefined;
     }

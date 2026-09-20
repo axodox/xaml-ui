@@ -4,7 +4,8 @@ label {
   grid-template-columns: auto 1fr auto auto;
 }
 
-.icon {
+.spin-button {
+  grid-column: 1;
   align-self: center;
   font-family: var(--SymbolFontFamily);
   color: var(--TextFillColorSecondary);
@@ -12,9 +13,13 @@ label {
 }
 
 .unit {
+  grid-column: 4;
   align-self: center;
-  color: var(--TextFillColorSecondary);
   pointer-events: none;
+}
+
+Flyout {
+  grid-column: 3;
 }
 
 .InlineButtonStyle {
@@ -22,9 +27,14 @@ label {
 }
 
 input {
+  grid-column: 2;
 
   &:focus+.popup,
   &:active+.popup {
     display: flex;
+  }
+
+  &:disabled~.unit {
+      color: var(--TextFillColorDisabled);
   }
 }

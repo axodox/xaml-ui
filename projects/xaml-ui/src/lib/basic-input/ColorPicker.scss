@@ -1,20 +1,20 @@
 :host {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-canvas {
-  clip-path: circle(50%);
-  position: relative;
+ColorSpectrum {
+  align-self: center;
 }
 
-.selector {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
-  border-color: white;
-  border-width: 2px;
-  border-style: solid;
-  border-radius: 10px;
-  mix-blend-mode: difference;
+.channel-slider.brightness ::ng-deep .track.horizontal {
+  background: linear-gradient(to right, #000000, var(--full-color, #ffffff));
+}
+
+.channel-slider.alpha ::ng-deep .track.horizontal {
+  background:
+    linear-gradient(to right, transparent, var(--opaque-color, #ffffff)) 0 0 / 100% 100% no-repeat,
+    conic-gradient(from 90deg, #cccccc 25%, #ffffff 0 50%, #cccccc 0 75%, #ffffff 0) 0 0 / 8px 8px repeat,
+    #ffffff;
 }

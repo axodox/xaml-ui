@@ -1,16 +1,16 @@
-import { Component, ContentChild, EventEmitter, Input, Output } from "@angular/core";
+import { Component, ContentChild, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 import { ButtonComponent } from "./Button";
 import { DropDownButtonComponent } from "./DropDownButton";
 import { GridModule } from "../layout/Grid";
 import { CommonModule } from "@angular/common";
 import { FrameworkElementComponent } from "../FrameworkElement";
 import { FlyoutBaseComponent } from "../primitives/FlyoutBase";
-import { HorizontalAlignment, VerticalAlignment } from "../Common";
+import { VerticalAlignment, HorizontalAlignment } from "../Common";
 
 @Component({
   selector: 'SplitButton',
-  template: `<Grid ColumnDefinitions="1fr auto">
-    <Button CornerRadius="4px 0 0 4px" [IsEnabled]="IsEnabled" (Click)="onButtonClick()" [ngClass]="buttonClass"
+  template: `<Grid [Height]="Height" [Width]="Width" [MinWidth]="MinWidth" [MinHeight]="MinHeight" ColumnDefinitions="1fr auto">
+    <Button [Padding]="Padding" CornerRadius="4px 0 0 4px" [IsEnabled]="IsEnabled" (Click)="onButtonClick()" [ngClass]="buttonClass"
             [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment"><ng-content/></Button>
     <DropDownButton CornerRadius="0 4px 4px 0" (Click)="onDropDownClick()" [IsEnabled]="IsEnabled"/>
   </Grid>`,

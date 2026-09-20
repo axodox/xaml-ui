@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from "@angular/core";
+import { Component, EventEmitter, HostBinding, HostListener, Input, Output, TemplateRef, ViewChild } from "@angular/core";
 import { MenuFlyoutItemBase } from "./MenuFlyoutItemBase";
 
 @Component({

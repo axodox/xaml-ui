@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input } from "@angular/core";
-import { HorizontalAlignment, toAlignment, toJustification, VerticalAlignment } from "./Common";
+import { HorizontalAlignment, ToAlignment, ToJustification, VerticalAlignment } from "./Common";
 
 @Component({
   selector: 'FrameworkElement',
@@ -51,12 +51,12 @@ export abstract class FrameworkElementComponent {
 
   @HostBinding('style.justify-self')
   protected get justifySelf() {
-    return toJustification(this.HorizontalAlignment);
+    return ToJustification(this.HorizontalAlignment);
   }
 
   @HostBinding('style.align-self')
   protected get alignSelf() {
-    return toAlignment(this.VerticalAlignment);
+    return ToAlignment(this.VerticalAlignment);
   }
 
   private static _nextId = 1;
