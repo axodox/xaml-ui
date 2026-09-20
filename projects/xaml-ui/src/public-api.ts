@@ -53,6 +53,7 @@ export * from './lib/menus-and-toolbars/MenuFlyoutItemBase';
 export * from './lib/menus-and-toolbars/MenuFlyoutSeparator';
 
 //Primitives
+export * from './lib/primitives/ColorSpectrum'
 export * from './lib/primitives/DialogPresenter'
 export * from './lib/primitives/FlyoutBase'
 export * from './lib/primitives/FlyoutPresenter'

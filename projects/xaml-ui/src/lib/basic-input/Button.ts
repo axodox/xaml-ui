@@ -1,6 +1,6 @@
 import { Component, ContentChild, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output } from "@angular/core";
 import { BorderComponent } from "../layout/Border";
-import { HorizontalAlignment, toAlignment, toJustification, VerticalAlignment } from "../Common";
+import { HorizontalAlignment, ToAlignment, ToJustification, VerticalAlignment } from "../Common";
 import { FlyoutBaseComponent } from "../primitives/FlyoutBase";
 import { CommonModule } from "@angular/common";
 import { TextBlockComponent } from "../text/TextBlock";
@@ -25,12 +25,12 @@ export class ButtonComponent extends BorderComponent {
 
   @HostBinding('style.align-content')
   private get alignContent() {
-    return toAlignment(this.VerticalContentAlignment);
+    return ToAlignment(this.VerticalContentAlignment);
   }
 
   @HostBinding('style.justify-content')
   private get justifyContent() {
-    return toJustification(this.HorizontalContentAlignment);
+    return ToJustification(this.HorizontalContentAlignment);
   }
 
   @HostBinding('attr.type')

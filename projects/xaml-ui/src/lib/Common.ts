@@ -16,11 +16,11 @@ export type PlacementMode = 'Top' | 'Bottom' | 'Left' | 'Right' | 'Mouse';
 export type Stretch = 'None' | 'Fill' | 'Uniform' | 'UniformToFill';
 export type UpdateTrigger = 'PropertyChanged' | 'LostFocus';
 
-export function toJustification(value: HorizontalAlignment) {
+export function ToJustification(value: HorizontalAlignment) {
   return value.toLowerCase();
 }
 
-export function toAlignment(value: VerticalAlignment) {
+export function ToAlignment(value: VerticalAlignment) {
   switch (value) {
     case 'Top':
       return 'flex-start';

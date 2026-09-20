@@ -1,0 +1,56 @@
+:host {
+  display: block;
+  line-height: 0;
+}
+
+.ring {
+  position: relative;
+  //Pointer capture drives the pick, so the browser must not claim the drag as a scroll.
+  touch-action: none;
+}
+
+//The wheel and its backdrop sit inside the selector inset, leaving the ring
+//itself a slightly larger square that stays clickable all the way to the corner.
+.checkerboard,
+.wheel {
+  position: absolute;
+  border-radius: 50%;
+  //Keep the ring the pointer target, so offsetX/offsetY stay in its coordinates.
+  pointer-events: none;
+}
+
+//Hard stops at the quarters cut each tile into a 2x2 checker, so a 16px tile
+//gives 8px squares.
+.checkerboard {
+  background: conic-gradient(from 90deg, #cccccc 25%, #ffffff 0 50%, #cccccc 0 75%, #ffffff 0) 0 0 / 16px 16px;
+}
+
+//The wheel, as two gradients rather than an image: hue all the way round, then
+//white fading out from the centre for saturation. Both are evaluated per pixel
+//at whatever size the control is drawn, so there is nothing to rasterize and
+//resample - which is what made a wheel built from discrete slices shimmer.
+//
+//This composites to exactly HSV(hue = angle, saturation = distance from centre,
+//value = 1), the mapping ColorSpectrum inverts to turn a position into a color:
+//the six-stop hue ring is piecewise linear between the primaries, which is what
+//hue rotation is, and the white overlay at opacity 1 - distance is what drains
+//the saturation. Red sits at 3 o'clock and hue runs clockwise to match the
+//component's angle convention.
+.wheel {
+  background:
+    radial-gradient(circle closest-side, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)),
+    conic-gradient(from 90deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+}
+
+.selector {
+  position: absolute;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-color: white;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 10px;
+  mix-blend-mode: difference;
+}

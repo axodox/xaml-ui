@@ -4,37 +4,10 @@
   gap: 12px;
 }
 
-.ring {
-  // Sized to the canvas so the absolutely-positioned selector shares its
-  // coordinate space; centered within the (possibly wider) control.
+ColorSpectrum {
   align-self: center;
-  position: relative;
-  width: fit-content;
-  line-height: 0;
 }
 
-canvas {
-  display: block;
-  position: relative;
-}
-
-.selector {
-  position: absolute;
-  // Let clicks pass through to the canvas so a press that lands on the selector
-  // still starts a drag (and clicks elsewhere still jump the selector here).
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
-  border-color: white;
-  border-width: 2px;
-  border-style: solid;
-  border-radius: 10px;
-  mix-blend-mode: difference;
-}
-
-// Custom track backgrounds for the brightness/alpha sliders. The gradient
-// endpoints come from CSS custom properties published by the component.
 .channel-slider.brightness ::ng-deep .track.horizontal {
   background: linear-gradient(to right, #000000, var(--full-color, #ffffff));
 }

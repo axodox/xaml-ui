@@ -105,6 +105,7 @@
         </AppBarButton>
         <AppBarButton Icon="&#xE719;" Text="Shop" [IsEnabled]="false" />
       </CommandBar>
+      <ColorSpectrum Width="200px" Height="200px" (ColorChange)="onColorSelected($event)" />
       <ColorPicker Width="200px" Height="200px" (ColorChange)="onColorSelected($event)" />
       <ColorPicker Width="200px" Height="200px" [IsBrightnessEnabled]="true" [IsAlphaEnabled]="true"
         [(Color)]="DemoColor" (ColorChange)="onColorSelected($event)" />

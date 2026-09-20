@@ -1,6 +1,6 @@
 import { Component, ContentChild, EventEmitter, HostBinding, Input, Output, TemplateRef } from "@angular/core";
 import { FrameworkElementComponent } from "../FrameworkElement";
-import { HorizontalAlignment, toAlignment, toJustification, VerticalAlignment } from "../Common";
+import { HorizontalAlignment, ToAlignment, ToJustification, VerticalAlignment } from "../Common";
 
 export const SelectorItemTemplate =
   `<ng-container *ngIf="ItemTemplate">
@@ -30,11 +30,11 @@ export abstract class SelectorComponent extends FrameworkElementComponent {
   @Input() VerticalContentAlignment: VerticalAlignment = 'Center';
 
   protected get alignContent() {
-    return toAlignment(this.VerticalContentAlignment);
+    return ToAlignment(this.VerticalContentAlignment);
   }
 
   protected get justifyContent() {
-    return toJustification(this.HorizontalContentAlignment);
+    return ToJustification(this.HorizontalContentAlignment);
   }
 
   @HostBinding('class.disabled')
