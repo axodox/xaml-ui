@@ -102,12 +102,13 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
     if (this._backdropContextMenuSubscription) this._backdropContextMenuSubscription();
 
     //Dispose overlay after hidden
-    if (!this._overlayRef) return;
+    const overlayRef = this._overlayRef;
+    if (!overlayRef) return;
     await resume_after(FlyoutPresenter.TransitionDuration);
 
-    this._overlayRef.detach();
-    this._overlayRef.dispose();
-    this._overlayRef = undefined;
+    overlayRef.detach();
+    overlayRef.dispose();
+    if (this._overlayRef === overlayRef) this._overlayRef = undefined;
   }
 
   private _target: FlexibleConnectedPositionStrategyOrigin | null = null;

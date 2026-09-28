@@ -67,27 +67,16 @@ export class ScrollBarComponent extends FrameworkElementComponent {
   private getPointerPosition(event: PointerEvent) {
     return this.Orientation === 'Vertical' ? event.clientY : event.clientX;
   }
-
+  
   protected get thumbStyle() {
-    if (!this._track) return {};
+    let scrollRange = this.ScrollSize - this.ViewportSize;
+    let size = this.ScrollSize > 0 ? Math.min(this.ViewportSize / this.ScrollSize, 1) : 1;
+    let position = scrollRange > 0 ? Math.min(Math.max(this.Value / scrollRange, 0), 1) : 0;
 
-    let trackLength = this.getElementSize(this._track.nativeElement);
-    let scrollPosition = this.Value / (this.ScrollSize - this.ViewportSize);
-    let size = trackLength * (this.ViewportSize / this.ScrollSize);
-    let position = scrollPosition * (trackLength - size);
-
-    switch (this.Orientation) {
-      case 'Vertical':
-        return {
-          'height': size + 'px',
-          'top': position + 'px'
-        };
-      case 'Horizontal':
-        return {
-          'width': size + 'px',
-          'left': position + 'px'
-        };
-    }
+    return {
+      '--thumb-size': size * 100 + '%',
+      '--thumb-position': position
+    };
   }
 
   private _interval?: any;
