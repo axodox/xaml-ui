@@ -18,6 +18,8 @@
 
       &>.thumb {
         transform: translateY(3px);
+        width: var(--thumb-size);
+        left: calc((100% - max(var(--thumb-size), var(--thumb-min-size))) * var(--thumb-position));
       }
     }
   }
@@ -36,6 +38,8 @@
 
       &>.thumb {
         transform: translateX(3px);
+        height: var(--thumb-size);
+        top: calc((100% - max(var(--thumb-size), var(--thumb-min-size))) * var(--thumb-position));
       }
     }
   }
@@ -50,8 +54,7 @@
     }
 
     &>.track>.thumb {
-      min-width: 10px;
-      min-height: 10px;
+      --thumb-min-size: 10px;
       transform: translate(0, 0);
     }
   }
@@ -89,8 +92,9 @@
       border-radius: 3px;
       transition: transform var(--ControlNormalAnimationDuration), min-width var(--ControlNormalAnimationDuration), min-height var(--ControlNormalAnimationDuration);
 
-      min-width: 2px;
-      min-height: 2px;
+      --thumb-min-size: 2px;
+      min-width: var(--thumb-min-size);
+      min-height: var(--thumb-min-size);
     }
   }
 }
