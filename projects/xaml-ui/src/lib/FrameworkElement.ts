@@ -55,17 +55,6 @@ export abstract class FrameworkElementComponent {
     return ToAlignment(this.VerticalAlignment);
   }
 
-  private static _isSafari?: boolean;
-
-  //True on Safari and on the other WebKit based browsers of Apple platforms, which share its layout
-  //engine. Evaluated once, as host bindings are re-read on every change detection pass.
-  static get IsSafari() {
-    if (this._isSafari === undefined) {
-      this._isSafari = typeof navigator !== 'undefined' && /apple/i.test(navigator.vendor ?? '');
-    }
-    return this._isSafari;
-  }
-
   private static _nextId = 1;
   protected readonly _id = FrameworkElementComponent._nextId++;
 
