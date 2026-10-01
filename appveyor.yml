@@ -5,7 +5,7 @@ branches:
 image: Visual Studio 2022
 environment:
   NPM_TOKEN:
-    secure: FRgWoOWDue045JOJaaOe5UtkhGLVXp5qkv0uTdhChC8HBxaxRk5hgnqn5hvmMx+M
+    secure: Ifg1yAousKDCEOYdzweSr2HxPZBNcbDU79zUEKxgtSZcjzmcdJXK66skqU4xa9D+
 build_script:
 - ps: >-
     .\build_npm.ps1
