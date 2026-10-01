@@ -153,15 +153,14 @@ export class ToolTipDirective implements OnDestroy {
     //Dispose overlay after hidden
     const overlayRef = this._overlayRef;
     if (!overlayRef) return;
-    await resume_after(ToolTipComponent.TransitionDuration);
-
-    overlayRef.detach();
-    overlayRef.dispose();
-    if (this._overlayRef !== overlayRef) return;
 
     this._hostElement.nativeElement.removeAttribute('aria-describedby');
     this._toolTip = undefined;
     this._overlayRef = undefined;
+    await resume_after(ToolTipComponent.TransitionDuration);
+
+    overlayRef.detach();
+    overlayRef.dispose();
   }
 
   private static getPositionCandidates(placement: PlacementMode): ConnectedPosition[] {

@@ -99,16 +99,20 @@ export abstract class FlyoutBaseComponent implements OnDestroy {
     this.isVisible = false;
 
     //Remove event handlers
-    if (this._backdropContextMenuSubscription) this._backdropContextMenuSubscription();
+    if (this._backdropContextMenuSubscription) {
+      this._backdropContextMenuSubscription();
+      this._backdropContextMenuSubscription = undefined;
+    }
 
     //Dispose overlay after hidden
     const overlayRef = this._overlayRef;
     if (!overlayRef) return;
+    
+    this._overlayRef = undefined;
     await resume_after(FlyoutPresenter.TransitionDuration);
 
     overlayRef.detach();
     overlayRef.dispose();
-    if (this._overlayRef === overlayRef) this._overlayRef = undefined;
   }
 
   private _target: FlexibleConnectedPositionStrategyOrigin | null = null;

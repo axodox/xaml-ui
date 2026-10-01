@@ -34,6 +34,10 @@ export class TextBlockComponent extends FrameworkElementComponent {
     return this.MaxWidth === undefined && this.HorizontalAlignment === 'Stretch' && this.TextTrimming === 'None' ? 'min-content' : undefined;
   }
 
+  protected override get overflow() {
+    return this.TextTrimming !== 'None' ? 'hidden' : undefined;
+  }
+
   @HostBinding('style.font-weight')
   private get fontWeight() {
     return TextBlockComponent.ToFontWeight(this.FontWeight);
