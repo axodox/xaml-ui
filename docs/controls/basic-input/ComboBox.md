@@ -6,7 +6,12 @@ Dropdown selection control. Extends [Selector](../primitives/Selector.md) → [F
 
 ## Own Properties
 
-Inherits all from [Selector](../primitives/Selector.md). No additional own properties.
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `IsTextSearchEnabled` | `boolean` | `true` | Type-ahead selection |
+| `PlaceholderText` | `string` | `''` | Text shown while no item is selected |
+
+Inherits all from [Selector](../primitives/Selector.md).
 
 ## Inherited Properties (from Selector)
 
