@@ -1,3 +1,7 @@
+.placeholder {
+  color: var(--TextFillColorSecondary);
+}
+
 :host ::ng-deep .popup > .popup-container {
   left: 0;
   right: 0;

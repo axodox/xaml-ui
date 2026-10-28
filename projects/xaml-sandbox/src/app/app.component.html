@@ -69,6 +69,7 @@
         <RadioToggleButton>D</RadioToggleButton>
       </RadioButtonGroup>
       <ComboBox [ItemSource]="['alma', 'körte', 'répa', 'alma pite', 1, 2, 3]" [SelectedValue]="1" Margin="12px" [IsTextSearchEnabled]="true" />
+      <ComboBox [ItemSource]="['alma', 'körte', 'répa']" PlaceholderText="Pick a fruit" Margin="12px" />
       <TextBox PlaceholderText="test" Margin="6px" />
       <TextBox PlaceholderText="property change" Margin="6px" UpdateTrigger="PropertyChanged"
         (TextChange)="onValueChange($event)" />

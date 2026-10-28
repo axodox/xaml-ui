@@ -13,7 +13,7 @@ import { ItemContainerComponent } from "../primitives/ItemContainer";
   selector: 'ComboBox',
   imports: [CommonModule, DropDownButtonComponent, FlyoutComponent, ListViewComponent, ItemContainerComponent],
   template: `<DropDownButton [Height]="Height" [Width]="Width" [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment" [IsEnabled]="IsEnabled">
-    <ItemContainer #container>${SelectorItemTemplate}</ItemContainer>
+    <ItemContainer #container>${SelectorItemTemplate}<span *ngIf="SelectedIndex < 0" class="placeholder">{{ PlaceholderText }}</span></ItemContainer>
     <Flyout Placement="Cover" Padding="0" [Target]="target" (IsOpenChange)="onIsOpenChanged($event)">
       <ListView [ItemSource]="ItemSource" [(SelectedIndex)]="SelectedIndex" [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment"
                 [ItemTemplate]="ItemTemplate" [DisplayMemberPath]="DisplayMemberPath" [SelectedValuePath]="SelectedValuePath" (ItemClick)="onItemClicked()"/>
@@ -24,6 +24,7 @@ import { ItemContainerComponent } from "../primitives/ItemContainer";
 export class ComboBoxComponent extends SelectorComponent implements AfterViewInit {
 
   @Input() IsTextSearchEnabled: boolean = true;
+  @Input() PlaceholderText: string = '';
 
   @HostBinding('attr.tabindex')
   protected get tabIndex() {
