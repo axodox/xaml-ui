@@ -46,6 +46,7 @@ Complete index of all xaml-ui controls, organized by category.
 | [TextBlock](text/TextBlock.md) | Read-only text display with font, alignment, wrapping, and trimming options. |
 | [TextBox](text/TextBox.md) | Single-line or multi-line text input with placeholder and validation. |
 | [NumberBox](text/NumberBox.md) | Numeric input with spin buttons, keyboard support, unit suffix, and value clamping. |
+| [PasswordBox](text/PasswordBox.md) | Masked password input with a hold-to-reveal button. |
 
 ## Icons
 
