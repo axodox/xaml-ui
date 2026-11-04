@@ -2,11 +2,14 @@ import { Component, ContentChild, EventEmitter, HostBinding, Input, Output, Temp
 import { FrameworkElementComponent } from "../FrameworkElement";
 import { HorizontalAlignment, ToAlignment, ToJustification, VerticalAlignment } from "../Common";
 
-export const SelectorItemTemplate =
-  `<ng-container *ngIf="ItemTemplate">
-    <ng-container [ngTemplateOutlet]="ItemTemplate" [ngTemplateOutletContext]="{ $implicit: item }" [ngTemplateOutletInjector]="container.Injector" />
+export function BuildSelectorItemTemplate<T>(template: Extract<keyof T, string>) {
+  return `<ng-container *ngIf="${template}">
+    <ng-container [ngTemplateOutlet]="${template}" [ngTemplateOutletContext]="{ $implicit: item }" [ngTemplateOutletInjector]="container.Injector" />
     </ng-container>
-  <ng-container *ngIf="!ItemTemplate">{{ DisplayMemberPath && item !== null ? item[DisplayMemberPath] : item }}</ng-container>`;
+  <ng-container *ngIf="!${template}">{{ DisplayMemberPath && item !== null ? item[DisplayMemberPath] : item }}</ng-container>`;
+}
+
+export const SelectorItemTemplate = BuildSelectorItemTemplate<SelectorComponent>('ItemTemplate');
 
 @Component({
   selector: 'Selector',

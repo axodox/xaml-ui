@@ -2,6 +2,19 @@
   color: var(--TextFillColorSecondary);
 }
 
+// DropDownButton bounds the collapsed content to its own column, but every level below it is a
+// grid, and a grid item will not shrink below its content - so a wide selection would overflow
+// and paint over the chevron. Trimming whatever is inside is up to SelectionTemplate.
+:host ::ng-deep DropDownButton > .content {
+  grid-template-columns: minmax(0, 1fr);
+  overflow: hidden;
+
+  ItemContainer,
+  ItemContainer * {
+    min-width: 0;
+  }
+}
+
 :host ::ng-deep .popup > .popup-container {
   left: 0;
   right: 0;

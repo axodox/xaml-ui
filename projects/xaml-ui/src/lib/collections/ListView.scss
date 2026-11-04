@@ -2,6 +2,8 @@
 
 :host {
   display: grid;
+  //Pass a bounded height on to the ScrollViewer rather than growing with the items.
+  grid-template-rows: minmax(0, 1fr);
 
   & .item {
     display: grid;
