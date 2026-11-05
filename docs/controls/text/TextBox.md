@@ -16,6 +16,8 @@ Text input control. Renders as `<input>` when `TextWrapping="NoWrap"` (default) 
 | `TextWrapping` | `'NoWrap' \| 'Wrap'` | `'NoWrap'` | NoWrap = single-line `<input>`, Wrap = multi-line `<textarea>` |
 | `UpdateTrigger` | `'PropertyChanged' \| 'LostFocus'` | `'PropertyChanged'` | When to emit changes |
 | `Pattern` | `string` | — | Regex pattern for input validation |
+| `AutoComplete` | `string` | — | `autocomplete` hint for the single-line input, e.g. `'username'` next to a [PasswordBox](PasswordBox.md) |
+| `Name` | `string` | — | Form field `name`, e.g. to read the value with `FormData` |
 
 | Output | Type | Description |
 |---|---|---|

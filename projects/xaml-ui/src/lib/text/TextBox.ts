@@ -6,7 +6,7 @@ import { CommonModule } from "@angular/common";
 @Component({
   selector: 'TextBox',
   imports: [CommonModule],
-  template: `<input class="text-box" #input *ngIf="TextWrapping === 'NoWrap'" type="text" size="1" [disabled]="!IsEnabled" [value]="Text" (input)="onInput()" (keydown.enter)="onReturn()" (blur)="onBlur()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}"/>
+  template: `<input class="text-box" #input *ngIf="TextWrapping === 'NoWrap'" type="text" size="1" [attr.autocomplete]="AutoComplete" [attr.name]="Name" [disabled]="!IsEnabled" [value]="Text" (input)="onInput()" (keydown.enter)="onReturn()" (blur)="onBlur()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}"/>
   <textarea class="text-box" #input *ngIf="TextWrapping === 'Wrap'" [disabled]="!IsEnabled" [value]="Text" (input)="onInput()" (blur)="onBlur()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}"></textarea>`,
   styleUrl: 'TextBox.scss'
 })
@@ -18,6 +18,12 @@ export class TextBoxComponent extends FrameworkElementComponent {
   @Input() TextWrapping: TextWrapping = 'NoWrap';
   @Input() UpdateTrigger: UpdateTrigger = 'PropertyChanged';
   @Input() Pattern?: string;
+
+  //Tells password managers what the field holds, e.g. 'username'
+  @Input() AutoComplete?: string;
+
+  //Form field name, e.g. to read the value with FormData
+  @Input() Name?: string;
 
   @ViewChild('input')
   private _input!: ElementRef<HTMLInputElement>;

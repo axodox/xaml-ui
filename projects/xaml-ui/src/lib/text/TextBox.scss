@@ -52,6 +52,17 @@ textarea {
     color: var(--TextFillColorSecondary);
   }
 
+  //Autofill paints an opaque background (Chromium) or a color filter (Firefox) over the control
+  &:-webkit-autofill {
+    -webkit-text-fill-color: var(--TextFillColorPrimary);
+    caret-color: var(--TextFillColorPrimary);
+    transition: background-color 0s 600000s;
+  }
+
+  &:autofill {
+    filter: none;
+  }
+
   &:disabled {
     color: var(--TextFillColorDisabled);
     
