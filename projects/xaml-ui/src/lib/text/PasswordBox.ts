@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from "@angular/core";
+import { Component, DoCheck, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from "@angular/core";
 import { FrameworkElementComponent } from "../FrameworkElement";
 import { CommonModule } from "@angular/common";
 
@@ -11,7 +11,7 @@ export type PasswordRevealMode = 'Peek' | 'Hidden' | 'Visible';
   <div *ngIf="isRevealButtonVisible" class="reveal-button" (pointerdown)="onRevealPress($event)" (pointerup)="onRevealRelease()" (pointerleave)="onRevealRelease()" (pointercancel)="onRevealRelease()">&#xF78D;</div>`,
   styleUrls: ['TextBox.scss', 'PasswordBox.scss']
 })
-export class PasswordBoxComponent extends FrameworkElementComponent {
+export class PasswordBoxComponent extends FrameworkElementComponent implements DoCheck {
   @Input() IsEnabled: boolean = true;
   @Input() PlaceholderText: string = '';
   @Input() PasswordRevealMode: PasswordRevealMode = 'Peek';
@@ -45,6 +45,12 @@ export class PasswordBoxComponent extends FrameworkElementComponent {
 
   protected get isRevealButtonVisible() {
     return this.PasswordRevealMode === 'Peek' && this.IsEnabled && this.Password !== '';
+  }
+
+  ngDoCheck() {
+    //The reveal button can be removed while pressed (password cleared, disabled, mode changed),
+    //so its release events never fire. Drop the stale peek before the view is checked.
+    if (!this.isRevealButtonVisible) this._isPeeking = false;
   }
 
   protected onInput() {
