@@ -4,7 +4,7 @@ import { BorderComponent } from "../layout/Border";
 @Component({
   selector: 'CheckBox',
   template: `<label class="container">
-    <input type="checkbox" [checked]="IsChecked" (change)="onChange($event)" [disabled]="!IsEnabled">
+    <input type="checkbox" [attr.name]="Name" [checked]="IsChecked" (change)="onChange($event)" [disabled]="!IsEnabled">
     <div class="checkBox">
       <div class="checkMark">&#xE73E;</div>
     </div>

@@ -12,8 +12,7 @@ Masked single-line input for passwords. Renders as `<input type="password">`, so
 | `PlaceholderText` | `string` | `''` | Placeholder text |
 | `IsEnabled` | `boolean` | `true` | Enabled state |
 | `PasswordRevealMode` | `'Peek' \| 'Hidden' \| 'Visible'` | `'Peek'` | Peek = reveal button shows the password while held down, Hidden = always masked, Visible = never masked |
-| `AutoComplete` | `string` | `'current-password'` | `autocomplete` hint for password managers, e.g. `'new-password'` |
-| `Name` | `string` | — | Form field `name`, e.g. to read the value with `FormData` |
+| `InputKind` | `string` | `'current-password'` | HTML `autocomplete` hint for the browser and password managers, e.g. `'new-password'` |
 
 | Output | Type | Description |
 |---|---|---|
@@ -27,7 +26,7 @@ Masked single-line input for passwords. Renders as `<input type="password">`, so
 
 ## Inherited Properties
 
-From [FrameworkElement](../FrameworkElement.md): `Width`, `Height`, `Margin`, `Padding`, etc.
+From [FrameworkElement](../FrameworkElement.md): `Name` (rendered as the form field `name`), `Width`, `Height`, `Margin`, `Padding`, etc.
 
 ## Examples
 
@@ -37,7 +36,7 @@ Chrome and Firefox offer to save the password only when a `<form>` is submitted,
 
 ```html
 <form #form (submit)="$event.preventDefault(); signIn(form)">
-  <TextBox Name="userName" PlaceholderText="User name" AutoComplete="username" (keydown.enter)="form.requestSubmit()" />
+  <TextBox Name="userName" PlaceholderText="User name" InputKind="username" (keydown.enter)="form.requestSubmit()" />
   <PasswordBox Name="password" PlaceholderText="Password" (keydown.enter)="form.requestSubmit()" />
   <Button Content="Sign in" (Click)="form.requestSubmit()"></Button>
 </form>
@@ -54,5 +53,5 @@ signIn(form: HTMLFormElement) {
 **Sign-up form without a reveal button:**
 
 ```html
-<PasswordBox [(Password)]="newPassword" PasswordRevealMode="Hidden" AutoComplete="new-password" />
+<PasswordBox [(Password)]="newPassword" PasswordRevealMode="Hidden" InputKind="new-password" />
 ```

@@ -7,7 +7,7 @@ export type PasswordRevealMode = 'Peek' | 'Hidden' | 'Visible';
 @Component({
   selector: 'PasswordBox',
   imports: [CommonModule],
-  template: `<input class="text-box" #input [type]="isRevealed ? 'text' : 'password'" size="1" [autocomplete]="AutoComplete" [attr.name]="Name" [disabled]="!IsEnabled" [value]="Password" (input)="onInput()" [placeholder]="PlaceholderText"/>
+  template: `<input class="text-box" #input [type]="isRevealed ? 'text' : 'password'" size="1" [autocomplete]="InputKind" [attr.name]="Name" [disabled]="!IsEnabled" [value]="Password" (input)="onInput()" [placeholder]="PlaceholderText"/>
   <div *ngIf="isRevealButtonVisible" class="reveal-button" (pointerdown)="onRevealPress($event)" (pointerup)="onRevealRelease()" (pointerleave)="onRevealRelease()" (pointercancel)="onRevealRelease()">&#xF78D;</div>`,
   styleUrls: ['TextBox.scss', 'PasswordBox.scss']
 })
@@ -16,11 +16,8 @@ export class PasswordBoxComponent extends FrameworkElementComponent implements D
   @Input() PlaceholderText: string = '';
   @Input() PasswordRevealMode: PasswordRevealMode = 'Peek';
 
-  //Tells password managers what to fill, e.g. 'new-password' on a sign-up form
-  @Input() AutoComplete: string = 'current-password';
-
-  //Form field name, e.g. to read the value with FormData
-  @Input() Name?: string;
+  //Tells the browser and password managers what to fill (HTML autocomplete), e.g. 'new-password' on a sign-up form
+  @Input() InputKind: string = 'current-password';
 
   @ViewChild('input')
   private _input!: ElementRef<HTMLInputElement>;
