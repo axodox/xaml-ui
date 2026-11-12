@@ -19,6 +19,7 @@ Abstract base class for all xaml-ui visual components. You do not use this direc
 | `Margin` | `string` | — | CSS margin (e.g. `"6px"`, `"0 0 0 12px"`) |
 | `Padding` | `string` | — | CSS padding |
 | `Opacity` | `string \| number` | — | CSS opacity |
+| `Name` | `string` | — | Identifies the element, like `x:Name` in XAML. Input controls (TextBox, PasswordBox, NumberBox, CheckBox, ToggleSwitch) also render it as the form field `name`, e.g. to read the value with `FormData` |
 
 ## Default Host Styles
 

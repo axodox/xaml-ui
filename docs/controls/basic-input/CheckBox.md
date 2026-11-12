@@ -18,7 +18,7 @@ Boolean toggle with a checkbox indicator. Extends [Border](../layout/Border.md) 
 ## Inherited Properties
 
 - From [Panel](../layout/Panel.md): `Background`, `CornerRadius`, `BorderThickness`, `BorderBrush`
-- From [FrameworkElement](../FrameworkElement.md): `Width`, `Height`, `Margin`, `Padding`, etc.
+- From [FrameworkElement](../FrameworkElement.md): `Name` (rendered as the form field `name`), `Width`, `Height`, `Margin`, `Padding`, etc.
 
 ## Examples
 

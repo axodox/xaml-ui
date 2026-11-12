@@ -1,5 +1,5 @@
 import { Overlay, OverlayConfig } from "@angular/cdk/overlay";
-import { Component, ContentChild, EventEmitter, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
+import { Component, ComponentRef, ContentChild, EventEmitter, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
 import { resume_after, resume_on_event } from "../Common";
 import { TemplatePortal } from "@angular/cdk/portal";
 import { DialogPresenter } from "../primitives/DialogPresenter";
@@ -14,6 +14,8 @@ export abstract class Dialog {
 
   private _overlay!: Overlay;
   private _viewContainerRef!: ViewContainerRef;
+  private _componentRef?: ComponentRef<Dialog>;
+  private _isShown = false;
   @ViewChild('xaml-dialog-presenter') private _dialogPresenter?: DialogPresenter;
 
   IsBackdropDismissEnabled = false;
@@ -22,11 +24,20 @@ export abstract class Dialog {
     let component = container.createComponent(type);
     component.instance._overlay = container.injector.get(Overlay);
     component.instance._viewContainerRef = container.injector.get(ViewContainerRef);
-    component.instance.Closed.subscribe(() => component.destroy());
+    component.instance._componentRef = component;
+    //If closed without ever being shown, there is no fade-out to wait for
+    component.instance.Closed.subscribe(() => {
+      if (!component.instance._isShown) component.destroy();
+    });
     return component.instance;
   }
 
   async ShowAsync(): Promise<any> {
+    this._isShown = true;
+
+    //Subscribe before any await, so a Hide() during setup is not missed
+    let closed = resume_on_event(this.Closed);
+
     //Wait for a layout cycle to ensure templates etc. are ready
     await resume_after(0);
 
@@ -68,7 +79,7 @@ export abstract class Dialog {
     if (this._dialogPresenter) this._dialogPresenter.IsVisible = true;
 
     //Wait for close
-    await resume_on_event(this.Closed);
+    await closed;
 
     //Fade-out
     if (this._dialogPresenter) {
@@ -79,6 +90,8 @@ export abstract class Dialog {
     //Cleanup
     backdropContextMenuSubscription();
     overlayRef.detach();
+    //Destroyed only now, as destroying on Closed would remove the content and its styles during the fade-out
+    this._componentRef?.destroy();
   }
 
   Hide() {
