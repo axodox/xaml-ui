@@ -34,6 +34,12 @@ Inherits all from [Selector](../primitives/Selector.md).
 | `SelectedValueChange` | `EventEmitter<any>` | Value changed |
 | `SelectedItemChange` | `EventEmitter<any>` | Item changed |
 
+## Behavior
+
+- The ComboBox itself is the tab stop (its inner DropDownButton is not). Typed characters select the first item whose display text contains them (a pause of 1 s starts a new search); Enter and Esc close the open list.
+- The list opens in a `Transient` [Flyout](../dialogs-and-flyouts/Flyout.md): the focus and the keys stay with the ComboBox. Clicking an item selects it and closes the list.
+- Selection follows [Selector](../primitives/Selector.md#selection-and-binding-updates): when `ItemSource` and `SelectedValue` change in the same binding update, in either order, the new value is kept; the change outputs are raised right after the update. `SelectedItem` matches by reference.
+
 ## Inherited from FrameworkElement
 
 `Width`, `Height`, `Margin`, `Padding`, `HorizontalAlignment`, `VerticalAlignment`, etc.
@@ -51,6 +57,14 @@ Inherits all from [Selector](../primitives/Selector.md).
 ```html
 <ComboBox [ItemSource]="countries" [(SelectedValue)]="selectedCountryId"
           DisplayMemberPath="Name" SelectedValuePath="Id" />
+```
+
+**List and value changing together** (picking a category replaces the rule list and picks its first rule; the rule box shows it):
+
+```html
+<ComboBox [ItemSource]="categories" DisplayMemberPath="Name" SelectedValuePath="Id"
+          [SelectedValue]="category.Id" (SelectedValueChange)="onCategory($event)" />
+<ComboBox [ItemSource]="category.Rules" [(SelectedValue)]="rule" DisplayMemberPath="Name" SelectedValuePath="Id" />
 ```
 
 **With custom template:**

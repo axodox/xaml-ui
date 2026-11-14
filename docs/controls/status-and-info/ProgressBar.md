@@ -2,7 +2,7 @@
 
 > Source: [ProgressBar.ts](../../../projects/xaml-ui/src/lib/status-and-info/ProgressBar.ts)
 
-Horizontal progress indicator. Extends [FrameworkElement](../FrameworkElement.md).
+Horizontal progress indicator: a 3px accent indicator over a 1px track (WinUI's look). Extends [FrameworkElement](../FrameworkElement.md). For the circular variant see [ProgressRing](ProgressRing.md).
 
 ## Own Properties
 
@@ -10,12 +10,18 @@ Horizontal progress indicator. Extends [FrameworkElement](../FrameworkElement.md
 |---|---|---|---|
 | `Minimum` | `number` | `0` | Minimum value |
 | `Maximum` | `number` | `1` | Maximum value |
-| `Value` | `number` | `0` | Current progress value |
-| `IsIndeterminate` | `boolean` | `false` | When true, shows an animated indeterminate state |
+| `Value` | `number` | `0` | Current progress value (the indicator is clamped to the range) |
+| `IsIndeterminate` | `boolean` | `false` | When true, shows an animated indeterminate state (no track) |
+| `ShowPaused` | `boolean` | `false` | Colours the indicator with `--SystemFillColorCaution` (adds `.paused`) |
+| `ShowError` | `boolean` | `false` | Colours the indicator with `--SystemFillColorCritical` (adds `.error`) |
 
 ## Inherited Properties
 
 From [FrameworkElement](../FrameworkElement.md): `Width`, `Height`, `Margin`, `Padding`, etc.
+
+## Accessibility
+
+The host has the `progressbar` role. While determinate it has `aria-valuemin`, `aria-valuemax` and `aria-valuenow` (the value clamped to the range); while indeterminate it has `aria-busy="true"` and no values. Give it a name with `aria-label` when nearby text does not describe it.
 
 ## Examples
 
@@ -26,22 +32,14 @@ From [FrameworkElement](../FrameworkElement.md): `Width`, `Height`, `Margin`, `P
 <ProgressBar [Value]="progress" [Maximum]="totalItems" />
 ```
 
+**Paused or failed:**
+
+```html
+<ProgressBar [Value]="progress" [ShowPaused]="isPaused" [ShowError]="hasFailed" />
+```
+
 **Indeterminate (loading):**
 
 ```html
 <ProgressBar [IsIndeterminate]="true" />
-```
-
-# ProgressRing
-
-Circular progress indicator (SVG-based). Same API as ProgressBar. Extends [FrameworkElement](../FrameworkElement.md).
-
-## Own Properties
-
-Same as ProgressBar: `Minimum`, `Maximum`, `Value`, `IsIndeterminate`.
-
-## Example
-
-```html
-<ProgressRing [IsIndeterminate]="isLoading" Width="32px" Height="32px" />
 ```

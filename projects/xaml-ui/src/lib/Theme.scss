@@ -76,6 +76,26 @@
   --LayerFillColorAlt:                        var(--XamlUiOverrideLayerFillColorAlt,                        #FFFFFF0D);
   --SurfaceStrokeColorDefault:                var(--XamlUiOverrideSurfaceStrokeColorDefault,                #75757566);
 
+  //Text, focus, card, background and status colours of WinUI's palette
+  --TextFillColorTertiary:                    var(--XamlUiOverrideTextFillColorTertiary,                    #FFFFFF8B);
+  --FocusStrokeColorOuter:                    var(--XamlUiOverrideFocusStrokeColorOuter,                    #FFFFFFFF);
+  --FocusStrokeColorInner:                    var(--XamlUiOverrideFocusStrokeColorInner,                    #000000B3);
+  --CardBackgroundFillColorDefault:           var(--XamlUiOverrideCardBackgroundFillColorDefault,           #FFFFFF0D);
+  --CardStrokeColorDefault:                   var(--XamlUiOverrideCardStrokeColorDefault,                   #0000001A);
+  --SolidBackgroundFillColorBase:             var(--XamlUiOverrideSolidBackgroundFillColorBase,             #202020FF);
+  --SolidBackgroundFillColorSecondary:        var(--XamlUiOverrideSolidBackgroundFillColorSecondary,        #1C1C1CFF);
+  --SolidBackgroundFillColorTertiary:         var(--XamlUiOverrideSolidBackgroundFillColorTertiary,         #282828FF);
+  --SystemFillColorAttention:                 var(--XamlUiOverrideSystemFillColorAttention,                 #60CDFFFF);
+  --SystemFillColorSuccess:                   var(--XamlUiOverrideSystemFillColorSuccess,                   #6CCB5FFF);
+  --SystemFillColorCaution:                   var(--XamlUiOverrideSystemFillColorCaution,                   #FCE100FF);
+  --SystemFillColorCritical:                  var(--XamlUiOverrideSystemFillColorCritical,                  #FF99A4FF);
+  --SystemFillColorNeutral:                   var(--XamlUiOverrideSystemFillColorNeutral,                   #FFFFFF8B);
+  --SystemFillColorSolidNeutral:              var(--XamlUiOverrideSystemFillColorSolidNeutral,              #9D9D9DFF);
+  --SystemFillColorAttentionBackground:       var(--XamlUiOverrideSystemFillColorAttentionBackground,       #FFFFFF08);
+  --SystemFillColorSuccessBackground:         var(--XamlUiOverrideSystemFillColorSuccessBackground,         #393D1BFF);
+  --SystemFillColorCautionBackground:         var(--XamlUiOverrideSystemFillColorCautionBackground,         #433519FF);
+  --SystemFillColorCriticalBackground:        var(--XamlUiOverrideSystemFillColorCriticalBackground,        #442726FF);
+
   //Derived — control-specific aliases of the base palette; theme-independent, so declared once.
   --TextControlPadding:                       var(--XamlUiOverrideTextControlPadding,                       6px);
   --TextControlBorderThickness:               var(--XamlUiOverrideTextControlBorderThickness,               var(--ControlBorderThickness));
@@ -150,5 +170,24 @@
     --DividerStrokeColorDefault:              var(--XamlUiOverrideDividerStrokeColorDefault,                #0000000F);
     --LayerFillColorAlt:                      var(--XamlUiOverrideLayerFillColorAlt,                        #FFFFFF);
     --SurfaceStrokeColorDefault:              var(--XamlUiOverrideSurfaceStrokeColorDefault,                #75757566);
+
+    --TextFillColorTertiary:                  var(--XamlUiOverrideTextFillColorTertiary,                    #00000072);
+    --FocusStrokeColorOuter:                  var(--XamlUiOverrideFocusStrokeColorOuter,                    #000000E4);
+    --FocusStrokeColorInner:                  var(--XamlUiOverrideFocusStrokeColorInner,                    #FFFFFFB3);
+    --CardBackgroundFillColorDefault:         var(--XamlUiOverrideCardBackgroundFillColorDefault,           #FFFFFFB3);
+    --CardStrokeColorDefault:                 var(--XamlUiOverrideCardStrokeColorDefault,                   #0000000F);
+    --SolidBackgroundFillColorBase:           var(--XamlUiOverrideSolidBackgroundFillColorBase,             #F3F3F3FF);
+    --SolidBackgroundFillColorSecondary:      var(--XamlUiOverrideSolidBackgroundFillColorSecondary,        #EEEEEEFF);
+    --SolidBackgroundFillColorTertiary:       var(--XamlUiOverrideSolidBackgroundFillColorTertiary,         #F9F9F9FF);
+    --SystemFillColorAttention:               var(--XamlUiOverrideSystemFillColorAttention,                 #005FB7FF);
+    --SystemFillColorSuccess:                 var(--XamlUiOverrideSystemFillColorSuccess,                   #0F7B0FFF);
+    --SystemFillColorCaution:                 var(--XamlUiOverrideSystemFillColorCaution,                   #9D5D00FF);
+    --SystemFillColorCritical:                var(--XamlUiOverrideSystemFillColorCritical,                  #C42B1CFF);
+    --SystemFillColorNeutral:                 var(--XamlUiOverrideSystemFillColorNeutral,                   #00000072);
+    --SystemFillColorSolidNeutral:            var(--XamlUiOverrideSystemFillColorSolidNeutral,              #8A8A8AFF);
+    --SystemFillColorAttentionBackground:     var(--XamlUiOverrideSystemFillColorAttentionBackground,       #F6F6F680);
+    --SystemFillColorSuccessBackground:       var(--XamlUiOverrideSystemFillColorSuccessBackground,         #DFF6DDFF);
+    --SystemFillColorCautionBackground:       var(--XamlUiOverrideSystemFillColorCautionBackground,         #FFF4CEFF);
+    --SystemFillColorCriticalBackground:      var(--XamlUiOverrideSystemFillColorCriticalBackground,        #FDE7E9FF);
   }
 }

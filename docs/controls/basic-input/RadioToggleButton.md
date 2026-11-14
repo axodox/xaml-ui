@@ -10,7 +10,7 @@ None beyond RadioButton. Same API, different visual appearance — styled as a b
 
 ## Inherited Properties
 
-- From [RadioButton](RadioButton.md): `Value`, `Group`, `IsEnabled`, `IsChecked`, `IsCheckedChange`
+- From [RadioButton](RadioButton.md): `Value`, `Group`, `IsEnabled`, `IsChecked`, `IsTabStop`, `IsCheckedChange`
 - From [Panel](../layout/Panel.md): `Background`, `CornerRadius`, `BorderThickness`, `BorderBrush`
 - From [FrameworkElement](../FrameworkElement.md): `Width`, `Height`, `Margin`, `Padding`, etc.
 
@@ -31,3 +31,5 @@ None beyond RadioButton. Same API, different visual appearance — styled as a b
 ```
 
 When checked, the button displays with the accent highlight style.
+
+Like [RadioButton](RadioButton.md#keyboard-and-accessibility), it keeps its native radio input reachable: it has the radio role, **Tab** enters the group, the **arrow keys** move the choice within it, and keyboard focus shows WinUI's focus visual around the button.

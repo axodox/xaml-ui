@@ -42,16 +42,29 @@ export class OpenFilePicker {
     }
   }
 
+  /** The `accept` attribute of a file input for these file types: their MIME types and their extensions. */
+  public static ToAcceptAttribute(fileTypes: FilePickerAcceptType[]): string {
+    let entries = new Set<string>();
+    for (let fileType of fileTypes) {
+      for (let [mimeType, extensions] of Object.entries(fileType.accept ?? {})) {
+        entries.add(mimeType);
+        for (let extension of typeof extensions === 'string' ? [extensions] : extensions) entries.add(extension);
+      }
+    }
+    return Array.from(entries).join(',');
+  }
+
   private async ShowConventionalPickerAsync(): Promise<File[] | null> {
     return new Promise(resolve => {
       //Create input
       const input = document.createElement('input');
       input.type = 'file';
-      input.multiple = false;
+      input.multiple = !!this.AllowMultiple;
 
-      //Apply filters
+      //Apply filters: the MIME types and the extensions, so a file whose type the browser does not know (a .geojson,
+      //a .kml) is still offered by its extension
       if (this.FileTypeFilter) {
-        input.accept = this.FileTypeFilter?.flatMap(p => p.accept ? Object.keys(p.accept) : []).join(',');
+        input.accept = OpenFilePicker.ToAcceptAttribute(this.FileTypeFilter);
       }
       else {
         input.accept = "*/*";

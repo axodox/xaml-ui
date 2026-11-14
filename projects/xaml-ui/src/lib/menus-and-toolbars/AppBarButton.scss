@@ -10,6 +10,11 @@
   padding: 6px;
 
   background-color: var(--SubtleFillColorTransparent);
+  outline: none;
+
+  &:focus-visible {
+    @include focus-visual;
+  }
 
   & * {
     color: var(--AppBarButtonForegroundColor);

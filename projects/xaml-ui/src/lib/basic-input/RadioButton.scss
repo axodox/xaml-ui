@@ -6,8 +6,17 @@
   column-gap: 6px;
 }
 
+label {
+  position: relative;
+}
+
 input {
-  display: none;
+  @include hidden-native-input;
+}
+
+label:has(> input:focus-visible) {
+  @include focus-visual;
+  border-radius: var(--ControlCornerRadius);
 }
 
 input[type="radio"]:checked+.radioButton>.circle {

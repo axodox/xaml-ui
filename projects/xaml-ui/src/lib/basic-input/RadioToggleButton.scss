@@ -1,11 +1,18 @@
+@use '../Common.scss' as *;
+
 :host {
   padding: 0;
 }
 
 input {
-  display: none;
+  @include hidden-native-input;
 }
 
 label {
+  position: relative;
   padding: var(--ButtonPadding);
+}
+
+:host:has(input:focus-visible) {
+  @include focus-visual;
 }

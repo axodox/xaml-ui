@@ -17,6 +17,10 @@ export class HyperlinkButtonComponent extends ButtonComponent {
 
   @Input() NavigateUri?: string;
 
+  protected override get role() {
+    return this.NavigateUri ? 'link' : 'button';
+  }
+
   protected override onClick(event: Event): void {
     super.onClick(event);
 

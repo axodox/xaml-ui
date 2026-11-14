@@ -29,6 +29,7 @@ export class ScrollBarComponent extends FrameworkElementComponent {
 
     if (value > scrollRange) value = scrollRange;
     if (value < 0) value = 0;
+    if (value === this._value) return;
 
     this._value = value;
     this.ValueChange.emit(value);

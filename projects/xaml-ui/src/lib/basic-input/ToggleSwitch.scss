@@ -10,8 +10,17 @@
   display: grid;
 }
 
+label {
+  position: relative;
+}
+
+label:has(> input:focus-visible) {
+  @include focus-visual;
+  border-radius: var(--ControlCornerRadius);
+}
+
 input {
-  display: none;
+  @include hidden-native-input;
 
   &:not(:checked):not(:active):not(:disabled)+.slider:not(:hover) {
     background-color: var(--ControlAltFillColorSecondary);

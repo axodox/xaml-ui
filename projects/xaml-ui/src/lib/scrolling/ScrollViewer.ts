@@ -1,14 +1,22 @@
 import { CommonModule } from "@angular/common";
 import { FrameworkElementComponent } from "../FrameworkElement";
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnDestroy, ViewChild } from "@angular/core";
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgZone, OnDestroy, Output, ViewChild } from "@angular/core";
 import { ScrollMode } from "../Common";
 import { ScrollBarComponent } from "./ScrollBar";
 import { CdkScrollable } from "@angular/cdk/scrolling";
 
+/** What `ScrollViewer.ViewChanged` reports (WinUI's `ScrollViewerViewChangedEventArgs`, with the offsets). */
+export interface ScrollViewerViewChangedEventArgs {
+  HorizontalOffset: number;
+  VerticalOffset: number;
+  /** True while the view is still moving (a scroll under way); false once it has come to rest. */
+  IsIntermediate: boolean;
+}
+
 @Component({
   selector: 'ScrollViewer',
   imports: [CommonModule, ScrollBarComponent, CdkScrollable],
-  template: `<div #content class="content" [ngStyle]="contentStyle" (scroll)="onScroll()" cdkScrollable><ng-content/></div>
+  template: `<div #content class="content" [ngStyle]="contentStyle" (scroll)="onScroll()" (scrollend)="onScrollEnd()" cdkScrollable><ng-content/></div>
     <ScrollBar *ngIf="IsVerticalScrollBarVisible" HorizontalAlignment="Right" class="scrollbar" Orientation="Vertical" [ScrollSize]="ExtentHeight" [ViewportSize]="ViewportHeight" [(Value)]="VerticalOffset"/>
     <ScrollBar *ngIf="IsHorizontalScrollBarVisible" VerticalAlignment="Bottom" class="scrollbar" Orientation="Horizontal" [ScrollSize]="ExtentWidth" [ViewportSize]="ViewportWidth" [(Value)]="HorizontalOffset"/>`,
   styleUrl: 'ScrollViewer.scss',
@@ -17,6 +25,12 @@ import { CdkScrollable } from "@angular/cdk/scrolling";
 export class ScrollViewerComponent extends FrameworkElementComponent implements AfterViewInit, OnDestroy {
   @Input() HorizontalScrollMode: ScrollMode = 'Auto';
   @Input() VerticalScrollMode: ScrollMode = 'Auto';
+
+  /**
+   * The view moved: raised while it scrolls (`IsIntermediate`) and once more when it comes to rest. The content scrolls
+   * inside the viewer, so its own scroll events do not reach the viewer's parents; this does.
+   */
+  @Output() ViewChanged = new EventEmitter<ScrollViewerViewChangedEventArgs>();
 
   @ViewChild('content')
   private _content!: ElementRef<HTMLDivElement>;
@@ -73,6 +87,9 @@ export class ScrollViewerComponent extends FrameworkElementComponent implements 
   }
 
   set HorizontalOffset(value: number) {
+    //The scroll bar hands back the offset it was given: writing it would stop a smooth scroll under way
+    if (value === this._horizontalOffset) return;
+
     const element = this._content?.nativeElement;
     if (element) {
       element.scrollLeft = value;
@@ -85,6 +102,8 @@ export class ScrollViewerComponent extends FrameworkElementComponent implements 
   }
 
   set VerticalOffset(value: number) {
+    if (value === this._verticalOffset) return;
+
     const element = this._content?.nativeElement;
     if (element) {
       element.scrollTop = value;
@@ -133,15 +152,48 @@ export class ScrollViewerComponent extends FrameworkElementComponent implements 
     this.ScrollTo(this.HorizontalOffset + horizontalDelta, this.VerticalOffset + verticalDelta);
   }
 
-  /** Scrolls an element of the content into view. */
+  /** Scrolls an element of the content into view; `behavior: 'smooth'` animates it. */
   ScrollToElement(element: Element, options: ScrollIntoViewOptions = { block: 'nearest' }) {
     element.scrollIntoView(options);
     this.measure();
   }
 
+  /**
+   * Scrolls to these offsets (null or omitted: the axis stays), smoothly unless `disableAnimation` (WinUI's
+   * `ChangeView`; there is no zoom). False when the viewer is not ready.
+   */
+  ChangeView(horizontalOffset?: number | null, verticalOffset?: number | null, zoomFactor?: number | null, disableAnimation = false): boolean {
+    const element = this._content?.nativeElement;
+    if (!element) return false;
+
+    element.scrollTo({
+      left: horizontalOffset ?? undefined,
+      top: verticalOffset ?? undefined,
+      behavior: disableAnimation ? 'instant' : 'smooth'
+    });
+    return true;
+  }
+
+  private _restTimer?: ReturnType<typeof setTimeout>;
+  private static readonly _restDelay = 150;
+
   protected onScroll() {
     //the scroll event already marks this component for check, just refresh the cached offsets
     this.measure();
+    this.ViewChanged.emit({ HorizontalOffset: this._horizontalOffset, VerticalOffset: this._verticalOffset, IsIntermediate: true });
+
+    //Browsers without a scrollend event: the view has come to rest when it has not moved for a moment
+    clearTimeout(this._restTimer);
+    this._restTimer = setTimeout(() => this.onScrollEnd(), ScrollViewerComponent._restDelay);
+  }
+
+  protected onScrollEnd() {
+    if (this._restTimer === undefined || this._isDestroyed) return;
+
+    clearTimeout(this._restTimer);
+    this._restTimer = undefined;
+    this.measure();
+    this.ViewChanged.emit({ HorizontalOffset: this._horizontalOffset, VerticalOffset: this._verticalOffset, IsIntermediate: false });
   }
 
   ngAfterViewInit(): void {
@@ -153,6 +205,7 @@ export class ScrollViewerComponent extends FrameworkElementComponent implements 
 
   ngOnDestroy(): void {
     this._isDestroyed = true;
+    clearTimeout(this._restTimer);
     this._resizeObserver?.disconnect();
     this._mutationObserver?.disconnect();
   }

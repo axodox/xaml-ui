@@ -25,15 +25,20 @@ Individual radio option within a group.
 | Input | Type | Default | Description |
 |---|---|---|---|
 | `Value` | `any` | — | The value this option represents |
-| `Group` | `string` | `""` | Radio group name (for HTML grouping) |
+| `Group` | `string` | `""` | Radio group name (the native inputs' `name`); set automatically inside a `RadioButtonGroup` |
 | `IsEnabled` | `boolean` | `true` | Enabled state |
 | `IsChecked` | `boolean` | `false` | Checked state |
+| `IsTabStop` | `boolean` | `true` | Whether the button is in the tab order (WinUI's `IsTabStop`) |
 
 | Output | Type | Description |
 |---|---|---|
 | `IsCheckedChange` | `EventEmitter` | Emitted when checked state changes |
 
 Inherits [Panel](../layout/Panel.md) and [FrameworkElement](../FrameworkElement.md) properties.
+
+## Keyboard and Accessibility
+
+Each RadioButton keeps its native `<input type="radio">` in the layout (transparent, spanning the control) instead of hiding it, so the browser's radio behaviour applies: the radio role, the content as its name, **Tab** enters the group at the checked button, the **arrow keys** move to and check the next or previous button of the same group, and **Space** checks the focused one. Keyboard focus shows WinUI's focus visual around the control.
 
 ## Example
 

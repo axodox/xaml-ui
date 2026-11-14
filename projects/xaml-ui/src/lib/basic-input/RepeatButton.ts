@@ -45,6 +45,18 @@ export class RepeatButtonComponent extends ButtonComponent implements OnDestroy 
   protected override onClick(event: Event) {
     //Disable pointer event handling on the base button
   }
+
+  //Each key press clicks once; a held key repeats at the keyboard's own rate
+  protected override onKeyDown(event: KeyboardEvent) {
+    if (event.target !== this._element.nativeElement || !this.IsEnabled) return;
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+
+    event.preventDefault();
+    this.Click.emit();
+  }
+
+  protected override onKeyUp(event: KeyboardEvent) {
+  }
   
   ngOnDestroy(): void {
     this.clearTimers();

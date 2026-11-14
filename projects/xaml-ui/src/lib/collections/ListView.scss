@@ -4,6 +4,12 @@
   display: grid;
 
   & .item {
+    outline: none;
+
+    &:focus-visible {
+      @include focus-visual(0px);
+    }
+
     display: grid;
     margin: 2px 4px;
     border-radius: 4px;

@@ -48,19 +48,15 @@ export abstract class SelectorComponent extends FrameworkElementComponent {
     return this._itemSource;
   }
   @Input() set ItemSource(value: any[]) {
-    let oldIndex = this.SelectedIndex;
-    let oldValue = this.SelectedValue;
-    let oldItem = this.SelectedItem;
-    let newIndex = value.findIndex(p => this.getValue(-1, p) == oldValue);
-    let newValue = newIndex !== -1 ? oldValue : null;
-    let newItem = newIndex !== -1 ? value[newIndex] : null;
+    //A value asked for before its list arrived is chosen now; otherwise the choice is kept if the new list has it.
+    //The list and the value often change in the same binding update, in either order, so the change is published once
+    //the update is done: a choice the new list lacks is not cleared before the value meant for it arrives.
+    let wantedValue = this._hasPendingValue ? this._pendingValue : this.SelectedValue;
+    this.deferChanges();
 
     this._itemSource = value;
-    this._selectedIndex = newIndex;
-
-    if (oldIndex !== newIndex) this.SelectedIndexChange.emit(this.SelectedIndex);
-    if (oldValue !== newValue) this.SelectedValueChange.emit(this.SelectedValue);
-    if (oldItem !== newItem) this.SelectedItemChange.emit(this.SelectedItem);
+    this._selectedIndex = value.findIndex(p => this.getValue(-1, p) == wantedValue);
+    if (this._selectedIndex !== -1) this.clearPendingValue();
   }
 
   //Selected index
@@ -70,20 +66,21 @@ export abstract class SelectorComponent extends FrameworkElementComponent {
   }
   @Input() set SelectedIndex(value: number) {
     if (this.ItemSource === undefined) return;
+    this.clearPendingValue();
     if (value < 0 && this.ItemSource.length > 0) value = -1;
     if (value >= this.ItemSource.length) value = this.ItemSource.length - 1;
+
+    //Within a binding update that changed the list, the change is published at its end
+    if (this._published) {
+      this._selectedIndex = value;
+      return;
+    }
 
     let oldIndex = this._selectedIndex;
     let oldValue = this.SelectedValue;
     let oldItem = this.SelectedItem;
     this._selectedIndex = value;
-    let newIndex = this._selectedIndex;
-    let newValue = this.SelectedValue;
-    let newItem = this.SelectedItem;
-
-    if (oldIndex !== newIndex) this.SelectedIndexChange.emit(this.SelectedIndex);
-    if (oldValue !== newValue) this.SelectedValueChange.emit(this.SelectedValue);
-    if (oldItem !== newItem) this.SelectedItemChange.emit(this.SelectedItem);
+    this.raiseChanges(oldIndex, oldValue, oldItem);
   }
   @Output() SelectedIndexChange = new EventEmitter<number>();
 
@@ -94,7 +91,18 @@ export abstract class SelectorComponent extends FrameworkElementComponent {
   }
   @Input() set SelectedValue(value: any) {
     if (this.ItemSource === undefined) return;
-    this.SelectedIndex = this.ItemSource.findIndex(p => this.getValue(-1, p) == value);
+
+    //A value the list does not have (yet) waits: its list may be on its way in the same binding update. If it is not
+    //there once the update is done, the selection is cleared.
+    let index = this.ItemSource.findIndex(p => this.getValue(-1, p) == value);
+    if (index === -1 && value !== null && value !== undefined) {
+      this.deferChanges();
+      this._pendingValue = value;
+      this._hasPendingValue = true;
+      return;
+    }
+
+    this.SelectedIndex = index;
   }
   @Output() SelectedValueChange = new EventEmitter<any>();
 
@@ -105,9 +113,48 @@ export abstract class SelectorComponent extends FrameworkElementComponent {
   }
   @Input() set SelectedItem(value: any) {
     if (this.ItemSource === undefined) return;
-    this.SelectedIndex = this.ItemSource.findIndex(value);
+    this.SelectedIndex = this.ItemSource.indexOf(value);
   }
   @Output() SelectedItemChange = new EventEmitter<any>();
+
+  private _pendingValue: any;
+  private _hasPendingValue = false;
+
+  private clearPendingValue() {
+    this._pendingValue = undefined;
+    this._hasPendingValue = false;
+  }
+
+  //The selection as last published, while a change waits for the end of the binding update
+  private _published?: { Index: number, Value: any, Item: any };
+
+  //Published right after the binding update (a microtask): outside change detection, so the owner may take the new
+  //value into the very bindings that set the list
+  private deferChanges() {
+    if (this._published) return;
+
+    this._published = { Index: this.SelectedIndex, Value: this.SelectedValue, Item: this.SelectedItem };
+    queueMicrotask(() => this.publishChanges());
+  }
+
+  //The binding update is done: a value still not in the list clears the selection, and what changed is raised
+  private publishChanges() {
+    let published = this._published;
+    if (!published) return;
+
+    this._published = undefined;
+    if (this._hasPendingValue) {
+      this.clearPendingValue();
+      this._selectedIndex = -1;
+    }
+    this.raiseChanges(published.Index, published.Value, published.Item);
+  }
+
+  private raiseChanges(oldIndex: number, oldValue: any, oldItem: any) {
+    if (oldIndex !== this.SelectedIndex) this.SelectedIndexChange.emit(this.SelectedIndex);
+    if (oldValue !== this.SelectedValue) this.SelectedValueChange.emit(this.SelectedValue);
+    if (oldItem !== this.SelectedItem) this.SelectedItemChange.emit(this.SelectedItem);
+  }
 
   //Member paths
   @Input() DisplayMemberPath?: string;
@@ -126,6 +173,64 @@ export abstract class SelectorComponent extends FrameworkElementComponent {
     }
 
     this.ItemClick.emit(index);
+  }
+
+  //Keyboard: the list is one tab stop, on the focused row (else the selected one, else the first); the arrow keys,
+  //Home and End move the focus and the selection with it, as in WinUI's ListView; Enter and Space click the row
+  private _focusIndex = -1;
+
+  protected getItemTabIndex(index: number) {
+    if (!this.IsEnabled) return null;
+
+    let focusIndex = this._focusIndex >= 0 && this._focusIndex < this.ItemSource.length ? this._focusIndex : Math.max(this.SelectedIndex, 0);
+    return index === focusIndex ? 0 : -1;
+  }
+
+  protected onItemFocus(index: number) {
+    this._focusIndex = index;
+  }
+
+  protected onItemKeyDown(event: KeyboardEvent, index: number, item: any) {
+    if (!this.IsEnabled || event.target !== event.currentTarget || event.altKey || event.ctrlKey || event.metaKey) return;
+
+    let next: number;
+    switch (event.key) {
+      case 'ArrowDown':
+      case 'ArrowRight':
+        next = Math.min(index + 1, this.ItemSource.length - 1);
+        break;
+      case 'ArrowUp':
+      case 'ArrowLeft':
+        next = Math.max(index - 1, 0);
+        break;
+      case 'Home':
+        next = 0;
+        break;
+      case 'End':
+        next = this.ItemSource.length - 1;
+        break;
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        if (!event.repeat) this.onItemClick(event, index, item);
+        return;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    if (next === index) return;
+
+    this.SelectedIndex = next;
+    this.FocusItem(next);
+  }
+
+  /** Moves the keyboard focus to a row and scrolls it into view. */
+  FocusItem(index: number) {
+    this._focusIndex = index;
+    let element = this.GetElement(index);
+    element?.focus({ preventScroll: true });
+    element?.scrollIntoView({ block: 'nearest' });
   }
 
   GetElement(index: number) {

@@ -1,146 +1,40 @@
-import { Component, ViewContainerRef } from '@angular/core';
-import {
-  AppBarButtonComponent,
-  BorderComponent,
-  ButtonComponent,
-  CheckBoxComponent,
-  Color,
-  FormatColor,
-  ColorPickerComponent,
-  ColorSpectrumComponent,
-  ComboBoxComponent,
-  CommandBarComponent,
-  ContentDialog,
-  ContentDialogButton,
-  ContextFlyoutDirective,
-  Dialog,
-  DialogPresenter,
-  DropDownButtonComponent,
-  EllipseComponent,
-  FlyoutComponent,
-  FontIconComponent,
-  GridModule,
-  GridViewComponent,
-  HyperlinkButtonComponent,
-  ImageComponent,
-  ItemFlyoutDirective,
-  ListViewComponent,
-  MenuFlyoutComponent,
-  MenuFlyoutItemComponent,
-  NumberBoxComponent,
-  OpenFilePicker,
-  PersonPictureComponent,
-  ProgressBarComponent,
-  ProgressRingComponent,
-  RadioButtonComponent,
-  RadioButtonGroupComponent,
-  RadioToggleButtonComponent,
-  RepeatButtonComponent,
-  ScrollViewerComponent,
-  SeparatorComponent,
-  SliderComponent,
-  SplitButtonComponent,
-  StackPanelComponent,
-  TextBlockComponent,
-  TextBoxComponent,
-  ToggleButtonComponent,
-  ToggleMenuFlyoutItemComponent,
-  XamlRootComponent,
-  ToolTipServiceModule
-} from '../../../xaml-ui/src/public-api';
+import { Component } from '@angular/core';
+import { NgComponentOutlet } from '@angular/common';
+import { GridModule, ListViewComponent, ScrollViewerComponent, XamlRootComponent } from '../../../xaml-ui/src/public-api';
+import { Galleries, IGallery } from './galleries/Galleries';
 
-@Component({
-  template: `<ng-template #template>
-    <DialogPresenter>
-      <div Header>Title</div>
-      <div>This is a text dialog.</div>
-      <div Footer>Footer.</div>
-    </DialogPresenter>
-  </ng-template>`,
-  imports: [DialogPresenter]
-})
-export class CustomDialog extends Dialog {
-  constructor() {
-    super();
-    this.IsBackdropDismissEnabled = true;
-  }
-}
-
-export class KeyValuePair {
-  constructor(
-    public Key: string,
-    public Value: string) { }
-}
-
+/**
+ * The sandbox: a list of galleries on the left, the chosen one on the right. `?gallery=<Name>` in the address opens
+ * a gallery directly (used for screenshots and by people checking one control).
+ */
 @Component({
   selector: 'app-root',
-  imports: [XamlRootComponent, StackPanelComponent, ButtonComponent, FlyoutComponent, ScrollViewerComponent, SliderComponent, TextBoxComponent, TextBlockComponent, ListViewComponent, ComboBoxComponent, MenuFlyoutComponent, MenuFlyoutItemComponent, ContextFlyoutDirective, AppBarButtonComponent, CommandBarComponent, NumberBoxComponent, GridModule, RepeatButtonComponent, ColorPickerComponent, ColorSpectrumComponent, RadioButtonGroupComponent, FlyoutComponent, ContextFlyoutDirective, RadioToggleButtonComponent, ToggleButtonComponent, ToggleMenuFlyoutItemComponent, ItemFlyoutDirective, FontIconComponent, ProgressBarComponent, ProgressRingComponent, GridViewComponent, PersonPictureComponent, EllipseComponent, CheckBoxComponent, RadioButtonComponent, HyperlinkButtonComponent, ImageComponent, BorderComponent, SeparatorComponent, DropDownButtonComponent, SplitButtonComponent, ToolTipServiceModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  imports: [XamlRootComponent, GridModule, ListViewComponent, ScrollViewerComponent, NgComponentOutlet],
+  template: `<XamlRoot>
+    <Grid ColumnDefinitions="200px 1fr" RowDefinitions="minmax(0, 1fr)">
+      <ListView [ItemSource]="Galleries" DisplayMemberPath="Name" SelectedValuePath="Name" [SelectedValue]="Selected.Name" (SelectedValueChange)="OnSelect($event)" />
+      <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollMode="Auto">
+        <ng-container *ngComponentOutlet="Selected.Component" />
+      </ScrollViewer>
+    </Grid>
+  </XamlRoot>`
 })
 export class AppComponent {
+  protected readonly Galleries = Galleries;
+  protected Selected: IGallery;
 
-  title = 'xaml-sandbox';
-
-  protected DemoColor: Color = 0x80ff8000;
-
-  protected TestCollection = [
-    new KeyValuePair('A', 'Aladár'),
-    new KeyValuePair('B', 'Béla'),
-    new KeyValuePair('C', 'Cecília')
-  ];
-
-  constructor(private _viewContainerRef: ViewContainerRef) {
-
+  constructor() {
+    let name = new URLSearchParams(window.location.search).get('gallery');
+    this.Selected = Galleries.find(p => p.Name === name) ?? Galleries[0];
   }
 
-  onValueChange(value: any) {
-    console.log(value);
-  }
+  protected OnSelect(name: string) {
+    let gallery = Galleries.find(p => p.Name === name);
+    if (!gallery || gallery === this.Selected) return;
 
-  onClick() {
-    console.log('click');
-  }
-
-  onColorSelected(value: Color) {
-    console.log(FormatColor(value));
-  }
-
-  async onDialogClick() {
-    let dialog = Dialog.Create(ContentDialog, this._viewContainerRef);
-    dialog.Title = "Something";
-    dialog.Content = "Hello world!";
-    dialog.PrimaryButtonText = "OK";
-    dialog.SecondaryButtonText = "Cancel";
-    dialog.DefaultButton = ContentDialogButton.Primary;
-
-    let result = await dialog.ShowAsync();
-    console.log(`Dialog result: ${result}`);
-  }
-
-  async onCustomDialogClick() {
-    let dialog = Dialog.Create(CustomDialog, this._viewContainerRef);
-
-    await dialog.ShowAsync();
-  }
-
-  async OnOpenJsonClick() {
-    let openFilePicker = new OpenFilePicker();
-    openFilePicker.SettingsIdentifier = "xaml-sandbox-json";
-    openFilePicker.SuggestedStartLocation = "documents";
-    openFilePicker.AllowMultiple = false;
-    openFilePicker.FileTypeFilter = [
-      {
-        "description": "JSON files",
-        "accept": { "application/json": ".json" }
-      }
-    ];
-    const results = await openFilePicker.ShowAsync();
-    if (results) {
-      console.log(`File read: ${await results[0].text()}.`);
-    }
-    else {
-      console.log('No file selected.');
-    }
+    this.Selected = gallery;
+    let url = new URL(window.location.href);
+    url.searchParams.set('gallery', name);
+    window.history.replaceState(null, '', url);
   }
 }

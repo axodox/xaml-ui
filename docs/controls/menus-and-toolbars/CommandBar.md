@@ -33,14 +33,23 @@ Toolbar button with icon and text label. Extends [FrameworkElement](../Framework
 | `Text` | `string` | — | Button label text (displayed below icon) |
 | `Icon` | `string` | — | Glyph code (e.g. `"&#xE710;"`) |
 | `IsEnabled` | `boolean` | `true` | Enabled state |
+| `IsTabStop` | `boolean` | `true` | Whether the button is in the tab order (WinUI's `IsTabStop`); it can still take the focus from code |
 
 | Output | Type | Description |
 |---|---|---|
-| `Click` | `EventEmitter` | Emitted on click |
+| `Click` | `EventEmitter` | Emitted on click (only when enabled); a child `Flyout` / `MenuFlyout` opens too |
+
+| Method | Description |
+|---|---|
+| `Focus()` | Moves the keyboard focus to the button. |
 
 ## Inherited Properties
 
 From [FrameworkElement](../FrameworkElement.md): `Width`, `Height`, `Margin`, `Padding`, etc.
+
+## Keyboard and Accessibility
+
+Like a custom-element [Button](../basic-input/Button.md#keyboard-and-accessibility): `role="button"`, a tab stop (`tabindex` `0`, `-1` with `IsTabStop` false, none when disabled), `aria-disabled` when disabled, **Enter** / **Space** click it, and keyboard focus shows WinUI's focus visual. The icon is `aria-hidden`, so `Text` is its name. With a flyout it has `aria-haspopup="true"` and `aria-expanded`.
 
 ## Examples
 

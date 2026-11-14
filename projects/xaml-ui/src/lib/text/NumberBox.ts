@@ -14,10 +14,10 @@ export type SpinButtonPlacementMode = 'None' | 'Compact';
   selector: 'NumberBox',
   template: `<label>
     <div *ngIf="SpinButtonPlacementMode !== 'None'" class="spin-button">&#xEC8F;</div>
-    <input class="text-box" #input size="1" type="text" [disabled]="!IsEnabled" [value]="Text" (change)="onChange()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}" (blur)="onBlur()" (keydown)="onKeyDown($event)"/>
-    <Flyout *ngIf="SpinButtonPlacementMode !== 'None'" #flyout Padding="2px" Placement="Left" [HasBackdrop]="false" [Target]="flyoutTarget">
-      <RepeatButton Class="InlineButtonStyle" (Click)="onIncreaseClick()" [Delay]="500" [Interval]="50"  (pointerdown)="onButtonPress()" (pointerup)="onButtonPress()"><FontIcon Glyph="&#xE70E;"/></RepeatButton>
-      <RepeatButton Class="InlineButtonStyle" (Click)="onDecreaseClick()" [Delay]="500" [Interval]="50"  (pointerdown)="onButtonPress()" (pointerup)="onButtonPress()"><FontIcon Glyph="&#xE70D;"/></RepeatButton>
+    <input class="text-box" #input size="1" type="text" role="spinbutton" autocomplete="off" spellcheck="false" [attr.inputmode]="InputMode === 'Integer' ? 'numeric' : 'decimal'" [attr.aria-label]="AutomationName" [attr.aria-valuenow]="ariaValueNow" [attr.aria-valuemin]="ariaValueMin" [attr.aria-valuemax]="ariaValueMax" [disabled]="!IsEnabled" [value]="Text" (change)="onChange()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}" (blur)="onBlur()" (keydown)="onKeyDown($event)"/>
+    <Flyout *ngIf="SpinButtonPlacementMode !== 'None'" #flyout Padding="2px" Placement="Left" ShowMode="Transient" [HasBackdrop]="false" [Target]="flyoutTarget">
+      <RepeatButton Class="InlineButtonStyle" [IsTabStop]="false" (Click)="onIncreaseClick()" [Delay]="500" [Interval]="50"  (pointerdown)="onButtonPress()" (pointerup)="onButtonPress()"><FontIcon Glyph="&#xE70E;"/></RepeatButton>
+      <RepeatButton Class="InlineButtonStyle" [IsTabStop]="false" (Click)="onDecreaseClick()" [Delay]="500" [Interval]="50"  (pointerdown)="onButtonPress()" (pointerup)="onButtonPress()"><FontIcon Glyph="&#xE70D;"/></RepeatButton>
     </Flyout>
     <div *ngIf="Unit !== undefined" class="unit">{{Unit}}</div>
   </label>`,
@@ -39,6 +39,9 @@ export class NumberBoxComponent extends FrameworkElementComponent {
   @Input() Unit?: string;
   @Input() SpinButtonPlacementMode: SpinButtonPlacementMode = 'Compact';
 
+  /** The accessible name of the box (WinUI's `AutomationProperties.Name`), when no visible label names it. */
+  @Input('AutomationProperties-Name') AutomationName?: string;
+
   @Output() ValueChange = new EventEmitter<number>();
 
   private _numberFormatter = (value: number) => value.toString();
@@ -55,7 +58,7 @@ export class NumberBoxComponent extends FrameworkElementComponent {
     return this._input?.nativeElement;
   }
 
-  @ViewChild('input')
+  @ViewChild('input', { static: true })
   private _input!: ElementRef<HTMLInputElement>;
 
   @ViewChild('flyout')
@@ -88,20 +91,47 @@ export class NumberBoxComponent extends FrameworkElementComponent {
     this.TextAlignment = 'Right';
   }
 
+  //Empty text clears the value (NaN); text that is not a number puts the last value back, as WinUI's NumberBox does
+  //(ValidationMode InvalidInputOverwritten)
   protected onChange() {
-    this._text = this._input.nativeElement.value;
+    let value = NumberBoxComponent.parse(this._input.nativeElement.value);
+    if (value !== undefined && this.InputMode === 'Integer') value = Math.round(value);
 
-    let value: number | undefined;
-    switch (this.InputMode) {
-      case 'Float':
-        value = parseFloat(this._text);
-        break;
-      case 'Integer':
-        value = parseInt(this._text);
-        break;
+    if (value === undefined) {
+      this.updateText();
+      this._input.nativeElement.value = this._text;
+      return;
     }
 
     this.setValue(value);
+
+    //Show the value as committed: clamped and formatted, also when the value itself did not change
+    this.updateText();
+    this._input.nativeElement.value = this._text;
+  }
+
+  /** Reads typed text as a number: NaN for empty text, undefined for text that is not a number. */
+  static parse(text: string): number | undefined {
+    text = text.trim();
+    if (text === '') return NaN;
+
+    //A decimal comma is read as a decimal point when there is no point
+    if (/^[-+]?\d*,\d+$/.test(text)) text = text.replace(',', '.');
+
+    let value = Number(text);
+    return Number.isFinite(value) ? value : undefined;
+  }
+
+  protected get ariaValueNow() {
+    return Number.isNaN(this.Value) ? null : this.Value;
+  }
+
+  protected get ariaValueMin() {
+    return Number.isFinite(this.Minimum) ? this.Minimum : null;
+  }
+
+  protected get ariaValueMax() {
+    return Number.isFinite(this.Maximum) ? this.Maximum : null;
   }
 
   private clampValue(value: number) {

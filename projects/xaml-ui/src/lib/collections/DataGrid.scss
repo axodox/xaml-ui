@@ -1,0 +1,135 @@
+@use '../Common.scss' as *;
+
+//The Toolkit's DataGrid in WinUI 3 colours: a header row on a subtle fill, divider grid lines, rows as ListView's
+:host {
+  display: grid;
+}
+
+.grid {
+  display: grid;
+  grid-auto-rows: auto;
+  align-content: start;
+}
+
+.row {
+  --xaml-datagrid-row-fill: var(--SubtleFillColorTransparent);
+
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  position: relative;
+  background-color: var(--xaml-datagrid-row-fill);
+  outline: none;
+}
+
+.cell {
+  display: grid;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 32px;
+  padding: 4px 12px;
+  color: var(--TextFillColorPrimary);
+
+  //Text which does not wrap is clipped with an ellipsis
+  &.text:not(.wrap) > .cell-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.text.wrap > .cell-text {
+    overflow-wrap: anywhere;
+  }
+}
+
+//Sticky header and frozen cells cover what scrolls under them, so they are opaque: their fill over the window's
+.header-row {
+  --xaml-datagrid-row-fill: var(--SubtleFillColorSecondary);
+
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background-color: var(--SubtleFillColorTransparent);
+
+  & > .header-cell {
+    background: linear-gradient(var(--xaml-datagrid-row-fill), var(--xaml-datagrid-row-fill)), var(--SolidBackgroundFillColorBase);
+    border-bottom: 1px solid var(--DividerStrokeColorDefault);
+    font-weight: 600;
+    user-select: none;
+  }
+}
+
+.cell.frozen {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: linear-gradient(var(--xaml-datagrid-row-fill), var(--xaml-datagrid-row-fill)), var(--SolidBackgroundFillColorBase);
+  box-shadow: inset -1px 0 0 var(--DividerStrokeColorDefault);
+}
+
+:host(.horizontal-lines) .item-row > .cell {
+  border-bottom: 1px solid var(--DividerStrokeColorDefault);
+}
+
+:host(.vertical-lines) .row > .cell:not(:last-child) {
+  border-right: 1px solid var(--DividerStrokeColorDefault);
+}
+
+:host(.selectable) .item-row {
+  &:hover:not(:active) {
+    --xaml-datagrid-row-fill: var(--SubtleFillColorSecondary);
+  }
+
+  &:active {
+    --xaml-datagrid-row-fill: var(--SubtleFillColorTertiary);
+  }
+
+  &.selected:not(:hover):not(:active) {
+    --xaml-datagrid-row-fill: var(--SubtleFillColorSecondary);
+  }
+
+  &.selected:hover:not(:active) {
+    --xaml-datagrid-row-fill: var(--SubtleFillColorTertiary);
+  }
+
+  //The grid scrolls, which would clip a focus visual drawn outside the row, so it is drawn inside, over the cells
+  //(a frozen cell covers the row's own box)
+  &:focus-visible::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    border: 2px solid var(--FocusStrokeColorOuter);
+    box-shadow: inset 0 0 0 1px var(--FocusStrokeColorInner);
+  }
+}
+
+//The accent pill of the selected row, on its first cell so that it stays with a frozen column
+.item-row.selected > .cell:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px;
+  height: 16px;
+  border-radius: 2px;
+  transform: translateY(-50%);
+  background-color: var(--AccentFillColorDefault);
+}
+
+:host(.disabled) {
+  .cell {
+    color: var(--TextFillColorDisabled);
+  }
+
+  .item-row.selected {
+    --xaml-datagrid-row-fill: var(--SubtleFillColorSecondary);
+
+    & > .cell:first-child::before {
+      background-color: var(--AccentFillColorDisabled);
+    }
+  }
+}

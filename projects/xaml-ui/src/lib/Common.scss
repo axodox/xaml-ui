@@ -1,3 +1,23 @@
 :host {
   position: relative;
 }
+
+//WinUI's focus visual: a 2px outer stroke around a 1px inner one, shown only for keyboard focus.
+@mixin focus-visual($offset: 1px) {
+  outline: 2px solid var(--FocusStrokeColorOuter);
+  outline-offset: $offset;
+  box-shadow: 0 0 0 $offset var(--FocusStrokeColorInner);
+}
+
+//Keeps a native input in the layout and the accessibility tree - focusable, with its role, name and keys - while
+//the control draws its own look. It is a dot at the label's start, so the pointer reaches the label (which toggles it)
+//everywhere else.
+@mixin hidden-native-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}

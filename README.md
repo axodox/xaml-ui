@@ -64,6 +64,7 @@ export class AppComponent {
 - [Controls Reference](docs/controls/index.md) — index of all controls
 - [Coding Conventions](docs/conventions.md) — naming, file structure, control properties, template and styling patterns
 - [Theming](docs/theming.md) — CSS custom properties reference for dark/light modes
+- [Testing](docs/testing.md) — specs, the sandbox's galleries and what each must show
 
 ## Development
 
@@ -71,4 +72,16 @@ export class AppComponent {
 ng serve     # Development server at http://localhost:4200/
 ng build     # Production build to dist/
 ng test      # Unit tests with Karma
+```
+
+The sandbox app (`projects/xaml-sandbox`) has a gallery per area (Overview, Focus, Flyout, MenuFlyout, Input, Status, …) showing the controls and their keyboard behaviour. Open one directly with `?gallery=<Name>`, e.g. `http://localhost:4200/?gallery=Focus`:
+
+```bash
+npx ng serve xaml-sandbox
+```
+
+The library's Karma specs (`*.spec.ts` next to the controls) run once in headless Chrome with:
+
+```bash
+npx ng test xaml-ui --watch=false --browsers=ChromeHeadless
 ```

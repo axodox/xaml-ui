@@ -22,12 +22,36 @@ export class ToolTipDirective implements OnDestroy {
   //Vertical clearance below the pointer for `Mouse` placement, so the tip clears the cursor glyph.
   private static readonly _cursorSpacing = 20;
 
-  @Input('ToolTipService-ToolTip') ToolTip?: string;
-  @Input('ToolTipService-ToolTipTemplate') ToolTipTemplate?: TemplateRef<unknown>;
+  //The content may change while the tip shows: the open tip follows it, and closes when it is cleared
+  private _toolTip?: string;
+  get ToolTip() {
+    return this._toolTip;
+  }
+  @Input('ToolTipService-ToolTip') set ToolTip(value: string | undefined) {
+    if (value === this._toolTip) return;
+
+    this._toolTip = value;
+    this.updateContent();
+  }
+
+  private _toolTipTemplate?: TemplateRef<unknown>;
+  get ToolTipTemplate() {
+    return this._toolTipTemplate;
+  }
+  @Input('ToolTipService-ToolTipTemplate') set ToolTipTemplate(value: TemplateRef<unknown> | undefined) {
+    if (value === this._toolTipTemplate) return;
+
+    this._toolTipTemplate = value;
+    this.updateContent();
+  }
+
   @Input('ToolTipService-Placement') Placement: PlacementMode = 'Mouse';
 
   private _overlayRef?: OverlayRef;
-  private _toolTip?: ComponentRef<ToolTipComponent>;
+  private _toolTipRef?: ComponentRef<ToolTipComponent>;
+
+  //After a press the tip stays away until the pointer has left the element, as in WinUI
+  private _isSuppressed = false;
   private _revealTimer?: number;
   private _pointerPosition?: { x: number, y: number };
 
@@ -43,13 +67,18 @@ export class ToolTipDirective implements OnDestroy {
     return this.ToolTip || this.ToolTipTemplate ? '' : null;
   }
 
+  //Keyboard focus shows the tip; the focus a click gives does not
   @HostListener('focusin', ['$event'])
   protected onFocusIn(event: FocusEvent): void {
+    if (!(event.target as Element | null)?.matches?.(':focus-visible')) return;
     this.scheduleShow(event);
   }
 
+  //A mouse or pen over the element shows the tip; a finger does not
   @HostListener('pointerover', ['$event'])
   protected onPointerOver(event: PointerEvent): void {
+    if (event.pointerType === 'touch' || this._isSuppressed) return;
+
     this.updatePointerPosition(event);
     this.scheduleShow(event);
   }
@@ -89,6 +118,7 @@ export class ToolTipDirective implements OnDestroy {
 
   @HostListener('pointerdown')
   protected onPointerDown(): void {
+    this._isSuppressed = true;
     this.hideOverlay();
   }
 
@@ -98,7 +128,22 @@ export class ToolTipDirective implements OnDestroy {
     //These events also fire when crossing between descendants — only dismiss on a real exit.
     const related = event.relatedTarget as Node | null;
     if (related && this._hostElement.nativeElement.contains(related)) return;
+    if (event.type === 'pointerout') this._isSuppressed = false;
     this.hideOverlay();
+  }
+
+  //Shows the new content in the open tip, or closes it when there is none left
+  private updateContent(): void {
+    if (!this._toolTipRef) return;
+
+    if (!this.ToolTip && !this.ToolTipTemplate) {
+      this.hideOverlay();
+      return;
+    }
+
+    this._toolTipRef.setInput('ContentTemplate', this.ToolTipTemplate);
+    this._toolTipRef.setInput('Content', this.ToolTipTemplate ? undefined : this.ToolTip);
+    this._overlayRef?.updatePosition();
   }
 
   private async showOverlay() {
@@ -119,14 +164,15 @@ export class ToolTipDirective implements OnDestroy {
     this._overlayRef.overlayElement.style.pointerEvents = 'none';
 
     //Show tooltip
-    this._toolTip = this._overlayRef.attach(new ComponentPortal(ToolTipComponent));
+    const toolTip = this._overlayRef.attach(new ComponentPortal(ToolTipComponent));
+    this._toolTipRef = toolTip;
 
     //Set content
-    const element = this._toolTip.location.nativeElement as HTMLElement;
+    const element = toolTip.location.nativeElement as HTMLElement;
     if (this.ToolTipTemplate) {
-      this._toolTip.setInput('ContentTemplate', this.ToolTipTemplate);
+      toolTip.setInput('ContentTemplate', this.ToolTipTemplate);
     } else {
-      this._toolTip.setInput('Content', this.ToolTip);
+      toolTip.setInput('Content', this.ToolTip);
     }
 
     //Add accessibility info
@@ -135,8 +181,9 @@ export class ToolTipDirective implements OnDestroy {
 
     //Make content visible - after next layout
     await resume_after(0);
+    if (this._toolTipRef !== toolTip) return;
 
-    this._toolTip.setInput('IsVisible', true);
+    toolTip.setInput('IsVisible', true);
     this._changeDetector.markForCheck();
   }
 
@@ -148,14 +195,14 @@ export class ToolTipDirective implements OnDestroy {
     }
 
     //Start hide animation
-    this._toolTip?.setInput('IsVisible', false);
+    this._toolTipRef?.setInput('IsVisible', false);
 
     //Dispose overlay after hidden
     const overlayRef = this._overlayRef;
     if (!overlayRef) return;
 
     this._hostElement.nativeElement.removeAttribute('aria-describedby');
-    this._toolTip = undefined;
+    this._toolTipRef = undefined;
     this._overlayRef = undefined;
     await resume_after(ToolTipComponent.TransitionDuration);
 

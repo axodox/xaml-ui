@@ -91,6 +91,12 @@
     color: var(--TextFillColorPrimary);
   }
 
+  outline: none;
+
+  &:focus-visible {
+    @include focus-visual;
+  }
+
   &:not(.checked) {
     &:hover:not(.flyout-open):not(.disabled) {
       background: var(--ControlFillColorSecondary);

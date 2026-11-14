@@ -13,6 +13,11 @@ export class ToggleButtonComponent extends ButtonComponent {
   @Input() @HostBinding('class.checked') IsChecked: boolean = false;
   @Output() IsCheckedChange = new EventEmitter<boolean>();
 
+  @HostBinding('attr.aria-pressed')
+  private get ariaPressed() {
+    return this.IsChecked;
+  }
+
   protected override onClick(event: Event): void {
     super.onClick(event);
 

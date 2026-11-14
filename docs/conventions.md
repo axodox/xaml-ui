@@ -189,6 +189,14 @@ moved — a binding, a gesture, another property, internal code — and no futur
 can change the value silently. A control whose event fires from its gesture handler
 instead will go quiet the first time someone sets the property another way.
 
+One exception: when two inputs often change in the same binding update and the value
+depends on both, the setter may defer the event to the end of that update. The
+[Selector](controls/primitives/Selector.md) does this for its list and its selection: the
+`ItemSource` setter, and a `SelectedValue` setter whose value is not in the list yet, queue
+one microtask that publishes `SelectedIndexChange` / `SelectedValueChange` /
+`SelectedItemChange` once, for what actually changed, so a value set just before its list
+arrives is not cleared in between. The setter still starts the event; nothing else does.
+
 ### Guard against no-op sets
 
 Compare and return early. This is not only an optimization:

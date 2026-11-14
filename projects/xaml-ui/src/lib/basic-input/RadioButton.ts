@@ -5,7 +5,7 @@ import { StackPanelComponent } from "../layout/StackPanel";
 @Component({
   selector: 'RadioButton',
   template: `<label class="container">
-    <input type="radio" [name]="Group" [value]="Value" [checked]="IsChecked" (change)="onChange($event)" [disabled]="!IsEnabled">
+    <input type="radio" [attr.tabindex]="IsTabStop ? null : -1" [attr.aria-label]="AutomationName" [name]="Group" [value]="Value" [checked]="IsChecked" (change)="onChange($event)" [disabled]="!IsEnabled">
     <div class="radioButton">
       <div class="circle"></div>
     </div>
@@ -17,6 +17,12 @@ import { StackPanelComponent } from "../layout/StackPanel";
 })
 export class RadioButtonComponent extends BorderComponent {
   @Input() IsEnabled = true;
+
+  /** Whether the button is in the tab order (WinUI's `IsTabStop`). */
+  @Input() IsTabStop = true;
+
+  /** The accessible name of the box (WinUI's `AutomationProperties.Name`), when it has no content to name it. */
+  @Input('AutomationProperties-Name') AutomationName?: string;
 
   @Input() IsChecked = false;
   @Output() IsCheckedChange = new EventEmitter<boolean>();

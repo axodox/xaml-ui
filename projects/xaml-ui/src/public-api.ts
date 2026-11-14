@@ -21,6 +21,9 @@ export * from './lib/basic-input/ToggleSwitch';
 export * from './lib/collections/ListBox';
 export * from './lib/collections/ListView';
 export * from './lib/collections/GridView';
+export * from './lib/collections/TabView';
+export * from './lib/collections/TreeView';
+export * from './lib/collections/DataGrid';
 
 //Dialogs and flyouts
 export * from './lib/dialogs-and-flyouts/ContentDialog';
@@ -49,6 +52,7 @@ export * from './lib/menus-and-toolbars/CommandBar';
 export * from './lib/menus-and-toolbars/MenuFlyout';
 export * from './lib/menus-and-toolbars/MenuFlyoutItem';
 export * from './lib/menus-and-toolbars/ToggleMenuFlyoutItem';
+export * from './lib/menus-and-toolbars/RadioMenuFlyoutItem';
 export * from './lib/menus-and-toolbars/MenuFlyoutItemBase';
 export * from './lib/menus-and-toolbars/MenuFlyoutSeparator';
 
@@ -71,6 +75,7 @@ export * from './lib/status-and-info/ToolTip';
 export * from './lib/status-and-info/ToolTipService';
 export * from './lib/status-and-info/ProgressBar';
 export * from './lib/status-and-info/ProgressRing';
+export * from './lib/status-and-info/InfoBadge';
 
 //Text
 export * from './lib/text/NumberBox';

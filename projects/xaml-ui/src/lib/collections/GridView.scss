@@ -5,6 +5,11 @@
 
   .item {
     border-radius: var(--ControlCornerRadius);
+    outline: none;
+
+    &:focus-visible {
+      @include focus-visual(0px);
+    }
 
     &>.item-content {
       display: grid;

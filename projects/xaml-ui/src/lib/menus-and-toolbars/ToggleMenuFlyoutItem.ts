@@ -1,29 +1,49 @@
-import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from "@angular/core";
-import { MenuFlyoutItemBase } from "./MenuFlyoutItemBase";
+import { CommonModule } from "@angular/common";
+import { Component, EventEmitter, HostBinding, Input, Output } from "@angular/core";
+import { MenuFlyoutItemAcceleratorTemplate, MenuFlyoutItemComponent } from "./MenuFlyoutItem";
 
+/** A menu item that turns an option on or off; a check mark shows that it is on. */
 @Component({
   selector: 'ToggleMenuFlyoutItem',
-  template: `<div class="icon" [class.hidden]="!IsChecked">\uE73E</div>
+  imports: [CommonModule],
+  template: `<div class="icon" aria-hidden="true" [class.hidden]="!IsChecked"></div>
   <div class="text">{{Text}}</div>
+  ${MenuFlyoutItemAcceleratorTemplate}
   <div class="submenu-indicator"></div>`,
   styleUrl: 'MenuFlyoutItem.scss'
 })
-export class ToggleMenuFlyoutItemComponent extends MenuFlyoutItemBase {
-  @Input() IsEnabled = true;
-  @Input() Text = '';
-  @Input() @HostBinding('class.checked') IsChecked: boolean = false;
+export class ToggleMenuFlyoutItemComponent extends MenuFlyoutItemComponent {
+  private _isChecked = false;
+  get IsChecked() {
+    return this._isChecked;
+  }
+  @Input() set IsChecked(value: boolean) {
+    if (value === this._isChecked) return;
+
+    this._isChecked = value;
+    this.IsCheckedChange.emit(value);
+  }
   @Output() IsCheckedChange = new EventEmitter<boolean>();
 
-  @HostBinding('class.disabled')
-  private get disabled() {
-    return !this.IsEnabled;
+  @HostBinding('class.checked')
+  private get checked() {
+    return this.IsChecked;
   }
 
-  @HostListener('pointerup', ['$event'])
-  private onPointerUp(event: PointerEvent) {
+  @HostBinding('attr.aria-checked')
+  private get ariaChecked() {
+    return this.IsChecked;
+  }
+
+  protected override get role() {
+    return 'menuitemcheckbox';
+  }
+
+  //A click, Enter or Space toggles it; then the menu closes
+  protected override onClick() {
     if (!this.IsEnabled) return;
-    if (event.button !== 0) return;
+
     this.IsChecked = !this.IsChecked;
-    this.IsCheckedChange.emit(this.IsChecked);
+    this.Click.emit();
   }
 }

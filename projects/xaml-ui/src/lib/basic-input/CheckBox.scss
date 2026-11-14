@@ -7,11 +7,28 @@
   align-items: center;
 }
 
-input {
-  display: none;
+label {
+  position: relative;
 }
 
-input[type="checkbox"]:checked + .checkBox > .checkMark {
+input {
+  @include hidden-native-input;
+}
+
+label:has(> input:focus-visible) {
+  @include focus-visual;
+  border-radius: var(--ControlCornerRadius);
+}
+
+input[type="checkbox"]:checked + .checkBox > .checkMark::before {
+  content: '\E73E';
+}
+
+input[type="checkbox"]:indeterminate + .checkBox > .checkMark::before {
+  content: '\E73C';
+}
+
+input[type="checkbox"]:is(:checked, :indeterminate) + .checkBox > .checkMark {
   display: grid;
 
   color: var(--TextOnAccentFillColorPrimary);
@@ -27,32 +44,32 @@ input[type="checkbox"]:checked + .checkBox > .checkMark {
   }
 }
 
-input[type="checkbox"]:not(:checked):not(:hover):not(:active):not(:disabled) + .checkBox {
+input[type="checkbox"]:not(:checked):not(:indeterminate):not(:hover):not(:active):not(:disabled) + .checkBox {
   background-color: var(--ControlAltFillColorSecondary);
   border-color: var(--ControlStrongStrokeColorDefault);
 }
 
-input[type="checkbox"]:not(:checked):hover:not(:active):not(:disabled) + .checkBox {
+input[type="checkbox"]:not(:checked):not(:indeterminate):hover:not(:active):not(:disabled) + .checkBox {
   background-color: var(--ControlAltFillColorTertiary);
   border-color: var(--ControlStrongStrokeColorDefault);
 }
 
-input[type="checkbox"]:not(:checked):active + .checkBox {
+input[type="checkbox"]:not(:checked):not(:indeterminate):active + .checkBox {
   background-color: var(--SubtleFillColorTransparent);
   border-color: var(--ControlStrongStrokeColorDisabled);
 }
 
-input[type="checkbox"]:checked:not(:hover):not(:disabled) + .checkBox {
+input[type="checkbox"]:is(:checked, :indeterminate):not(:hover):not(:disabled) + .checkBox {
   background-color: var(--AccentFillColorDefault);
   border-color: var(--AccentFillColorDefault);
 }
 
-input[type="checkbox"]:checked:hover:not(:disabled) + .checkBox {
+input[type="checkbox"]:is(:checked, :indeterminate):hover:not(:disabled) + .checkBox {
   background-color: var(--AccentFillColorSecondary);
   border-color: var(--AccentFillColorSecondary);
 }
 
-input[type="checkbox"]:checked:active:not(:disabled) + .checkBox {
+input[type="checkbox"]:is(:checked, :indeterminate):active:not(:disabled) + .checkBox {
   background-color: var(--AccentFillColorTertiary);
   border-color: var(--AccentFillColorTertiary);
 
@@ -61,12 +78,12 @@ input[type="checkbox"]:checked:active:not(:disabled) + .checkBox {
   }
 }
 
-input[type="checkbox"]:not(:checked):disabled + .checkBox {
+input[type="checkbox"]:not(:checked):not(:indeterminate):disabled + .checkBox {
   background-color: var(--ControlAltFillColorDisabled);
   border-color: var(--ControlStrongStrokeColorDisabled);
 }
 
-input[type="checkbox"]:checked:disabled + .checkBox {
+input[type="checkbox"]:is(:checked, :indeterminate):disabled + .checkBox {
   background-color: var(--AccentFillColorDisabled);
   border-color: var(--ControlStrongStrokeColorDisabled);
 

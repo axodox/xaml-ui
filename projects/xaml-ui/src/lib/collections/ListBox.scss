@@ -6,6 +6,12 @@
   background-color: var(--SystemChromeMediumLowColor);
 
   & .item {
+    outline: none;
+
+    &:focus-visible {
+      @include focus-visual(0px);
+    }
+
     display: grid;
     padding: 12px;
     margin: 0;

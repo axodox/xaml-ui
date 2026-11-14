@@ -2,8 +2,10 @@
 
 :host {
   display: table-row;
+  outline: none;
 
-  &:hover:not(.disabled)>* {
+  &:hover:not(.disabled)>*,
+  &:focus-visible:not(.disabled)>* {
     background-color: var(--SubtleFillColorSecondary);
   }
 
@@ -36,6 +38,33 @@
   padding-top: 3px;
   padding-bottom: 3px;
   white-space: nowrap;
+}
+
+.accelerator {
+  display: table-cell;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: middle;
+  color: var(--TextFillColorSecondary);
+
+  &:not(:empty) {
+    padding-left: 24px;
+  }
+
+  & > .note {
+    font-style: italic;
+    color: var(--TextFillColorTertiary);
+  }
+
+  & > .note + * {
+    margin-left: 8px;
+  }
+
+  :host(.disabled) & > * {
+    color: var(--TextFillColorDisabled);
+  }
 }
 
 .submenu-indicator {

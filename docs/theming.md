@@ -46,6 +46,11 @@ The source of truth for the token list and default values is [_Theme.scss](../pr
 | `--AcrylicInAppFillColorDefault` | `#2C2C2C26` | `#FCFCFC26` | Acrylic surface fill |
 | `--SystemChromeMediumLowColor` | `#2B2B2B` | `#F2F2F2` | System chrome surface |
 | `--SmokeFillColorDefault` | `#0000004D` | `#0000004D` | Dialog backdrop smoke |
+| `--SolidBackgroundFillColorBase` | `#202020` | `#F3F3F3` | Base solid (opaque) background |
+| `--SolidBackgroundFillColorSecondary` | `#1C1C1C` | `#EEEEEE` | Secondary solid background |
+| `--SolidBackgroundFillColorTertiary` | `#282828` | `#F9F9F9` | Raised solid surface; the selected tab and content area of `<TabView>` |
+| `--CardBackgroundFillColorDefault` | `#FFFFFF0D` | `#FFFFFFB3` | Card surface |
+| `--CardStrokeColorDefault` | `#0000001A` | `#0000000F` | Card border |
 
 ### Accent colors
 
@@ -63,6 +68,7 @@ The source of truth for the token list and default values is [_Theme.scss](../pr
 |---|---|---|---|
 | `--TextFillColorPrimary` | `#FFFFFF` | `#000000E4` | Primary text |
 | `--TextFillColorSecondary` | `#FFFFFFC5` | `#0000009E` | Secondary / muted text |
+| `--TextFillColorTertiary` | `#FFFFFF8B` | `#00000072` | Tertiary text (e.g. the `Note` of a MenuFlyoutItem) |
 | `--TextFillColorDisabled` | `#FFFFFF5D` | `#0000005C` | Disabled text |
 | `--TextOnAccentFillColorPrimary` | `#000000` | `#FFFFFF` | Text on accent background |
 | `--TextOnAccentFillColorSecondary` | `#00000080` | `#FFFFFFB3` | Secondary text on accent |
@@ -109,6 +115,30 @@ The source of truth for the token list and default values is [_Theme.scss](../pr
 | `--ControlStrongStrokeColorDisabled` | `#FFFFFF28` | `#00000037` | Strong border disabled |
 | `--ControlStrokeColorOnAccentDefault` | `#FFFFFF14` | `#FFFFFF14` | Border on accent background |
 | `--DividerStrokeColorDefault` | `#FFFFFF15` | `#0000000F` | Divider line |
+
+### Focus visual
+
+WinUI's keyboard focus visual: a 2px outer stroke around a 1px inner one, shown only for keyboard focus (`:focus-visible`).
+
+| Variable | Dark | Light | Description |
+|---|---|---|---|
+| `--FocusStrokeColorOuter` | `#FFFFFF` | `#000000E4` | Outer focus stroke |
+| `--FocusStrokeColorInner` | `#000000B3` | `#FFFFFFB3` | Inner focus stroke |
+
+### Status (system fill)
+
+| Variable | Dark | Light | Description |
+|---|---|---|---|
+| `--SystemFillColorAttention` | `#60CDFF` | `#005FB7` | Attention / informational |
+| `--SystemFillColorSuccess` | `#6CCB5F` | `#0F7B0F` | Success |
+| `--SystemFillColorCaution` | `#FCE100` | `#9D5D00` | Caution; the paused `<ProgressBar>` |
+| `--SystemFillColorCritical` | `#FF99A4` | `#C42B1C` | Critical; the `<ProgressBar>` in error |
+| `--SystemFillColorNeutral` | `#FFFFFF8B` | `#00000072` | Neutral |
+| `--SystemFillColorSolidNeutral` | `#9D9D9D` | `#8A8A8A` | Opaque neutral |
+| `--SystemFillColorAttentionBackground` | `#FFFFFF08` | `#F6F6F680` | Attention background |
+| `--SystemFillColorSuccessBackground` | `#393D1B` | `#DFF6DD` | Success background |
+| `--SystemFillColorCautionBackground` | `#433519` | `#FFF4CE` | Caution background |
+| `--SystemFillColorCriticalBackground` | `#442726` | `#FDE7E9` | Critical background |
 
 ### Selection / highlight
 

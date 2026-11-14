@@ -1,0 +1,59 @@
+@use '../Common.scss' as *;
+
+//WinUI's InfoBadge: a value or icon badge is 16px high and at least as wide, fully rounded; a dot is small
+:host {
+  display: inline-grid;
+  place-items: center;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: var(--AccentFillColorDefault);
+  color: var(--TextOnAccentFillColorPrimary);
+  line-height: 16px;
+  user-select: none;
+}
+
+:host(.value-badge) {
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  font-family: var(--SystemFontFamily);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+:host(.icon-badge) {
+  min-width: 16px;
+  height: 16px;
+}
+
+:host(.dot-badge) {
+  min-width: 6px;
+  min-height: 6px;
+  border-radius: 50%;
+}
+
+.glyph {
+  font-family: var(--SymbolFontFamily);
+  font-size: 8px;
+}
+
+//Style classes, by WinUI's names; each status has a value, an icon and a dot style in the same colour
+:host(:is(.AttentionValueInfoBadgeStyle, .AttentionIconInfoBadgeStyle, .AttentionDotInfoBadgeStyle)) {
+  background-color: var(--SystemFillColorAttention);
+}
+
+:host(:is(.InformationalValueInfoBadgeStyle, .InformationalIconInfoBadgeStyle, .InformationalDotInfoBadgeStyle)) {
+  background-color: var(--SystemFillColorSolidNeutral);
+}
+
+:host(:is(.SuccessValueInfoBadgeStyle, .SuccessIconInfoBadgeStyle, .SuccessDotInfoBadgeStyle)) {
+  background-color: var(--SystemFillColorSuccess);
+}
+
+:host(:is(.CautionValueInfoBadgeStyle, .CautionIconInfoBadgeStyle, .CautionDotInfoBadgeStyle)) {
+  background-color: var(--SystemFillColorCaution);
+}
+
+:host(:is(.CriticalValueInfoBadgeStyle, .CriticalIconInfoBadgeStyle, .CriticalDotInfoBadgeStyle)) {
+  background-color: var(--SystemFillColorCritical);
+}

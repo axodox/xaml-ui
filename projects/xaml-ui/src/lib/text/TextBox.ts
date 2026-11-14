@@ -6,8 +6,8 @@ import { CommonModule } from "@angular/common";
 @Component({
   selector: 'TextBox',
   imports: [CommonModule],
-  template: `<input class="text-box" #input *ngIf="TextWrapping === 'NoWrap'" type="text" size="1" [disabled]="!IsEnabled" [value]="Text" (input)="onInput()" (keydown.enter)="onReturn()" (blur)="onBlur()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}"/>
-  <textarea class="text-box" #input *ngIf="TextWrapping === 'Wrap'" [disabled]="!IsEnabled" [value]="Text" (input)="onInput()" (blur)="onBlur()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}"></textarea>`,
+  template: `<input class="text-box" #input *ngIf="TextWrapping === 'NoWrap'" type="text" [attr.aria-label]="AutomationName" size="1" [disabled]="!IsEnabled" [value]="Text" (input)="onInput()" (keydown.enter)="onReturn()" (blur)="onBlur()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}"/>
+  <textarea class="text-box" #input *ngIf="TextWrapping === 'Wrap'" [attr.aria-label]="AutomationName" [disabled]="!IsEnabled" [value]="Text" (input)="onInput()" (blur)="onBlur()" [placeholder]="PlaceholderText" [style]="{'text-align': TextAlignment}"></textarea>`,
   styleUrl: 'TextBox.scss'
 })
 export class TextBoxComponent extends FrameworkElementComponent {
@@ -18,6 +18,9 @@ export class TextBoxComponent extends FrameworkElementComponent {
   @Input() TextWrapping: TextWrapping = 'NoWrap';
   @Input() UpdateTrigger: UpdateTrigger = 'PropertyChanged';
   @Input() Pattern?: string;
+
+  /** The accessible name of the box (WinUI's `AutomationProperties.Name`), when no visible label names it. */
+  @Input('AutomationProperties-Name') AutomationName?: string;
 
   @ViewChild('input')
   private _input!: ElementRef<HTMLInputElement>;

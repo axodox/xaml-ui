@@ -22,6 +22,8 @@ type FlyoutPresenterAnimation = 'Default' | 'SlideLeft' | 'SlideRight' | 'SlideU
 - Applies a `transition-<animation>` host class, so the animation is chosen in CSS rather than in script.
 - Blocks the browser context menu over its content, which is reserved for [ContextFlyout](../menus-and-toolbars/MenuFlyout.md).
 - `FlyoutPresenter.TransitionDuration` (250 ms) is the time to wait before removing the content after setting `IsVisible` to `false`, so the closing transition can finish.
+- Draws no focus outline of its own. A standard flyout focuses its presenter when it opens (giving it `tabindex="-1"`), so its keys reach it and **Tab** goes on into the content; [MenuFlyout](../menus-and-toolbars/MenuFlyout.md) also gives it the `menu` role. See [Flyout → Focus and keyboard](../dialogs-and-flyouts/Flyout.md#focus-and-keyboard).
+- Flyouts create a new presenter for each opening, each with its own `IsVisible`, so a presenter that is fading out never becomes visible again.
 
 Note that unlike most of the library it does **not** extend [FrameworkElement](../FrameworkElement.md) — it has no sizing or alignment inputs of its own, and takes its size from its content.
 

@@ -8,9 +8,9 @@ Utility class (not a component) for picking files. Uses the File System Access A
 
 | Property | Type | Default | Description |
 |---|---|---|---|
-| `FileTypeFilter` | `FilePickerAcceptType[]` | — | Allowed file types |
+| `FileTypeFilter` | `FilePickerAcceptType[]` | — | Allowed file types (the fallback input accepts `*/*` without it) |
 | `SettingsIdentifier` | `string` | — | Identifier for remembering last directory |
-| `AllowMultiple` | `boolean` | — | Allow multi-file selection |
+| `AllowMultiple` | `boolean` | — | Allow multi-file selection (also in the fallback input) |
 | `SuggestedStartLocation` | `WellKnownDirectory` | — | Start directory hint |
 
 ## Methods
@@ -19,11 +19,21 @@ Utility class (not a component) for picking files. Uses the File System Access A
 |---|---|---|
 | `ShowAsync()` | `Promise<File[] \| null>` | Shows picker, returns selected files or null |
 
-## Static Properties
+## Static Members
 
-| Property | Type | Description |
+| Member | Type | Description |
 |---|---|---|
 | `SupportsFileSystemAccessApi` | `boolean` | Whether the browser supports the modern File System Access API |
+| `ToAcceptAttribute(fileTypes)` | `string` | The `accept` attribute for these file types: each MIME type followed by its extensions, without duplicates |
+
+## Fallback Input
+
+Without the File System Access API, `ShowAsync()` clicks a hidden `<input type="file">` whose `accept` is `ToAcceptAttribute(FileTypeFilter)`. It lists the extensions as well as the MIME types, so a file whose type the browser does not know (a `.geojson`, a `.kml`) is still offered by its extension:
+
+```typescript
+OpenFilePicker.ToAcceptAttribute([{ description: 'GeoJSON', accept: { 'application/geo+json': ['.geojson', '.json'] } }]);
+// 'application/geo+json,.geojson,.json'
+```
 
 ## Example
 

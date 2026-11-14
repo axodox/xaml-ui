@@ -4,7 +4,7 @@ import { RadioButtonComponent } from "./RadioButton";
 @Component({
   selector: 'RadioToggleButton',
   template: `<label>
-    <input type="radio" [name]="Group" [value]="Value" [checked]="IsChecked" (change)="onChange($event)" [disabled]="!IsEnabled">
+    <input type="radio" [attr.tabindex]="IsTabStop ? null : -1" [attr.aria-label]="AutomationName" [name]="Group" [value]="Value" [checked]="IsChecked" (change)="onChange($event)" [disabled]="!IsEnabled">
     <ng-content/>
   </label>`,
   styleUrls: ['Button.scss', 'RadioToggleButton.scss']

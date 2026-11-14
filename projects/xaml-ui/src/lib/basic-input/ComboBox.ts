@@ -12,10 +12,10 @@ import { ItemContainerComponent } from "../primitives/ItemContainer";
 @Component({
   selector: 'ComboBox',
   imports: [CommonModule, DropDownButtonComponent, FlyoutComponent, ListViewComponent, ItemContainerComponent],
-  template: `<DropDownButton [Height]="Height" [Width]="Width" [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment" [IsEnabled]="IsEnabled">
+  template: `<DropDownButton [IsTabStop]="false" [Height]="Height" [Width]="Width" [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment" [IsEnabled]="IsEnabled">
     <ItemContainer #container>${SelectorItemTemplate}<span *ngIf="SelectedIndex < 0" class="placeholder">{{ PlaceholderText }}</span></ItemContainer>
-    <Flyout Placement="Cover" Padding="0" [Target]="target" (IsOpenChange)="onIsOpenChanged($event)">
-      <ListView [ItemSource]="ItemSource" [(SelectedIndex)]="SelectedIndex" [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment"
+    <Flyout Placement="Cover" ShowMode="Transient" Padding="0" [Target]="target" (IsOpenChange)="onIsOpenChanged($event)">
+      <ListView [IsItemTransitionEnabled]="false" [ItemSource]="ItemSource" [SelectedIndex]="SelectedIndex" (SelectedIndexChange)="onListSelectedIndexChange($event)" [HorizontalContentAlignment]="HorizontalContentAlignment" [VerticalContentAlignment]="VerticalContentAlignment"
                 [ItemTemplate]="ItemTemplate" [DisplayMemberPath]="DisplayMemberPath" [SelectedValuePath]="SelectedValuePath" (ItemClick)="onItemClicked()"/>
     </Flyout>
   </DropDownButton>`,
@@ -98,8 +98,18 @@ export class ComboBoxComponent extends SelectorComponent implements AfterViewIni
 
   protected target: FlexibleConnectedPositionStrategyOrigin | null = null;
 
+  //The list follows the box, and only a choice made in it (a click, a key) moves the box. When the list and the value
+  //change together, the list loses its choice for a moment (the index the box gives it may not change, so it is not
+  //given again); that must not clear the box.
+  protected onListSelectedIndexChange(index: number) {
+    if (index >= 0) this.SelectedIndex = index;
+  }
+
   protected onIsOpenChanged(value: boolean) {
     if (!value) return;
+
+    //The list shows the box's choice when it opens
+    if (this._selector) this._selector.SelectedIndex = this.SelectedIndex;
 
     let rect = this._host.nativeElement.getBoundingClientRect();
     let popupOffset = -(this._selector?.GetElement(this.SelectedIndex)?.offsetTop ?? 0);

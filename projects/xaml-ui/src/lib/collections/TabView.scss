@@ -1,0 +1,224 @@
+@use '../Common.scss' as *;
+
+//WinUI 3's TabView: tabs on the window, the selected one on a raised surface which runs on into the content
+:host {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.strip {
+  display: grid;
+  grid-template-columns: auto minmax(0, max-content) auto minmax(max-content, 1fr);
+  align-items: end;
+  padding-top: 8px;
+  //The edge of the content surface; the selected tab covers it, so that it opens into the content
+  box-shadow: inset 0 -1px 0 var(--CardStrokeColorDefault);
+}
+
+.strip-header, .strip-footer {
+  display: grid;
+  align-self: center;
+  align-items: center;
+}
+
+.strip-footer {
+  grid-column: 4;
+}
+
+.tabs {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  padding: 0 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+:host(.equal) .tabs {
+  grid-auto-columns: minmax(100px, 240px);
+}
+
+.tab {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+  min-height: 32px;
+  padding: 3px 8px;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: var(--OverlayCornerRadius) var(--OverlayCornerRadius) 0 0;
+  color: var(--TextFillColorSecondary);
+  font-size: 12px;
+  cursor: default;
+  user-select: none;
+  outline: none;
+
+  &.closable {
+    padding-right: 4px;
+  }
+
+  //A separator between two tabs which are neither selected nor hovered
+  &::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    right: -1px;
+    width: 1px;
+    background-color: var(--DividerStrokeColorDefault);
+  }
+
+  &:last-child::after, &.selected::after, &:hover::after, &:has(+ .tab:is(.selected, :hover))::after {
+    display: none;
+  }
+
+  &.selected {
+    z-index: 1;
+    background-color: var(--SolidBackgroundFillColorTertiary);
+    border-color: var(--CardStrokeColorDefault);
+    color: var(--TextFillColorPrimary);
+  }
+
+  //The strip scrolls, which would clip a focus visual drawn outside the tab, so it is drawn inside
+  &:focus-visible {
+    outline: 2px solid var(--FocusStrokeColorOuter);
+    outline-offset: -2px;
+    box-shadow: inset 0 0 0 3px var(--FocusStrokeColorInner);
+  }
+}
+
+:host(:not(.disabled)) .tab:not(.selected) {
+  &:hover {
+    background-color: var(--SubtleFillColorSecondary);
+  }
+
+  &:active {
+    background-color: var(--SubtleFillColorTertiary);
+    color: var(--TextFillColorTertiary);
+  }
+}
+
+:host(.disabled) .tab {
+  color: var(--TextFillColorDisabled);
+}
+
+.tab-icon {
+  display: grid;
+  position: relative;
+  align-items: center;
+  justify-items: center;
+
+  //A glyph, or other icon content, all in one cell
+  & ::ng-deep > * {
+    grid-area: 1 / 1;
+  }
+
+  //A badge sits on the icon's top right corner
+  & ::ng-deep > InfoBadge {
+    position: absolute;
+    left: 9px;
+    top: -6px;
+  }
+
+  &:has(*) {
+    margin-right: 10px;
+  }
+}
+
+.tab.collapsed {
+  .tab-icon {
+    margin-right: 0;
+  }
+
+  .close-button {
+    display: none;
+  }
+
+  //Out of sight but still the tab's name for assistive technology
+  .tab-header {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
+
+.tab-header {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.close-button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 24px;
+  margin-left: 4px;
+  border-radius: var(--ControlCornerRadius);
+  font-family: var(--SymbolFontFamily);
+  font-size: 12px;
+  color: var(--TextFillColorPrimary);
+}
+
+:host(:not(.disabled)) .close-button {
+  &:hover {
+    background-color: var(--SubtleFillColorSecondary);
+  }
+
+  &:active {
+    background-color: var(--SubtleFillColorTertiary);
+    color: var(--TextFillColorSecondary);
+  }
+}
+
+:host(.disabled) .close-button {
+  color: var(--TextFillColorDisabled);
+}
+
+.add-button {
+  grid-column: 3;
+  display: grid;
+  place-items: center;
+  align-self: center;
+  width: 32px;
+  height: 24px;
+  margin: 0 0 3px 3px;
+  padding: 0;
+  border: none;
+  border-radius: var(--ControlCornerRadius);
+  background-color: transparent;
+  color: var(--TextFillColorPrimary);
+  font-family: var(--SymbolFontFamily);
+  font-size: 12px;
+
+  &:hover:not(:disabled) {
+    background-color: var(--SubtleFillColorSecondary);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--SubtleFillColorTertiary);
+    color: var(--TextFillColorSecondary);
+  }
+
+  &:disabled {
+    color: var(--TextFillColorDisabled);
+  }
+
+  &:focus-visible {
+    @include focus-visual;
+  }
+}
+
+.panels {
+  display: grid;
+  background-color: var(--SolidBackgroundFillColorTertiary);
+}

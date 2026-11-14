@@ -64,7 +64,9 @@ Tokens are declared on `<XamlRoot>` and inherit to its descendants. The key fami
 
 - `--AccentFillColor*` — accent / highlight colors
 - `--ControlFillColor*` — control backgrounds (Default, Secondary, Tertiary, Disabled)
-- `--TextFillColor*` — text colors (Primary, Secondary, Disabled)
+- `--TextFillColor*` — text colors (Primary, Secondary, Tertiary, Disabled)
+- `--FocusStrokeColorOuter` / `--FocusStrokeColorInner` — keyboard focus visual
+- `--SystemFillColor*` — status colors (Attention, Success, Caution, Critical, Neutral) and their `*Background` variants
 - `--ControlStrokeColor*` — border colors
 - `--WindowFillColorDefault` — app background
 - `--SystemFontFamily`, `--SystemFontSize` — base typography
@@ -99,6 +101,8 @@ Buttons can host flyouts as child elements. The flyout opens when the button is 
 </Button>
 ```
 
+A flyout declared elsewhere can be attached with the button's `Flyout` input: `<XamlButton Content="Filter" [Flyout]="filterFlyout" />` (`XamlButton` is `Button` under a name that can be self-closed).
+
 ### Dialog pattern
 
 Modal dialogs are created programmatically:
@@ -112,6 +116,17 @@ if (result === ContentDialogResult.Secondary) {
 }
 ```
 
+### Keyboard and accessibility
+
+The controls follow WinUI's keyboard model and expose ARIA roles:
+
+- Buttons (also the custom-element ones such as `DropDownButton` or `ToggleButton`) are tab stops with the `button` role; **Enter** and **Space** click them. `IsTabStop="false"` takes a button, CheckBox, RadioButton or ToggleSwitch out of the tab order.
+- CheckBox, RadioButton and ToggleSwitch keep their native input focusable, so they have their role, name and **Space** key; radio buttons move with the arrow keys.
+- ListView, ListBox and GridView are one tab stop (`listbox` / `option` roles); arrows, **Home** and **End** move focus and selection. MenuFlyout is a `menu` with arrow-key navigation.
+- A flyout (with the default `ShowMode="Standard"`) takes the focus when it opens, closes on **Esc** and gives the focus back.
+- Keyboard focus shows WinUI's focus visual (`--FocusStrokeColorOuter` / `--FocusStrokeColorInner`); pointer clicks do not.
+- TextBox and NumberBox take an accessible name through `AutomationProperties-Name`.
+
 ## Component Categories
 
 | Category | Components |
@@ -122,7 +137,7 @@ if (result === ContentDialogResult.Secondary) {
 | **Icons** | FontIcon |
 | **Collections** | ListView, ListBox, GridView |
 | **Dialogs & Flyouts** | Flyout, ContentDialog, MenuFlyout, OpenFilePicker |
-| **Menus & Toolbars** | CommandBar, AppBarButton, MenuFlyoutItem, ToggleMenuFlyoutItem, MenuFlyoutSeparator |
+| **Menus & Toolbars** | CommandBar, AppBarButton, MenuFlyoutItem, ToggleMenuFlyoutItem, RadioMenuFlyoutItem, MenuFlyoutSeparator |
 | **Media** | Image, PersonPicture |
 | **Shapes** | Ellipse |
 | **Scrolling** | ScrollViewer, ScrollBar |

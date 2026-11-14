@@ -16,13 +16,15 @@ Button with a checked/unchecked toggle state. Extends [Button](Button.md).
 
 ## Inherited Properties
 
-- From [Button](Button.md): `IsEnabled`, `Content`, `HorizontalContentAlignment`, `VerticalContentAlignment`, `Click`
+- From [Button](Button.md): `IsEnabled`, `Content`, `Flyout`, `IsTabStop`, `Click`, `HorizontalContentAlignment`, `VerticalContentAlignment`, `Focus()`
 - From [Panel](../layout/Panel.md): `Background`, `CornerRadius`, `BorderThickness`, `BorderBrush`
 - From [FrameworkElement](../FrameworkElement.md): `Width`, `Height`, `Margin`, `Padding`, etc.
 
 ## Behavior
 
-When checked, the button gets the `.checked` CSS class which applies the accent highlight style (same as `AccentButtonStyle`).
+When checked, the button gets the `.checked` CSS class which applies the accent highlight style (same as `AccentButtonStyle`). A click (or **Enter** / **Space**) toggles `IsChecked` and emits `IsCheckedChange` after `Click`.
+
+It is a custom-element button (see [Button](Button.md#keyboard-and-accessibility)): a tab stop with `role="button"` and the focus visual, and `aria-pressed` reflects `IsChecked`.
 
 ## Example
 

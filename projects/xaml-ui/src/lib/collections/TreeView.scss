@@ -1,0 +1,112 @@
+@use '../Common.scss' as *;
+
+//Rows as ListView's: subtle hover and selected fills, the accent pill on the selected row (Single mode)
+:host {
+  display: grid;
+  align-content: start;
+}
+
+.tree {
+  display: grid;
+  padding: 2px 0;
+}
+
+.treeitem {
+  display: grid;
+  outline: none;
+
+  &:focus-visible > .row {
+    @include focus-visual;
+  }
+}
+
+[role="group"] {
+  display: grid;
+}
+
+.row {
+  grid-template-columns: 20px auto minmax(0, 1fr);
+  align-items: center;
+  min-height: 28px;
+  box-sizing: border-box;
+  margin: 2px 4px;
+  border-radius: var(--ControlCornerRadius);
+  color: var(--TextFillColorPrimary);
+  user-select: none;
+
+  & > .item-selector {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 0;
+    border-radius: 2px;
+    transform: translateY(-50%);
+    transition: height var(--ControlNormalAnimationDuration);
+  }
+
+  & > .chevron {
+    display: grid;
+    place-items: center;
+    align-self: stretch;
+    margin-left: 4px;
+    font-family: var(--SymbolFontFamily);
+    font-size: 8px;
+    color: var(--TextFillColorSecondary);
+  }
+
+  & > .check {
+    pointer-events: none;
+    margin-right: -2px;
+  }
+
+  & > .item-content {
+    display: grid;
+    padding: 4px 12px 4px 4px;
+  }
+}
+
+:host(:not(.disabled)) .row {
+  &:hover:not(:active) {
+    background-color: var(--SubtleFillColorSecondary);
+  }
+
+  &:active {
+    background-color: var(--SubtleFillColorTertiary);
+  }
+
+  &.selected:not(:hover):not(:active) {
+    background-color: var(--SubtleFillColorSecondary);
+  }
+
+  &.selected:hover:not(:active) {
+    background-color: var(--SubtleFillColorTertiary);
+  }
+
+  &.selected > .item-selector {
+    height: 16px;
+    background-color: var(--AccentFillColorDefault);
+  }
+}
+
+//The pill is Single mode's; Multiple mode shows the check box instead
+.tree[aria-multiselectable="true"] .row > .item-selector {
+  display: none;
+}
+
+:host(.disabled) .row {
+  color: var(--TextFillColorDisabled);
+
+  & > .chevron {
+    color: var(--TextFillColorDisabled);
+  }
+
+  &.selected {
+    background-color: var(--SubtleFillColorSecondary);
+
+    & > .item-selector {
+      height: 16px;
+      background-color: var(--AccentFillColorDisabled);
+    }
+  }
+}

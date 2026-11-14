@@ -9,15 +9,24 @@
     stroke-dashoffset: 0;
     transform-origin: center;
   }
-  
+
+  //The track ring shows under a determinate arc only
+  &.indeterminate .progress-ring-track {
+    stroke: transparent;
+  }
+
   @keyframes progress-ring-spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-  } 
+  }
 }
 
 .progress-ring-svg {
   transform: rotate(-90deg); /* Start progress at top */
+}
+
+.progress-ring-track {
+  stroke: var(--ControlStrongStrokeColorDisabled);
 }
 
 .progress-ring-indicator {
