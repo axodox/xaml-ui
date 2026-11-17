@@ -74,6 +74,7 @@ export * from './lib/status-and-info/ProgressRing';
 
 //Text
 export * from './lib/text/NumberBox';
+export * from './lib/text/PasswordBox';
 export * from './lib/text/TextBlock';
 export * from './lib/text/TextBox';
 

@@ -16,6 +16,7 @@ Text input control. Renders as `<input>` when `TextWrapping="NoWrap"` (default) 
 | `TextWrapping` | `'NoWrap' \| 'Wrap'` | `'NoWrap'` | NoWrap = single-line `<input>`, Wrap = multi-line `<textarea>` |
 | `UpdateTrigger` | `'PropertyChanged' \| 'LostFocus'` | `'PropertyChanged'` | When to emit changes |
 | `Pattern` | `string` | — | Regex pattern for input validation |
+| `InputKind` | `string` | — | HTML `autocomplete` hint for the browser and password managers, e.g. `'username'` next to a [PasswordBox](PasswordBox.md) |
 
 | Output | Type | Description |
 |---|---|---|
@@ -29,7 +30,7 @@ Text input control. Renders as `<input>` when `TextWrapping="NoWrap"` (default) 
 
 ## Inherited Properties
 
-From [FrameworkElement](../FrameworkElement.md): `Width`, `Height`, `Margin`, `Padding`, etc.
+From [FrameworkElement](../FrameworkElement.md): `Name` (rendered as the form field `name`), `Width`, `Height`, `Margin`, `Padding`, etc.
 
 ## Examples
 

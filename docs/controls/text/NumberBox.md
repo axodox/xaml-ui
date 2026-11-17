@@ -28,7 +28,7 @@ Numeric input control with increment/decrement spin buttons, keyboard support, a
 
 ## Inherited Properties
 
-From [FrameworkElement](../FrameworkElement.md): `Width`, `Height`, `Margin`, `Padding`, etc.
+From [FrameworkElement](../FrameworkElement.md): `Name` (rendered as the form field `name`), `Width`, `Height`, `Margin`, `Padding`, etc.
 
 ## Keyboard Support
 
