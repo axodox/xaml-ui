@@ -16,9 +16,9 @@
 
 .icon {
   display: table-cell;
-  padding-left: 6px;
-  padding-top: 3px;
-  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 
   border-radius: var(--ControlCornerRadius) 0 0 var(--ControlCornerRadius);
   font-family: var(--SymbolFontFamily);
@@ -35,15 +35,16 @@
 
 .text {
   display: table-cell;
-  padding-top: 3px;
-  padding-bottom: 3px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-right: 10px;
   white-space: nowrap;
 }
 
 .accelerator {
   display: table-cell;
-  padding-top: 3px;
-  padding-bottom: 3px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   text-align: right;
   white-space: nowrap;
   vertical-align: middle;
@@ -70,9 +71,9 @@
 .submenu-indicator {
   display: table-cell;
   padding-right: 6px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  
+  padding-top: 6px;
+  padding-bottom: 6px;
+
   border-radius: 0 var(--ControlCornerRadius) var(--ControlCornerRadius) 0;
 
   &:not(:empty) {

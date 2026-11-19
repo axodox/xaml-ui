@@ -2,7 +2,7 @@
   display: grid;
   user-select: none;
   
-  padding: 5px 8px;
+  padding: 7px 10px 8px;
   max-width: 320px;
 
   border: 1px solid var(--SurfaceStrokeColorFlyout);
@@ -14,7 +14,10 @@
 
   color: var(--TextFillColorPrimary);
   font-family: var(--SystemFontFamily);
-  font-size: var(--SystemFontSize);
+  font-size: var(--ToolTipFontSize);
+  // Scope the inner XamlRoot to the tooltip's font size: custom properties are exempt from
+  // `all: initial`, so this flows through the XamlRoot cascade boundary.
+  --XamlUiOverrideSystemFontSize: var(--ToolTipFontSize);
 
   opacity: 0;
   transition: opacity var(--ControlFastAnimationDuration) ease-out;

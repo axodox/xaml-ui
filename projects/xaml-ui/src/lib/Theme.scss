@@ -9,6 +9,13 @@
   --ButtonHorizontalPadding:                  var(--XamlUiOverrideButtonHorizontalPadding,                  11px);
   --ButtonPadding:                            var(--XamlUiOverrideButtonPadding,                            var(--ButtonVerticalPadding) var(--ButtonHorizontalPadding));
 
+  --MenuFlyoutMinWidth:                       var(--XamlUiOverrideMenuFlyoutMinWidth,                       260px);
+  --MenuFlyoutItemVerticalPadding:            var(--XamlUiOverrideMenuFlyoutItemVerticalPadding,            6px);
+  --MenuFlyoutItemIconPaddingLeft:            var(--XamlUiOverrideMenuFlyoutItemIconPaddingLeft,            10px);
+  --MenuFlyoutItemTextPaddingRight:           var(--XamlUiOverrideMenuFlyoutItemTextPaddingRight,           10px);
+  --ToolTipPadding:                           var(--XamlUiOverrideToolTipPadding,                           7px 12px);
+  --ToolTipFontSize:                          var(--XamlUiOverrideToolTipFontSize,                          var(--SystemFontSize));
+
   --SystemFontSize:                           var(--XamlUiOverrideSystemFontSize,                           10pt);
   --SystemFontFamily:                         var(--XamlUiOverrideSystemFontFamily,                         'Segoe UI', Arial, sans-serif);
   --SymbolFontSize:                           var(--XamlUiOverrideSymbolFontSize,                           10pt);
