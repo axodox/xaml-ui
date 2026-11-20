@@ -17,7 +17,9 @@
 }
 
 .header {
-  font-size: 20pt;
+  /* WinUI's ContentDialog title: SubtitleTextBlockStyle, 20 px semibold */
+  font-size: 20px;
+  font-weight: 600;
   padding: 24px 24px 0 24px;
 }
 
