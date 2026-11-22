@@ -54,6 +54,10 @@ export abstract class Dialog {
 
     overlayRef.attach(templatePortal);
 
+    //Re-centre the dialog when the window resizes
+    let onResize = () => overlayRef.updatePosition();
+    window.addEventListener('resize', onResize);
+
     //Wait for UI to instantiate
     await resume_after(0);
 
@@ -77,6 +81,7 @@ export abstract class Dialog {
     }
 
     //Cleanup
+    window.removeEventListener('resize', onResize);
     backdropContextMenuSubscription();
     overlayRef.detach();
   }
