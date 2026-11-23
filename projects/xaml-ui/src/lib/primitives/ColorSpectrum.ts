@@ -114,13 +114,14 @@ export class ColorSpectrumComponent extends FrameworkElementComponent implements
   }
 
   private updateSelectorPosition() {
-    if (!this._ring) return;
+    if (!this._selector) return;
 
-    let center = this.center;
     let angle = this._color.H * 2 * Math.PI;
-    let length = this._color.S * this.radius;
+    let inset = ColorSpectrumComponent._selectorInset;
+    let x = Math.cos(angle) * this._color.S;
+    let y = Math.sin(angle) * this._color.S;
 
-    this._selector.nativeElement.style.left = center + Math.cos(angle) * length + 'px';
-    this._selector.nativeElement.style.top = center + Math.sin(angle) * length + 'px';
+    this._selector.nativeElement.style.left = `calc(50% + (50% - ${inset}px) * ${x})`;
+    this._selector.nativeElement.style.top = `calc(50% + (50% - ${inset}px) * ${y})`;
   }
 }
