@@ -20,6 +20,9 @@ export abstract class FrameworkElementComponent {
   @Input() @HostBinding('style.padding') Padding?: string;
   @Input() @HostBinding('style.opacity') Opacity?: string | number;
 
+  //Identifies the element, like x:Name in XAML. Input controls also use it as the form field name, e.g. to read the value with FormData
+  @Input() Name?: string;
+
   @HostBinding('style.overflow')
   protected get overflow() : string | undefined {
     return undefined;//'clip';

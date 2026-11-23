@@ -83,6 +83,10 @@
         Pattern="^((\d{0,2}|[1-9])|(\d{1,2}|[1-9])[c-hj-np-xC-HJ-NP-X]|0{0,1}1[abyzABYX]|[a-hj-np-zA-HJ-NP-Z])$" />
       <TextBox PlaceholderText="editable placeholder" Margin="6px" (TextChange)="onValueChange($event)"
         [IsPlaceholderEditable]="true" />
+      <PasswordBox PlaceholderText="password (peek)" Margin="6px" (PasswordChange)="onValueChange($event)" />
+      <PasswordBox PlaceholderText="password (visible)" Margin="6px" PasswordRevealMode="Visible" />
+      <PasswordBox PlaceholderText="password (hidden)" Margin="6px" PasswordRevealMode="Hidden" />
+      <PasswordBox Password="secret" Margin="6px" [IsEnabled]="false" />
       <Button Margin="6px 120px">Flyout
         <Flyout Placement="Left">Test</Flyout>
       </Button>
