@@ -2,6 +2,9 @@
   --FlyoutSlideInLength: 10px;
 
   display: grid;
+  //Content fills the height left after max-height clamps, instead of a content-sized row that
+  //overflows and gets clipped; this is what lets a ScrollViewer inside know it has to scroll.
+  grid-template-rows: minmax(0, 1fr);
   overflow: hidden;
   user-select: none;
 

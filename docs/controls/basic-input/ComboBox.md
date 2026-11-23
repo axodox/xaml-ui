@@ -10,6 +10,7 @@ Dropdown selection control. Extends [Selector](../primitives/Selector.md) → [F
 |---|---|---|---|
 | `IsTextSearchEnabled` | `boolean` | `true` | Type-ahead selection |
 | `PlaceholderText` | `string` | `''` | Text shown while no item is selected |
+| `SelectedItemTemplate` | `TemplateRef` | — | Template for the selected item in the closed box; falls back to `ItemTemplate` |
 
 Inherits all from [Selector](../primitives/Selector.md).
 
@@ -64,4 +65,18 @@ Inherits all from [Selector](../primitives/Selector.md).
     </StackPanel>
   </ng-template>
 </ComboBox>
+```
+
+**With a different look once selected** - options wrap in the open list, the selection is trimmed to one line:
+
+```html
+<ComboBox [ItemSource]="items" [(SelectedItem)]="selectedItem"
+          [ItemTemplate]="row" [SelectedItemTemplate]="selection" />
+
+<ng-template #row let-item>
+  <TextBlock [Text]="item.Name" TextWrapping="Wrap" MaxWidth="250px" />
+</ng-template>
+<ng-template #selection let-item>
+  <TextBlock [Text]="item.Name" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" />
+</ng-template>
 ```
